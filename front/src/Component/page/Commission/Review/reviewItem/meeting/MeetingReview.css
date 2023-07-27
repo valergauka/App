@@ -1,0 +1,19 @@
+.meetingCartReview {
+    background-color: rgba(255, 255, 255, 0.873);
+    border: 1px solid rgb(9, 9, 9);
+    border-radius: 2em;
+    width: 20em;
+    margin: 1em;
+}
+
+.deleteReviewForMeeting{
+    position: relative;
+    margin-top: 0.5em;
+    margin-left: 1em;
+}
+
+.deleteReviewForMeeting:hover {
+    transform: scale(1.5);
+    border:2px solid red;
+    border-radius: 0.4em;
+}

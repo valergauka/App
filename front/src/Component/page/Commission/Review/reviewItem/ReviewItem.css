@@ -1,0 +1,201 @@
+.mainCarts {
+  position: absolute;
+  border-radius: 80px;
+  width: 55%;
+  height: auto;
+  margin: 20px 0 0 20%;
+  border-style: dashed;
+  justify-content: flex-start;
+  background: linear-gradient(90deg, #03a8f437, #f441a62d, #ffeb3b2e, #03a8f43b);
+  background-size: 300%;
+}
+
+.backCart {
+  position: relative;
+  font-size: 40px;
+  margin: 3em;
+  transition: opacity 500ms ease;
+  cursor: pointer;
+  color: black;
+}
+
+.backCart:hover {
+  opacity: 0.5;
+  color: rgb(161, 106, 106);
+}
+
+.cartForm {
+  font-size: 18px;
+  color: #5a5a5a;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.formLable h5{
+  font-size: 100%;
+}
+
+.cartForm .filePdf {
+  display: flex;
+  flex-direction: column;
+}
+
+.cartFormPDF {
+  display: flex;
+  margin-bottom: 15px;
+  margin-left: 2%;
+}
+
+.cartFormPDF a {
+  width: 25%;
+  text-align: center;
+  line-height: 20px;
+  margin: 10px;
+  flex-direction: row;
+  cursor: pointer;
+  text-decoration: none;
+  color: #5a5a5a;
+}
+
+.cartFormPDF a:hover {
+  transform: scale(1.22);
+  animation: animation 20s liner infinite;
+  border: none;
+}
+
+
+
+.dataCart {
+  float: right;
+  font-size: 1em;
+}
+
+.buttonLink {
+  display: flex;
+  text-decoration: none;
+  justify-content: center;
+  align-content: center;
+  width: 300px;
+}
+
+.comments {
+  margin-bottom: 3em;
+}
+
+.comment {
+  width: 60%;
+  min-height: 100px;
+  height: auto;
+  border-left: 1px;
+  border-right: 1px;
+  margin: 4% 20%;
+  background: linear-gradient(90deg, #03a8f400, #f441a600, #ffeb3b00, #03a8f400);
+  
+
+}
+
+.comment:focus {
+  color: #5a5a5a;
+  border-bottom: 10px solid #8250e56a;
+  border-right: 5px solid #8250e56a;
+}
+
+.comentForm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+}
+
+.buttonComent {
+  position: relative;
+  border: none;
+  color: #fff;
+  width: 60%;
+  height: 4em;
+  line-height: 1em;
+  text-align: center;
+  background-size: 300%;
+  border-radius: 30px;
+  text-transform: uppercase;
+  cursor: pointer;
+  z-index: 1;
+  border-color: black;
+  border-style: dashed;
+}
+
+.buttonComent:hover {
+  transform: scale(1.12);
+  animation: animation 8s liner infinite;
+  border: none;
+}
+
+@keyframes animation {
+  0% {
+    background-position: 0%;
+  }
+
+  100% {
+    background-position: 400%;
+  }
+}
+
+.buttonComent::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  z-index: -1;
+  background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+  background-size: 400%;
+  border-radius: 35px;
+  transform: 1s;
+  border-color: black;
+  border-style: dashed;
+}
+
+.buttonComent:hover::before {
+  filter: blur(20px);
+}
+
+.comments {
+  position: relative;
+  margin: 1em 5em;
+  color: #5a5a5a;
+
+}
+
+.comentar {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  margin-bottom: 1.5em;
+  border-left: 1px solid #03a8f4a4;
+  border-bottom: 2px solid #03a8f4a4;
+  border-right: 3px solid #03a8f4a4;
+  color: #5a5a5a;
+}
+
+.comentar p {
+  color: #000000d4;
+  font-size: 14px;
+}
+
+b.userComment {
+  font-size: 12px;
+}
+
+
+.commentDate {
+  font-size: 0.8em;
+  margin: 1% 2%;
+
+
+}

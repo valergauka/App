@@ -1,0 +1,12 @@
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0 2em;
+    
+}
+
+.link-1 {
+    text-decoration: none;
+}

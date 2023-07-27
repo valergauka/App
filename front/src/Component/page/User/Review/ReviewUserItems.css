@@ -1,0 +1,51 @@
+.category {
+    color: #ffffff;
+    border-radius: 8px;
+    margin-right: 20px;
+    flex: 17em 1 17em;
+}
+
+h5, p {
+    margin-left: 10px;
+}
+
+.category::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    opacity: 0.8;
+}
+
+.category h2,p {
+    color: #fff;
+    text-transform: capitalize;
+}
+
+.category:hover{
+    transform: scale(1.3, 1);
+    box-shadow: -7px 4px 28px -3px #b527cf;
+}
+
+.category::before {
+    background: linear-gradient(100deg, #b527cf 0%, #3546f0 100%);
+}
+
+
+.category p {
+    display: none;
+}
+
+.category:hover p {
+    display: block;
+}
+
+.category .date {
+    float: right;
+    margin-right: 10px;
+}
+
+.category .titule {
+    text-align: center;
+}

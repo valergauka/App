@@ -1,0 +1,155 @@
+.content{
+    display: flex;
+    justify-content: center;
+
+}
+.formMenuUser {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: #fff;
+    border: 0.4em solid #a3ffaccf;
+    border-style: groove;
+    width: 650px;
+    height: auto;
+    border-radius: 20px;
+    font-family: "Roboto", sans-serif;
+    top: 5%;
+    box-shadow: 4px 0px 55px #b2244584;
+    margin-top: 3%;
+}
+
+
+.backOp {
+    position: absolute;
+    color: #170103;
+    float: left;
+    font-size: 3em;
+    margin-right: 90%;
+    transition: color 500ms ease;
+}
+
+.backOp:hover {
+    color: #75040D;
+}
+
+.title {
+    top: 3%;
+    font-size: 30px;
+    color: #75040D;
+}
+
+.group {
+    position: relative;
+    margin: 25px 0;
+
+}
+
+.input {
+    font-size: 16px;
+    padding: 10px 0;
+    width: 400px;
+    border: none;
+    border-bottom: 0.1em solid #75040D;
+    background: transparent;
+    color: #75040D;
+}
+
+.input:focus {
+    outline: none;
+}
+
+.label {
+    color: #75040D;
+    font-size: 18px;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 2.5em;
+    top: 0.5em;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+}
+
+.input:focus ~ .label,
+.input:valid ~ .label {
+    top: -2em;
+    left: 2em;
+    font-size: 18px;
+    color: #5f030a;
+    width: 100%;
+}
+
+.bar {
+    position: relative;
+    display: block;
+    width: 200px;
+}
+
+.bar::before,
+.bar::after{
+    content: '';
+    height: 2px;
+    width: 0;
+    bottom: 1px;
+    position: absolute;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+}
+
+.bar::before{
+    left: 50%;
+}
+
+.bar::after{
+    right: 50%;
+}
+
+.input:focus ~ .bar::before,
+.input:focus ~ .bar::after {
+    width: 50%;
+}
+
+.highlight {
+    position: absolute;
+    height: 60%;
+    width: 0px;
+    top: 25%;
+    left: 2.7em;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.input:focus ~ .highlight{
+    animation: input-focus 0.5s ease;
+}
+
+@keyframes input-focus {
+    from {
+        background: #060001;
+    }
+    to {
+        width: 100%;
+        background: transparent;
+    }
+}
+
+.buttonAdd {
+    color: #75040D;
+    flex-direction: column;
+    font-size: 26px;
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: 10px;
+    margin-top: 5% 0;
+    transition: 0.5s ease;
+    margin-bottom: 1.5em;
+}
+
+.buttonAdd:hover{
+    color: #170103;
+
+}

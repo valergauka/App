@@ -1,0 +1,17 @@
+.month-year-input {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.month-select,
+.year-select {
+  position: relative;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #000000;
+  width: 15em;
+  height: 2.4em;
+  margin-left: 0.7em;
+  text-align: center;
+}

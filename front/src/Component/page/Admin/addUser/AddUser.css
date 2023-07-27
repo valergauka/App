@@ -1,0 +1,142 @@
+.contentAddUser {
+    display: flex;
+    justify-content: center;
+
+}
+.formMenuUserAddUser {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: #fff;
+    border: 0.4em solid #a3ffaccf;
+    border-style: groove;
+    width: 650px;
+    height: auto;
+    border-radius: 20px;
+    font-family: "Roboto", sans-serif;
+    top: 5%;
+    box-shadow: 4px 0px 55px #b2244584;
+    margin-top: 3%;
+}
+
+.titleAddUser {
+    top: 3%;
+    font-size: 30px;
+    color: #75040D;
+}
+
+.groupAddUser {
+    position: relative;
+    margin: 25px 0;
+
+}
+
+.inputAddUser {
+    font-size: 16px;
+    padding: 10px 0;
+    width: 400px;
+    border: none;
+    border-bottom: 0.1em solid #75040D;
+    background: transparent;
+    color: #75040D;
+}
+
+.inputAddUser:focus {
+    outline: none;
+}
+
+.labelAddUser {
+    color: #75040D;
+    font-size: 18px;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 2.5em;
+    top: 0.5em;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+}
+
+.inputAddUser:focus ~ .labelAddUser,
+.inputAddUser:valid ~ .labelAddUser {
+    top: -2em;
+    left: 2em;
+    font-size: 18px;
+    color: #5f030a;
+    width: 100%;
+}
+
+.barAddUser {
+    position: relative;
+    display: block;
+    width: 200px;
+}
+
+.barAddUser::before,
+.barAddUser::after{
+    content: '';
+    height: 2px;
+    width: 0;
+    bottom: 1px;
+    position: absolute;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+}
+
+.barAddUser::before{
+    left: 50%;
+}
+
+.barAddUser::after{
+    right: 50%;
+}
+
+.inputAddUser:focus ~ .barAddUser::before,
+.inputAddUser:focus ~ .barAddUser::after {
+    width: 50%;
+}
+
+.highlightAddUser {
+    position: absolute;
+    height: 60%;
+    width: 0px;
+    top: 25%;
+    left: 2.7em;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.inputAddUser:focus ~ .highlightAddUser{
+    animation: input-focus 0.5s ease;
+}
+
+@keyframes input-focus {
+    from {
+        background: #060001;
+    }
+    to {
+        width: 100%;
+        background: transparent;
+    }
+}
+
+.buttonAddUser {
+    color: #75040D;
+    flex-direction: column;
+    font-size: 26px;
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: 10px;
+    margin-top: 5% 0;
+    transition: 0.5s ease;
+    margin-bottom: 1.5em;
+    cursor: pointer;
+}
+
+.buttonAddUser:hover{
+    color: #170103;
+
+}

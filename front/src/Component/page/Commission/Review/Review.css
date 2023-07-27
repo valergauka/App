@@ -1,0 +1,25 @@
+.reviewMenu {
+    align-items: center;
+    justify-content: center;
+}
+
+.buttonNav {
+    display: inline;
+    margin-left: 30px;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    height: auto;
+    align-items: center;
+    justify-content: center;
+    perspective: 30rem;
+    perspective-origin: 10% 20%;
+    margin: 0 2em;
+    
+}
+
+.link-1 {
+    text-decoration: none;
+}

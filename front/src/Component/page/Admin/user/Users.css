@@ -1,0 +1,57 @@
+.usersCarts {
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fit, minmax(23rem, 1fr));
+    grid-gap: 1.5rem;
+    margin: 1.5em;
+    
+}
+
+.userCart {
+    width: 23em;
+    min-height: 10em;
+    height: auto;
+    background-color: #a3ffacda;
+    margin: 3em;
+    border-radius: 2em;
+    border: 1px solid #661226;
+    flex-direction: column;
+    transition: transform 700ms ease;
+    flex: 1 1 400px;
+}
+
+.userCart:hover {
+    transform: scale(1.2);
+    box-shadow: -7px 4px 28px 3px #54172574;
+    background-color: rgba(169, 255, 186, 0.636);
+}
+
+
+
+.deliteUser {
+    margin: 3% 0  0 5% ;
+    color: #000;
+    transition:  color;
+    font-size: 1.2em;
+    transition: transform 700ms ease;
+}
+
+.deliteUser:hover {
+    color: #b5072f;
+    transform: scale(1.4);
+}
+
+.userCart p {
+    padding: 0.2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #661226;
+
+}
+
+.userCart a {
+    text-decoration: none;
+    color: #661226;
+}
+

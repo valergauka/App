@@ -1,0 +1,56 @@
+.form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    grid-gap: 1.5em;
+}
+
+
+.categoriPDF {
+    display: flex;
+    flex-direction: column;
+    margin: 2em;
+    justify-content: center;
+    align-items: center;
+    
+    
+}
+
+.categoriPDF label{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+}
+
+label {
+    color: #5a5a5a;
+    font-weight: 600;
+    width: 83%;
+    font-size: 18px;
+}
+
+.form input{
+    padding: 12px;
+    color: #847e7e;
+    background: linear-gradient(90deg, #03a8f407, #f441a601, #ffeb3b0f, #03a8f416);
+    background-size: 300%;
+    font-size: 0.7em;
+    outline: none;
+    border-top: #9e9d9d;
+    border-right: #9e9d9d;
+    transition: 250ms ease-in-out all;
+}
+
+
+
+.form.formButton {
+    margin-bottom: 10%;
+}
+
+
+.form p {
+    color: #514f4f;
+    font-size: 13px;
+    margin-left: 10%;
+    width: 40%;
+}
