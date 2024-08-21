@@ -7,25 +7,46 @@ use App\Models\File;
 
 class FileController extends Controller
 {
-    public function uploadFiles(Request $request)
-    {
-        $uploadedFiles = [];
+    public function uploadFiles(Request $request) {
+        $reviewId = $request->input('reviewId'); // Отримуємо reviewId з запиту
 
         if ($request->hasFile('files')) {
-            foreach ($request->file('files') as $file) {
-                // Збереження файлу та отримання інформації про нього
-                $path = $file->store('uploads'); // Збереження файлу у вказаній директорії
-                $name = $file->getClientOriginalName(); // Отримання оригінальної назви файлу
+            $uploadedFiles = $request->file('files');
 
-                // Збереження інформації про файл у базі даних
-                $uploadedFiles[] = File::create([
-                    'name' => $name,
-                    'path' => $path
-                ]);
+            $uploadedFileData = [];
+            foreach ($uploadedFiles as $file) {
+                // Отримуємо ім'я файлу та шлях для збереження
+                $fileName = $file->getClientOriginalName();
+                $filePath = $file->store('uploads/' . $reviewId);
+
+                // Зберігаємо інформацію про файл у базі даних
+                $fileModel = new File();
+                $fileModel->review_id = $reviewId;
+                $fileModel->file_name = $fileName;
+                $fileModel->file_path = $filePath;
+                $fileModel->save();
+
+                // Add file data to the response
+                $uploadedFileData[] = [
+                    'name' => $fileName,
+                    'path' => $filePath,
+                ];
             }
+
+            return response()->json([
+                'message' => 'Файли успішно завантажено.',
+                'uploadedFiles' => $uploadedFileData,
+            ]);
+        } else {
+            return response()->json(['error' => 'Немає файлів для завантаження.'], 400);
         }
-
-
-        return response()->json($uploadedFiles);
     }
+    public function getFilesByReviewId($reviewId) {
+        $files = File::where('review_id', $reviewId)->get();
+
+        return response()->json($files);
+    }
+
+
+
 }

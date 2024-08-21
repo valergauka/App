@@ -1,23 +1,26 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 
 import './ReviewItems.css';
 
-export class ReviewItems extends Component {
-  render() {
+const ReviewItems = (props) => {
+  const OpenCart = () => {
+    props.openCart(props.review);
+    props.OpentReview();
+  }
+
+
     return (
-      <div className='category' onClick={() => this.props.openCart(this.props.review)} >
-        <Link className='link1' to='/review/cart'>
-          <h3 className='titule'>{this.props.review.category}</h3>
-          <h5>{this.props.review.educLevel}</h5>
-          <h5>{this.props.review.nameOp}</h5>
-          <p><h5>Спеціальність:</h5> {this.props.review.speciality}</p>
-           <p><h5>Факультет/Інститут:</h5>{this.props.review.faculty}</p>
-          <p className='date'>{this.props.review.date}</p>
-        </Link>
+      <div className='category' onClick={() => OpenCart()} >
+        <div className='link1'>
+          <h3 className='titleReview'>{props.review.category.title}</h3>
+          <h5>{props.review.educLevel}</h5>
+          <h5>{props.review.nameOp}</h5>
+          <p><b>Спеціальність:</b> {props.review.speciality}</p>
+          <p><b>Факультет/Інститут:</b>{props.review.faculty}</p>
+          <p className='date'>{props.review.date}</p>
+        </div>
       </div>
     )
-  }
 }
 
 export default ReviewItems

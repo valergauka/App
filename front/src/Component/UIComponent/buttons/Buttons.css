@@ -28,7 +28,7 @@ button {
     height: 70px;
     border-radius: 50%;
     border: 0;
-    background: #379f41be;
+    background: rgb(100, 32, 25);
     color: #f9f9f9;
     transition: 0.2s;
     box-shadow: 15px 35px 70px #b22445;
@@ -37,7 +37,8 @@ button {
 }
 
 .fab > button:hover {
-    background: #379f41;
+    background: white;
+    color: rgb(100, 32, 25);
     transform: scale(1.5);
    
     
@@ -72,7 +73,8 @@ button {
     translate: 0;
     opacity: 1;
     visibility: visible;
-    font-size: 30px
+    font-size: 30px;
+
 }
 
 .menu > a > button {
@@ -82,7 +84,7 @@ button {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background: #379f4183;
+    background:rgb(100, 32, 25);
     color: #e0e0e0;
     transition: 0.3s;
     font-size: 25px;
@@ -92,7 +94,10 @@ button {
 
 .menu > a > button:hover {
     background: #b22445c6;
-    box-shadow: 25px 25px 75px #379f41e0;
+    box-shadow: 25px 25px 95px rgb(100, 32, 25);
+    text-shadow: 1px 1px 2px rgb(88, 15, 15), 0 0 1em rgb(192, 192, 184), 0 0 0.2em rgba(0, 0, 0, 0.449);
+    font: 1.2em Georgia, serif;
+    
    
 }
 
@@ -112,6 +117,5 @@ button {
     opacity: 1;
     visibility: visible;
     color: #b22445;
-    box-shadow: 25px 25px 75px #379f4183;
    
 }

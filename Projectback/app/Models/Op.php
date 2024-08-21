@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Op extends Model
 {
     use HasFactory;
+
+    protected $guarded = false;
     protected $fillable = [
         'branch',
         'speciality',

@@ -1,0 +1,14 @@
+.roleChangeForm {
+    margin: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+}
+
+.roleChangeForm label {
+    font-size: 1em;
+    margin: 7px;
+    display: flex;
+    align-items: center;
+}

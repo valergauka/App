@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FiFileText, FiUsers, FiUserPlus, FiPlus, FiFile } from "react-icons/fi";
+import { FiFileText, FiUsers, FiPlus, FiFile } from "react-icons/fi";
 import { Link } from 'react-router-dom';
 
 import './Buttons.css';
@@ -18,28 +18,23 @@ const Buttons = () => {
                     <Link to={'/op'}>
                         <button>
                             <FiFile />
-                            <span>OP</span>
+                            <span>Освітні програми</span>
                         </button>
                     </Link>
 
                     <Link to={'/program'}>
                         <button>
                             <FiFileText />
-                            <span>Review</span>
+                            <span>Подані заявки</span>
                         </button>
                     </Link>
                     <Link to={'/users'}>
                         <button>
                             <FiUsers />
-                            <span>Users</span>
+                            <span>Користувачі</span>
                         </button>
                     </Link>
-                    <Link to={'/adduser'}>
-                        <button>
-                            <FiUserPlus />
-                            <span>Add user</span>
-                        </button>
-                    </Link>
+                    
 
                 </div>
             </div>

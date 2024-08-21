@@ -3,12 +3,8 @@ import React from "react";
 import { Route } from "react-router-dom";
 import Sign from "./Sign/Sing";
 import Review from "./Component/page/Commission/Review/Review";
-import ReviewItem from "./Component/page/Commission/Review/reviewItem/ReviewItem";
-import FormLb from "./Component/page/User/Present/Form/FormLb";
-import FormPdf from "./Component/page/User/Present/Form/FormPdf";
 import Present from "./Component/page/User/Present/Present";
 import ReviewUser from "./Component/page/User/Review/ReviewUser";
-import ReviewUserItem from "./Component/page/User/Review/ReviewUserItem";
 import Programs from './Component/page/Admin/review/Programs';
 import AddUser from './Component/page/Admin/addUser/AddUser';
 import Users from './Component/page/Admin/user/Users';
@@ -17,49 +13,18 @@ import Approve from "./Component/page/Commission/Review/reviewItem/approve/Appro
 import OPs from "./Component/page/Admin/op/OPs";
 import AddOP from "./Component/page/Admin/op/AddOP";
 import axios from "axios";
+import LoginForm from "./Sign/Form/LoginForm";
+import { AuthProvider } from "./Sign/authContext/AuthContext";
+import LogHeader from "./Component/UIComponent/logHeader/LogHeader";
+import RegistrationForm from "./Sign/Form/RegistrationForm";
 
 class App extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       orders: [],
       cart: [],
-      currenItems: [],
-      categories: [
-        {
-          id: 1,
-          title: 'Перейменування кафедри'
-        },
-        {
-          id: 2,
-          title: 'Зміна гаранта'
-        },
-        {
-          id: 3,
-          title: 'Оновлення складу проєктної групи'
-        },
-        {
-          id: 4,
-          title: 'Внесення змін до ОП (ОПП, ОНП)'
-        },
-        {
-          id: 5,
-          title: 'Закриття ОП'
-        },
-        {
-          id: 6,
-          title: 'Затвердження проєктної групи'
-        },
-        {
-          id: 7,
-          title: 'Започаткування ОП'
-        }, 
-        {
-          id: 8,
-          title: 'Інше'
-        }
-        
-      ],
+      categories: [],
       reviews: [],
       categoriesPdf: [
         {
@@ -75,7 +40,7 @@ class App extends React.Component {
         },
         {
           id: 3,
-          titule: 'Витяг з протоколу засідання вченої ради',
+          titule: 'Витяг з протоколу засідання Вченої ради',
           name: 'vitiagVchenoiiRadi'
         },
         {
@@ -96,118 +61,92 @@ class App extends React.Component {
       ]
     }
     this.state.currenItems = this.state.reviews
-    this.addToOrder =this.addToOrder.bind(this)
+    this.addToOrder = this.addToOrder.bind(this)
     this.openCart = this.openCart.bind(this)
-    this.chooseCategory = this.chooseCategory.bind(this)
-    this.deleteReview = this.deleteReview.bind(this)
-    this.deleteOp = this.deleteOp.bind(this)
-    this.deleteUser = this.deleteUser.bind(this)
+    this.delete = this.delete.bind(this)
   }
-
 
 
   componentDidMount() {
-    fetch(`${NET.APP_URL}/review`)
-        .then(res => res.json())
-        .then(
-            (result) => {
-              this.setState({
-                reviews: result
-              });
-            },
-            (error) => {
-              this.setState({
-                error
-              });
-            }
-        )
+    fetch(`${NET.APP_URL}/reviews`)
+      .then(res => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            reviews: result,
+          });
+        },
+        (error) => {
+          this.setState({
+            error,
+          });
+        }
+      );
+  
+
+    fetch(`${NET.APP_URL}/category`)
+      .then(res => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            categories: result
+          });
+        },
+        (error) => {
+          this.setState({
+            error
+          });
+        }
+      );
   }
 
-  render(){
-    const { currenItems} = this.state
-    this.state.currenItems=this.state.reviews
-   return (
-     <div >
-      <Route path='/' exact ><Sign/></Route>
 
-      <Route path="/present" exact><Present onAdd={this.addToOrder} buttons={this.state.categories}/></Route>
-      <Route path="/present/form" exact><FormLb key={this.state.orders.id} orders={this.state.orders}/></Route>
-      <Route path="/present/form/form" exact><FormPdf key={this.state.categoriesPdf.id} categories={this.state.categoriesPdf} orders={this.state.orders}/></Route>
-      <Route path="/reviewuser" exact><ReviewUser  openCart={this.openCart} chooseCategory={this.chooseCategory} reviews={currenItems} buttons={this.state.categories} /></Route>
-      <Route path="/reviewuser/cart" exact><ReviewUserItem categoriesPdf={this.state.categoriesPdf} cart={this.state.cart}/></Route>
-      
-      <Route path='/review' exact><Review  openCart={this.openCart} chooseCategory={this.chooseCategory} reviews={currenItems} buttons={this.state.categories} /></Route>
-      <Route path="/review/cart" exact><ReviewItem  cart={this.state.cart}  /></Route>
-      <Route path='/review/cart/approve' exact><Approve cart={this.state.cart}/></Route>
-    
-      <Route path="/program" exact><Programs reviews={currenItems} onDelete={this.deleteReview} /></Route>
-      <Route path='/adduser' exact><AddUser/></Route>
-      <Route path='/users' exact><Users onDelete={this.deleteUser}/></Route>
-      <Route path='/op'><OPs onDelete={this.deleteOp}/> </Route>
-      <Route path='/addop'><AddOP/> </Route>
-      
-    </div>
-  );
+  render() {
+    return (
+      <div >
+        <AuthProvider>
+          <LogHeader />
+          <Route path='/' exact><LoginForm /></Route>
+          <Route path='/register' exact><RegistrationForm /> </Route>
+          <Route path='/sign' exact><Sign /></Route>
+          <Route path="/present" exact><Present onAdd={this.addToOrder} buttons={this.state.categories} orders={this.state.orders} categories={this.state.categoriesPdf} /></Route>
+
+          <Route path="/reviewuser" exact><ReviewUser key={this.state.cart.id} categoriesPdf={this.state.categoriesPdf} cart={this.state.cart} buttons={this.state.categories} openCart={this.openCart} chooseCategory={this.chooseCategory} reviews={this.state.reviews} buttons={this.state.categories} /></Route>
+
+          <Route path='/review' exact><Review key={this.state.cart.id} cart={this.state.cart} onDelete={this.delete} openCart={this.openCart} reviews={this.state.reviews} buttons={this.state.categories} /></Route>
+
+          <Route path='/review/cart/approve' exact><Approve onDelete={this.delete} categories={this.state.categories} cart={this.state.cart} /></Route>
+
+          <Route path="/program" exact><Programs reviews={this.state.reviews} categories={this.state.categories} onDelete={this.delete} /></Route>
+          <Route path='/adduser' exact><AddUser /></Route>
+          <Route path='/addop' exact><AddOP /></Route>
+          <Route path='/users' exact><Users onDelete={this.delete} /></Route>
+          <Route path='/op'><OPs /> </Route>
+        </AuthProvider>
+      </div>
+    );
   }
 
-  deleteReview (id)  {
-      axios.post(`${NET.APP_URL}/deleteReview`, {id})
+  delete(id, link) {
+    axios.post(`${NET.APP_URL}${link}`, { id })
       .then(response => {
-        // Обробка відповіді від сервера
         console.log(response.data);
         window.location.reload();
       })
       .catch(error => {
-        // Обробка помилки
         console.error(error);
       });
-      
-}
-
-deleteOp (id)  {
-  axios.post(`${NET.APP_URL}/deleteOp`, {id})
-  .then(response => {
-    // Обробка відповіді від сервера
-    console.log(response.data);
-    window.location.reload();
-  })
-  .catch(error => {
-    // Обробка помилки
-    console.error(error);
-  }); 
-}
-
-deleteUser(id) {
-  axios.post(`${NET.APP_URL}/deleteUser`, {id})
-  .then(response => {
-    // Обробка відповіді від сервера
-    console.log(response.data);
-    window.location.reload();
-  })
-  .catch(error => {
-    // Обробка помилки
-    console.error(error);
-  }); 
-}
+  }
 
   addToOrder(item) {
-    this.setState({orders: [this.state.orders, item] })
+    this.setState({ orders: [this.state.orders, item] })
   }
 
   openCart(item) {
-    this.setState({cart: [item] })
+    this.setState({ cart: [item] })
   }
 
-  chooseCategory(category) {
-    if(category === 'all') {
-      this.setState({currenItems: this.state.reviews})
-      return
-    }
 
-    this.setState({
-      currenItems: this.state.reviews.filter(el => el.category === category)
-    })
-  }
 
 }
 

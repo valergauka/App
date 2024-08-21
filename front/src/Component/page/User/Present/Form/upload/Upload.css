@@ -1,14 +1,15 @@
 .upload {
     position: relative;
-    width: 100%;
     background: linear-gradient(90deg, #03a8f400, #f441a600, #ffeb3b00, #03a8f400);
-    color: #232222;
+    color: #ffffff;
     display: grid;
     border-radius: 8px;
     box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.1);
     padding: 10px;
     gap: 10px;
-    margin: 2%;
+    margin: 3%;
+    width: 17em;
+    height: 15em;
 }
 
 .uploadBody {
@@ -21,32 +22,54 @@
     border-radius: inherit;
 }
 
+
 .uploadBody i {
     font-size: 30px;
 }
 
+.upload.dragging {
+    background-color: #aab2d59e;
+}
+
 .uploadFooter {
     position: relative;
-    background-color: #697ed1;
+    background-color: rgb(100, 32, 25);
     border-radius: inherit;
     transition: background-color .25s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .uploadButton {
-    display: block;
+    position: absolute;
+    display: flex;
     text-align: center;
+    justify-items: center;
     cursor: pointer;
+    margin-left: 45%;
+    
 }
 
 .uploadButton:hover {
     opacity: 0.5;
 }
 
-
-
 #uploadInput {
     position: absolute;
     inset: 0;
     opacity: 0;
     visibility: hidden;
+}
+
+.uploadBody {
+    border: 2px dashed #cccccc;
+    padding: 20px;
+    text-align: center;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.uploadBody.dragging {
+    background-color: #f0f8ff;
+    border-color: #4a90e2;
 }

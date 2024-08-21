@@ -1,8 +1,10 @@
-
 .aprover {
   display: flex;
   flex-direction: column;
-  border: 1px solid #03a8f460;
+  background: #fefefe;
+    border: 3px solid rgb(100, 32, 25);
+    border-top: 1px solid rgb(100, 32, 25);
+    border-left: 1px solid rgb(100, 32, 25);
   border-radius: 5em;
   margin: 1em;
   color: #5a5a5a;

@@ -7,11 +7,10 @@
     color: black;
 }
 
-
 .back:hover {
     opacity: 0.5;
     color: rgb(161, 106, 106);
-  }
+}
 
 form label,form input {
     width: 100%;
@@ -20,7 +19,7 @@ form label,form input {
     flex-direction: column;
 }
 
-label[for] {
+.labelForm {
     color: #5a5a5a;
     font-weight: 600;
     margin: 18px 0 5px 0;
@@ -48,7 +47,7 @@ label[for] {
 
 
 .inputText,
-label[for] {
+.labelForm{
     margin-left: 10%;
 }
 

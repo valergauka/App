@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { BsArrowLeftShort } from "react-icons/bs";
-import { Link } from 'react-router-dom';
+
 import Button from '../../../../UIComponent/Button';
 import Header from '../../../../UIComponent/Header';
 import NET from '../../../../../network';
 import Input from './FormInput/Input';
 import axios from 'axios';
+import { useAuth } from '../../../../../Sign/authContext/AuthContext';
 
 import './FormLb.css';
 import './Form.css';
@@ -13,9 +14,10 @@ import './Form.css';
 
 
 export default function FormLb(props) {
-  const branch = [];
-  const speciality = [];
-  const specialisation = [];
+  const { user } = useAuth();
+  const branchOut = [];
+  const specialityOut = [];
+  const specialisationOut = [];
   const ops = [];
   const facultyName = [
     'Навчально-науковий інститут біології, хімії та біоресурсів',
@@ -37,51 +39,54 @@ export default function FormLb(props) {
     'Освітньо-науковий'
   ];
   const [op, setOp] = useState([]);
-  const category = props.orders[1].title;
-  let date = new Date()
+  const currentDate = new Date();
+  const year = currentDate.getFullYear();
+  const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+  const day = String(currentDate.getDate()).padStart(2, '0');
+
+  const formattedDate = `${year}-${month}-${day}`;
 
   const [educLevel, setEducLevel] = useState('');
-  const [branchInput, setBranchInput] = useState('');
-  const [specialityInput, setSpecialityInput] = useState('');
-  const [specialisationInput, setSpecialisationInput] = useState('');
-  const [opInput, setOpInput] = useState('');
-  const [guaranty, setGuaranty] = useState('');
+  const [branch, setBranch] = useState('');
+  const [speciality, setSpeciality] = useState('');
+  const [specialisation, setSpecialisation] = useState('');
+  const [nameOp, setNameOp] = useState('');
+  const [guarantor, setGuarantor] = useState('');
   const [structural, setStructural] = useState('');
   const [faculty, setFaculty] = useState('');
+  const category_id = props.orders.id;
+  const status_id = 1;
+  const user_id = user.id;
+  
 
-
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-      const formData = {
-          educLevel: educLevel,
-          branch: branchInput,
-          speciality: specialityInput,
-          specialisation: specialisationInput,
-          nameOp: opInput,
-          guaranty: guaranty,
-          structural: structural,
-          faculty: faculty,
-          category:category,
-          date: date
-      };
-      console.log(formData);
-
-      fetch(`${NET.APP_URL}/review`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
+    const formData = {
+      educLevel: educLevel,
+      branch: branch,
+      speciality: speciality,
+      specialisation: specialisation || 'Не має спеціалізації',
+      nameOp: nameOp,
+      guarantor: guarantor,
+      structural: structural,
+      faculty: faculty,
+      date: formattedDate,
+      category_id: category_id,
+      status_id: status_id,
+      user_id: user_id
+    };
+    
+    axios
+      .post(`${NET.APP_URL}/reviewCreate`, formData)
+      .then((response) => {
+        props.reviewId(response.data);
+        props.OpenFormPdf();
       })
-      .then(response => {
-        console.log(response.data);
-       // window.location.reload();
-      })
-      .catch(error => {
+      .catch((error) => {
+        // Handle errors, e.g., display an error message
         console.error(error);
       });
-     }
-
+  }
 
   function unique(arr) {
     let result = [];
@@ -102,78 +107,79 @@ export default function FormLb(props) {
   }, [])
 
   op.map(el => (
-    branch.push(el.branch)
-    // speciality.push(el.speciality),
-    // specialisation.push(el.specialisation),
-    // ops.push(el.op)
+    branchOut.push(el.branch)
   ));
-
+  
+  let f = 0;
   op.map(el => {
-    if (branchInput === el.branch) {
-      speciality.push(el.speciality)
+    if (branch === el.branch) {
+      specialityOut.push(el.speciality);
+      if (speciality === el.speciality) {
+        specialisationOut.push(el.specialisation);
+        if (specialisation === el.specialisation) {
+          ops.push(el.op);
+          f = 1;
+        }
+      }
     }
-    if (specialityInput === el.speciality) {
-      specialisation.push(el.specialisation)
-    }
-    if (specialisationInput === el.specialisation) {
-      ops.push(el.op)
-    }
-  })
+  });
 
-  console.log(branchInput);
+
+  const CloseForm = () => {
+    props.CloseForm();
+  }
+
   return (
     <div>
       <Header />
       <main className='mainForm' >
-        <Link to='/present' className='back' ><BsArrowLeftShort /></Link>
+        <div onClick={() => CloseForm()} className='back' ><BsArrowLeftShort /></div>
         <div className='titleForm'>
-          <h3>{category}</h3>
+          <h3>{props.orders.title}</h3>
         </div>
+        {
+        }
         <form className='formLable'>
-          <label for="">Рівень осівіти:</label>
+          <label className='labelForm'>Рівень освіти:</label>
           <Input nameInput='leveleducc' key='0'
             placeholderInput="Бакалавр/Магістр" arrayData={leveledUcc} value={educLevel} setValue={setEducLevel} />
 
-          <label for="">Галузь знань:</label>
-          <Input nameInput='branch' key='1' placeholderInput="Шифр та назва" arrayData={unique(branch)} value={branchInput} setValue={setBranchInput}  />
+          <label className='labelForm'>Галузь знань:</label>
+          <Input nameInput='branch' key='1' placeholderInput="Шифр та назва" arrayData={unique(branchOut)} value={branch} setValue={setBranch} />
 
-          <label for="">Спеціальність:</label>
-          <Input key='2' nameInput='speciality' placeholderInput="Код та назва" arrayData={unique(speciality)} value={specialityInput} setValue={setSpecialityInput} />
+          <label className='labelForm'>Спеціальність:</label>
+          <Input key='2' nameInput='speciality' placeholderInput="Код та назва" arrayData={unique(specialityOut)} value={speciality} setValue={setSpeciality} />
 
-          <div className={`spetializanion ${(specialityInput === '014 Середня освіта' ||
-            specialityInput === '015 Професійна освіта' ||
-            specialityInput=== '035 Філологія' ||
-            (specialityInput === '227' && educLevel === 'Магістр'))
+          <div className={`spetializanion ${(speciality === '014 Середня освіта' ||
+            speciality === '015 Професійна освіта' ||
+            speciality === '035 Філологія' ||
+            (speciality === '227' && educLevel === 'Магістр'))
             && 'active'}`}>
-            <label for="">Спеціалізація:</label>
-            <Input key='3' nameInput='specialisation' placeholderInput="Код та назва" arrayData={unique(specialisation)} value={specialisationInput} setValue={setSpecialisationInput}/>
+            <label className='labelForm'>Спеціалізація:</label>
+            <Input key='3' nameInput='specialisation' placeholderInput="Код та назва" arrayData={unique(specialisationOut)} value={specialisation} setValue={setSpecialisation} />
           </div>
-          <label for='' >Освітня програма:</label>
-          <Input key='5' nameInput='op' placeholderInput="Код та назва" arrayData={unique(ops)} value={opInput} setValue={setOpInput} />
+          <label className='labelForm'>Освітня програма:</label>
+          <Input key='5' nameInput='op' placeholderInput="Код та назва" arrayData={unique(ops)} value={nameOp} setValue={setNameOp} />
 
-          <label for="">Гарант програми:</label>
+          <label className='labelForm'>Гарант програми:</label>
           <input
             className='inputText'
             type="text"
-            name="guaranty"
+            name="guarantor"
             required placeholder="Прізвище ім`я по-батькові"
-            value={guaranty} onChange={(e) => setGuaranty(e.target.value)}/>
+            value={guarantor} onChange={(e) => setGuarantor(e.target.value)} />
 
-          <label for="">Структурний підрозділ:</label>
-          <input
-            className='inputText'
-            type="text"
-            name="structural"
-            required placeholder="Кафедра, факултет/інститут..."
-            value={structural} onChange={(e) => setStructural(e.target.value)}/>
+          <label className='labelForm'>Структурний підрозділ:</label>
+          <input className='inputText' type="text" required placeholder="Кафедра, факультет/інститут..."
+            value={structural} onChange={(e) => setStructural(e.target.value)} />
 
-          <label for="">Факультет/Інститут:</label>
-          <Input key='6' nameInput='faculty' placeholderInput="Повна назва" arrayData={facultyName} value={faculty} setValue={setFaculty}  />
-          
-          
-          <Link  to='/present/form/form' className='formButton' onClick={handleSubmit}>
-            <Button title="Далі" />
-          </Link>
+          <label className='labelForm'>Факультет/Інститут:</label>
+          <Input key='6' nameInput='faculty' placeholderInput="Повна назва" arrayData={facultyName} value={faculty} setValue={setFaculty} />
+
+            <div onClick={handleSubmit} className='formButton' >
+              <Button title="Далі" />
+            </div>
+
         </form>
       </main>
     </div>

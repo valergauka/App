@@ -2,11 +2,10 @@ import React from "react";
 import './ApproveOutput.css';
 import { GoX } from "react-icons/go";
 const ApproveInput = (props) => {
-    return(
+    return (
         <div className="approveForm">
-        {
-            props.approve.map(el => (
-                <div className='aprover'>
+            {props.approve.map((el) => (
+                <div className='aprover' key={el.id}>
                     <h3>Затвердження</h3>
                     <div className='aproveR'>
                         <div className="aproveReview">

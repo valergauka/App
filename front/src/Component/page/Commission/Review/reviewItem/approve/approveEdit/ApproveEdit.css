@@ -1,0 +1,78 @@
+.cartNumApprove {
+    height: 200px;
+    margin-right: 2em;
+    flex: 1 0 250px;
+}
+
+.labelApproveApprove {
+    position: relative;
+    color: #5a5a5a;
+    margin: 1em 4em;
+    width: 83%;
+    font-size: 13px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3em;
+    margin-right: 1em;
+}
+
+.buttonAppApproveForm {
+    position: relative;
+    width: 6em;
+    height: 2em;
+    margin-left: 5em;
+    margin-bottom: -4em;
+    transition: opacity 4000ms ease;
+    background: #fefefe;
+    border: 3px solid rgb(100, 32, 25);
+    border-top: 1px solid rgb(100, 32, 25);
+    border-left: 1px solid rgb(100, 32, 25);
+    border-radius: 2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.date-numApprove {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    margin-left: 5%;
+    width: 100%;
+    height: 4em;
+}
+
+
+.labelOnApprove {
+    display: flex;
+    justify-content: center;
+    font-size: 15px;
+    margin-left: 10%;
+}
+
+.date-numApprove input {
+    color: #5a5a5a;
+    padding: 12px;
+    background: linear-gradient(90deg, #03a8f407, #f441a601, #ffeb3b0f, #03a8f416);
+    background-size: 300%;
+    font-size: 1em;
+    outline: none;
+    transition: 250ms ease-in-out all;
+    border-top: #5a5a5a;
+    border-right: #5a5a5a;
+    text-align: center;
+}
+
+
+.comentFormApprove {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(90deg, #03a8f400, #f441a600, #ffeb3b00, #03a8f400);
+    margin-left: 15%;
+    width: 70%;
+    min-height: 150px;
+    font-size: 18px;
+
+}

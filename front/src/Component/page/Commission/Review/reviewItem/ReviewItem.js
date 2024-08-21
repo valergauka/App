@@ -1,60 +1,126 @@
-import { BsArrowLeftShort } from "react-icons/bs";
-import { Link } from "react-router-dom";
-import Button from "../../../../UIComponent/Button";
-import React, {useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { BsArrowLeftShort } from 'react-icons/bs';
+import { Link } from 'react-router-dom';
+import Button from '../../../../UIComponent/Button';
 import Commentar from '../../../../UIComponent/comment/Commentar';
-
 import './ReviewItem.css';
+import ApproveOutput from '../../../../ApproveInput/ApproveOutput';
+import NET from '../../../../../network';
+import axios from 'axios';
+import FormDelete from '../../../../UIComponent/formDelete/FormDelete';
+import ApproveEdit from './approve/approveEdit/ApproveEdit';
+import { useAuth } from '../../../../../Sign/authContext/AuthContext';
+import FileList from '../../../../UIComponent/FileList/FileList';
 
 const ReviewItem = (props) => {
-    const id_review = Number(props.cart.map(el => (el.id)));
-    const id_user = 1;
-    const [value, setValue] = useState({ idReview: id_review, idUser: id_user });
+    const approv = props.cart[0].approve;
+    const [openFromDelete, setOpenFormDelete] = useState(false);
+    const [openEditForm, setOpenEditForm] = useState(false);
+    const [idDelete, setIdDelete] = useState(null);
+    const [comment, setComment] = useState('');
+    const { user } = useAuth();
+    const reviewId = Number(props.cart.map(el => (el.id))) 
+    
+
+
+    const handleDelete = () => {
+        if (approv.length > 0) {
+            axios
+                .post(`${NET.APP_URL}/approveDelete`, { id: approv[0].id })
+                .then((response) => {
+                    // Handle successful delete
+                    //console.log('Delete successful');
+                    window.location.reload();
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        }
+
+        setOpenFormDelete(false);
+    };
+
+    const handleSubmit = () => {
+        setIdDelete(approv[0].id);
+        setOpenFormDelete(true);
+    };
+
+    const handleCommentChange = (e) => {
+        setComment(e.target.value);
+    };
+    const handleSubmitComment = () => {
+        if (comment) {
+            const commentData = {
+                user_id: user.id, 
+                review_id: reviewId,    
+                comment: comment,
+            };
+            axios
+                .post(`${NET.APP_URL}/createComment`, commentData)
+                .then((response) => {
+                    console.log(response.data);
+                    setComment('');
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+
+        }
+    };
 
     return (
-        <div>
+        <div className="CartReview">
             <main className='mainCarts'>
-                <Link to='/review' className='backCart' ><BsArrowLeftShort /></Link>
+                <div className='backCartReview' onClick={() => props.OpentReview()} ><BsArrowLeftShort /></div>
                 <form className='cartForm '>
-                    <h2 className='titleForm'>{props.cart.map(el => (el.category))}</h2>
-                    <div className="formLable">
-                        <h5>Рівень: {props.cart.map(el => (el.educLevel))}</h5>
-                        <h5>Галузь знань: {props.cart.map(el => (el.branch))}</h5>
-                        <h5>Спеціальність: {props.cart.map(el => (el.speciality))}</h5>
-                        <div className={`spetializanion ${(value['speciality'] === '014 Середня освіта' ||
-                            value['speciality'] === '015 Професійна освіта' ||
-                            value['speciality'] === '035 Філологія' ||
-                            (value['speciality'] === '227' && value['leveleducc'] === 'Магістр'))
-                            && 'active'}`}>
-                            <h5>Спеціалізація:  {props.cart.map(el => (el.specialisation))}</h5>
-                        </div>
+                    <h3 >{props.cart.map(el => el.category.title)}</h3>
+                    <div>
+                        <h5>Рівень:   {props.cart.map(el => (el.educLevel))}</h5>
+                        <h5>Галузь знань:  {props.cart.map(el => (el.branch))}</h5>
+                        <h5>Спеціальність:  {props.cart.map(el => (el.speciality))}</h5>
+                        {/* <h5>Спеціалізація:  {props.cart.map(el => (el.specialisation))}</h5> */}
                         <h5>Освітня програма:  {props.cart.map(el => (el.nameOp))}</h5>
-                        <h5>Гарант програми:  {props.cart.map(el => (el.guaranty))}</h5>
+                        <h5>Гарант програми:  {props.cart.map(el => (el.guarantor))}</h5>
                         <h5>Структурний підрозділ:  {props.cart.map(el => (el.structural))}</h5>
                         <h5>Факультет/Інститут:  {props.cart.map(el => (el.faculty))}</h5>
-                        <h5 className="dataCart">{props.cart.map(el => (el.date))}</h5>
+                        <h5>Дата подання:  {props.cart.map(el => (el.date))}</h5>
+                        <h5>{props.cart.map(el => el.user ? el.user.name : '')}</h5>
                     </div>
-                    <h4>Перегляньте документи:</h4>
-                    {/* <div className="cartFormPDF">
-                    <a href={props.cart.map(el => (el.raportguarant))} rel="noopener noreferrer"> Рапорт гаранта</a>
-                    <a>Витяг з протоколу кафедри</a>
-                    <a>Витяг з протоколу засідання вченої ради</a>
-                    <a>Обгрунтування</a>
-                </div> */}
-                    <Link className='buttonLink' to='/review/cart/approve'>
-                        <Button title="Затвердити" />
-                    </Link>
+                    <FileList reviewId={reviewId}/>
 
+                    {openEditForm ? (
+                        <ApproveEdit categoryTitle={props.cart.map(el => el.category.title)} approve={approv} />
+                    ) : (
+                        <div>
+                            {approv.length === 0 ? (
+                                <Link className="buttonLink" to="/review/cart/approve">
+                                    <Button title="Затвердити" />
+                                </Link>
+                            ) : (
+                                <div>
+                                    <h5 className="deliteApproveReview" onClick={() => handleSubmit()}>Видалити</h5>
+                                            <ApproveOutput title={props.cart.map(el => el.category.title)} approve={approv} handleSubmit={handleSubmit} />
+                                    <h5 onClick={() => setOpenEditForm(true)} className='buttonEdit'>Змінити</h5>
+                                </div>
+                            )}
+                        </div>
+                    )}
+
+                    {openFromDelete && (
+                        <FormDelete
+                            link="/review"
+                            text="затвердження"
+                            isOpen={openFromDelete}
+                            onClose={() => setOpenFormDelete(false)}
+                            onDelete={handleDelete}
+                        />
+                    )}
                 </form>
                 <div className='comentForm'>
-                    <textarea className='comment' placeholder='Залишіть свій коментар тут...' value={value['comment']}
-                        onChange={(e) => setValue({
-                            ...value,
-                            ['comment']: e.target.value
-                        })}></textarea>
-                    <button className='buttonComent'>Надіслати</button>
+                    <textarea className='coment' placeholder='Залишіть свій коментар тут...' value={comment} onChange={(e) => setComment(e.target.value)}></textarea>
+                    <button onClick={handleSubmitComment} className='buttonComentForm'>Надіслати</button>
                 </div>
-                <Commentar cart={props.cart}/>
+                <Commentar idReview={reviewId}  />
             </main>
         </div>
 

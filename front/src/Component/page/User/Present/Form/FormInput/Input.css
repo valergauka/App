@@ -22,9 +22,8 @@ input {
 }
 
 .suggestion:hover {
-    border-bottom: 4px solid #8250e56b;
-    border-left: 3px solid #8250e56b;
-    border-right: 3px solid #8250e56b;
-    border-top: 2px solid #8250e56b;
+    border: 3px solid rgb(100, 32, 25);
+    border-top: 1px solid rgb(100, 32, 25);
+    border-left: 1px solid rgb(100, 32, 25);
     border-radius: 5px;
 }

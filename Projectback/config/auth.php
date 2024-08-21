@@ -18,6 +18,10 @@ return [
         'passwords' => 'users',
     ],
 
+
+
+
+
     /*
     |--------------------------------------------------------------------------
     | Authentication Guards
@@ -58,6 +62,7 @@ return [
     | Supported: "database", "eloquent"
     |
     */
+
 
     'providers' => [
         'users' => [

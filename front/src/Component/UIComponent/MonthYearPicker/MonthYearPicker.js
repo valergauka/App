@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import './MonthYearIPicker.css';
 const MonthYearPicker = ({ year, month, onSelectChange, reviews }) => {
+
     const [selectedMonth, setSelectedMonth] = useState(month || '');
     const [selectedYear, setSelectedYear] = useState(year || '');
 
     const [uniqueMonths, setUniqueMonths] = useState([]);
     const [uniqueYears, setUniqueYears] = useState([]);
+
 
     const handleMonthChange = (event) => {
         const selectedMonth = event.target.value;
@@ -22,12 +24,22 @@ const MonthYearPicker = ({ year, month, onSelectChange, reviews }) => {
 
     const getUniqueMonthsYears = () => {
         const months = reviews.map((review) => {
-            const dateParts = review.date.split('-');
-            return dateParts[1];
+            console.log(review)
+            if (review.date) {
+                const dateParts = review.date.split('-');
+                return dateParts[1];
+            } else {
+                return ''; 
+            }
         });
+
         const years = reviews.map((review) => {
-            const dateParts = review.date.split('-');
-            return dateParts[0];
+            if (review.date) {
+                const dateParts = review.date.split('-');
+                return dateParts[0];
+            } else {
+                return ''; // Або інше значення за замовчуванням
+            }
         });
 
         const uniqueMonths = [...new Set(months)];

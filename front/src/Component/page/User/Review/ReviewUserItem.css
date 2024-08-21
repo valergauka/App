@@ -1,12 +1,16 @@
-.mainCarts {
+.mainCartsReview {
   position: absolute;
   border-radius: 80px;
-  width: 55%;
+  width: 60em;
   height: auto;
   margin: 20px 0 0 20%;
   border-style: dashed;
   justify-content: flex-start;
-  background: linear-gradient(90deg, #03a8f437, #f441a62d, #ffeb3b2e, #03a8f43b);
+  /* background: linear-gradient(90deg, #03a8f437, #f441a62d, #ffeb3b2e, #03a8f43b); */
+  background: #fefefe;
+  border: 3px solid rgb(100, 32, 25);
+  border-top: 1px solid rgb(100, 32, 25);
+  border-left: 1px solid rgb(100, 32, 25);
   background-size: 300%;
 }
 
@@ -21,7 +25,7 @@
 
 .backCart:hover {
   opacity: 0.5;
-  transform: scale(1.22);
+  transform: scale(1.02);
   color: rgb(161, 106, 106);
 }
 
@@ -49,6 +53,7 @@
   justify-content: center;
   align-items: center;
   margin-right: 2%;
+  margin-top: -4em;
 }
 
 .cartForm .filePdf {
@@ -85,7 +90,7 @@
   position: relative;
   margin: 3% 15%;
   border: none;
-  color: #fff;
+  color: rgb(100, 32, 25);
   width: 7em;
   height: 2em;
   line-height: 1em;
@@ -93,7 +98,6 @@
   background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
   background-size: 300%;
   border-radius: 30px;
-  text-transform: uppercase;
   cursor: pointer;
   z-index: 1;
   border-color: black;
@@ -136,53 +140,9 @@
   filter: blur(20px);
 }
 
-.aprover {
-  display: flex;
-  flex-direction: column;
-  border: 1px solid #03a8f460;
-  border-radius: 5em;
-  margin: 1em;
-  color: #5a5a5a;
-}
 
-.aprover h3 {
+.outputApprove {
   display: flex;
+  align-items: center;
   justify-content: center;
-}
-
-.resolution h5 {
-  display: flex;
-  justify-content: center;
-}
-
-.resolution p{
-  color: #5a5a5a;
-  width: 80%;
-  margin-left: 10%;
-}
-
-.aproveR {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
-  grid-gap: 10%;
-  margin: 1.5em;
-  ;
-}
-
-.aproveReview {
-  display: flex;
-  flex-direction: column;
-}
-
-.committeDateAndNumber {
-  display: flex;
-  flex-direction: row;
-}
-
-.committeDateAndNumber p {
-  color: #5a5a5a;
-}
-
-.commentDate {
-  float: right;
 }

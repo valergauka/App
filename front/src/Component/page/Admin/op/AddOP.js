@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Link } from 'react-router-dom';
 import Buttons from "../../../UIComponent/buttons/Buttons";
 import NET from "../../../../network";
+import axios from "axios";
 
 import './AddOP.css';
 
@@ -15,63 +16,61 @@ const AddOP = () => {
     const [op, setOp] = useState('');
 
     const handleSubmit = (event) => {
-      event.preventDefault();
+        event.preventDefault();
         const formData = {
             branch: branch,
-            speciality: speciality,
-            specialisation: specialisation,
+            speciality: speciality ,
+            specialisation: specialisation || 'Не має спеціалізації',
             op: op
         };
-        console.log(formData);
+        //console.log(formData);
 
-        fetch(`${NET.APP_URL}/op`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(formData)
-        })
-        .then(response => {
-          console.log(response.data);
-          window.location.reload();
-        })
-        .catch(error => {
-          console.error(error);
-        });
-       }
+        axios
+            .post(`${NET.APP_URL}/createOp`, formData)
+            .then((response) => {
+                // Handle the response here, e.g., display a success message
+                console.log(response.data);
+            })
+            .catch((error) => {
+                // Handle errors, e.g., display an error message
+                console.error(error);
+            });
+    }
 
     return (
         <div>
             <div className="content">
                 <div className="formMenuUser">
                     <Link to='/op' className='backOp' ><BsArrowLeftShort /></Link>
-                    <h5 className="title">Add OP</h5>
+                    <h5 className="title">Додати ОП</h5>
                     <div className="group">
-                        <input type='text' className="input" required='true' value={branch} onChange={(e) => setBranch(e.target.value)} />
+                        <input type='text' className="input" value={branch} onChange={(e) => setBranch(e.target.value)} />
                         <span className="highlight"></span>
                         <span className="bar"></span>
-                        <label className="label">Name and ID branch</label>
+                        <label className="label">ID та назва Галузі знань</label>
                     </div>
                     <div className="group">
-                        <input type='text' className="input" required='true' value={speciality} onChange={(e) => setSpeciality(e.target.value)} />
+                        <input type='text' className="input" value={speciality} onChange={(e) => setSpeciality(e.target.value)} />
                         <span className="highlight"></span>
                         <span className="bar"></span>
-                        <label className="label">Name and ID Speciality</label>
+                        <label className="label">ID та назва Спеціальності</label>
                     </div>
                     <div className="group">
-                        <input type='text' className="input" required='true' value={specialisation} onChange={(e) => setSpecialisation(e.target.value )} />
+                        <input type='text' className="input" value={specialisation} onChange={(e) => setSpecialisation(e.target.value)} />
                         <span className="highlight"></span>
                         <span className="bar"></span>
-                        <label className="label">Name and ID Specialisation</label>
+                        <label className="label">ID та назва Спеціалізації (якщо вона є)</label>
                     </div>
                     <div className="group">
-                        <input type='text' className="input" required='true' value={op} onChange={(e) => setOp(e.target.value )} />
+                        <input type='text' className="input" value={op} onChange={(e) => setOp(e.target.value)} />
                         <span className="highlight"></span>
                         <span className="bar"></span>
-                        <label className="label">Name and ID OP</label>
+                        <label className="label">ID та назва Освітньої програми</label>
                     </div>
                     <div className="buttonAdd" onClick={handleSubmit}>
-                        Add
+                        <Link to={'/op'}>
+                            Додати
+                        </Link>
                     </div>
                 </div>
             </div>

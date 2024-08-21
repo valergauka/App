@@ -1,0 +1,30 @@
+.nameFile {
+    text-decoration: none;
+    color: #111111d4;
+    margin: 0.5em;
+}
+
+.nameFile:hover{
+    text-decoration: underline;
+}
+
+.buutonFileAdd {
+    color: #f00606d4;
+    font-size: 30px;
+}
+
+.buutonFileAdd:hover {
+    transform: scale(1.2);
+    animation: animation 8s liner infinite;
+    cursor: pointer;
+}
+
+@keyframes animation {
+    0% {
+        background-position: 0%;
+    }
+
+    100% {
+        background-position: 400%;
+    }
+}

@@ -1,20 +1,53 @@
+.users {
+    display: flex;
+    justify-content: center;
+}
+
+.titlesUser {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 1em;
+    justify-content: center;
+}
+
+.titlesUser h2 {
+    margin: 1em;
+    cursor: pointer;
+    transition: transform 700ms ease;
+}
+
+.titlesUser h2:hover {
+    transform: scale(1.2);
+}
+
 .usersCarts {
     display: grid;
-    grid-template-columns: repeat(
-        auto-fit, minmax(23rem, 1fr));
-    grid-gap: 1.5rem;
-    margin: 1.5em;
-    
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 5px;
+    grid-row-gap: 5px;
+
+    @media (max-width: 1300px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 900px) {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+
 }
 
 .userCart {
     width: 23em;
     min-height: 10em;
     height: auto;
-    background-color: #a3ffacda;
+    background-color: #ffffffda;
     margin: 3em;
     border-radius: 2em;
-    border: 1px solid #661226;
+    border: 3px solid rgb(100, 32, 25);
+    border-top: 1px solid rgb(100, 32, 25);
+    border-left: 1px solid rgb(100, 32, 25);
     flex-direction: column;
     transition: transform 700ms ease;
     flex: 1 1 400px;
@@ -23,15 +56,27 @@
 .userCart:hover {
     transform: scale(1.2);
     box-shadow: -7px 4px 28px 3px #54172574;
-    background-color: rgba(169, 255, 186, 0.636);
+    background-color: white;
 }
 
+.buttonRole {
+    float: right;
+    margin: 1em;
+    height: auto;
+    background-color: white;
+    border-radius: 2em;
+    border: 2px solid #661226;
+}
 
+.buttonRole:hover {
+    box-shadow: -7px 4px 28px 3px #54172574;
+    background-color: white;
+}
 
 .deliteUser {
-    margin: 3% 0  0 5% ;
+    margin: 3% 0 0 5%;
     color: #000;
-    transition:  color;
+    transition: color;
     font-size: 1.2em;
     transition: transform 700ms ease;
 }
@@ -55,3 +100,71 @@
     color: #661226;
 }
 
+
+
+
+.butonAddUser>a>button {
+    position: relative;
+    float: right;
+    display: grid;
+    place-items: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgb(100, 32, 25);
+    color: #e0e0e0;
+    transition: 0.5s;
+    font-size: 25px;
+    right: 2.5em;
+    top: 15px;
+}
+
+.butonAddUser>a>button:hover {
+    background: white;
+    box-shadow: 25px 25px 95px rgb(88, 15, 15);
+    text-shadow: 1px 1px 2px rgb(88, 15, 15), 0 0 1em rgb(211, 189, 189), 0 0 0.2em rgba(0, 0, 0, 0.492);
+    font: 1.3em Georgia, serif;
+    right: 3em;
+    color: #661226;
+
+
+}
+
+.butonAddUser>a>button>span {
+    position: absolute;
+    top: 65px;
+    white-space: nowrap;
+    translate: 10px 0;
+    opacity: 0;
+    visibility: hidden;
+    font-size: 18px;
+    transition: 0.5s;
+}
+
+.butonAddUser>a>button:hover>span {
+    translate: 0;
+    opacity: 1;
+    visibility: visible;
+    color: #b22445;
+    box-shadow: 25px 25px 75px #23232383;
+
+
+}
+.searchBar {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1em;
+}
+
+.searchBar input {
+    padding: 0.5em;
+    width: 30%;
+    border: 2px solid #661226;
+    border-radius: 1em;
+    font-size: 1em;
+    margin-right: 12%;
+}
+.searchBar input:focus {
+    outline: none;
+    border-color: #b22445;
+}

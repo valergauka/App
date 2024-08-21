@@ -3,14 +3,18 @@ import './Meeting.css';
 import MeetingReview from './MeetingReview';
 import { FcCheckmark } from "react-icons/fc";
 import { IoMdCloseCircleOutline } from "react-icons/io";
+import axios from 'axios';
+import NET from '../../../../../../network';
+import { GrClose } from 'react-icons/gr';
 
 const Meeting = (props) => {
-    const [committeeMNDate, setCommitteeMNDate] = useState('');
-    const [committeeMNNumber, setCommitteeMNNumber] = useState('');
-    const [committeeSCDate, setCommitteeSCDate] = useState('');
-    const [committeeSCNumber, setCommitteeSCNumber] = useState('');
+    const [committeMNDate, setCommitteMNDate] = useState('');
+    const [committeMNNumber, setCommitteMNNumber] = useState(0);
+    const [committeSCDate, setCommitteSCDate] = useState('');
+    const [committeSCNumber, setCommitteSCNumber] = useState(0);
     const [orderDate, setOrderDate] = useState('');
-    const [orderNumber, setOrderNumber] = useState('');
+    const [orderNumber, setOrderNumber] = useState(0);
+    const resolution = 'Не має ухвали';
     const [openReview, setOpenReview] = useState(true);
     const [selectedReviews, setSelectedReviews] = useState(props.review);
 
@@ -24,11 +28,48 @@ const Meeting = (props) => {
     };
 
 
-    const handleAddApprove = () => {
-        //додати відправку данних на серве
 
-        props.handleMeeting(false)
-    }
+    const handleAddApprove = (event) => {
+        event.preventDefault();
+
+        // Assuming selectedReviews is an array of review objects
+        const reviewIds = selectedReviews.map((review) => review.id);
+
+        const formData = {
+            committeMNDate: committeMNDate.trim() || '2000-01-01',
+            committeMNNumber: committeMNNumber.toString().trim() || '0',
+            committeSCDate: committeSCDate.trim() || '2000-01-01',
+            committeSCNumber: committeSCNumber.toString().trim() || '0',
+            orderDate: orderDate.trim() || '2000-01-01',
+            orderNumber: orderNumber.toString().trim() || '0',
+            resolution: resolution.trim() || ' ',
+            review_id: reviewIds // Ensure this is an array
+        };
+
+        console.log('Form Data:', formData); // Log formData to verify
+
+        axios
+            .post(`${NET.APP_URL}/createApprove`, formData)
+            .then((response) => {
+                console.log('Success:', response.data);
+            })
+            .catch((error) => {
+                if (error.response) {
+                    console.error('Server Error:', error.response.data);
+                    console.error('Status:', error.response.status);
+                    console.error('Headers:', error.response.headers);
+                } else if (error.request) {
+                    console.error('Network Error:', error.request);
+                } else {
+                    console.error('Error:', error.message);
+                }
+            });
+
+        props.handleMeeting(false);
+    };
+
+
+
 
     return (
         <div className="meetingCart">
@@ -36,39 +77,43 @@ const Meeting = (props) => {
                 {
                     openReview &&
                     <div>
-                        <FcCheckmark onClick={() => setOpenReview(false)} className='checkMark' />
+                        <div>
+                            <div onClick={() => setOpenReview(false)} className='checkMark' >Далі</div>
+                            <GrClose className='checkClose' onClick={props.closeMeeting} />
+                        </div>
                         <div className="formMeetingCart">
                             {selectedReviews.map((el) => (
                                 <MeetingReview
                                     key={el.id}
                                     review={el}
+                                    categories={props.categories}
                                     handleSelectReview={handleSelectReview}
                                 />
                             ))}
                         </div>
-
                     </div>
                 }
                 {
                     !openReview &&
 
                     <div>
-                        <IoMdCloseCircleOutline className='closeForm' onClick={() => props.handleMeeting(false)}/>
+                        <IoMdCloseCircleOutline className='closeForm' onClick={() => props.handleMeeting(false)} />
                         <form className='formApp'>
                             <div className='cartNum'>
                                 <label className='labelApprove'>Протокол засідання Комісії</label>
                                 <div className='date-num'>
                                     <input
                                         type='date'
-                                        value={committeeMNDate}
-                                        onChange={e => setCommitteeMNDate(e.target.value)}
+                                        name='committeMNDate'
+                                        value={committeMNDate}
+                                        onChange={e => setCommitteMNDate(e.target.value)}
                                     />
                                     <input
                                         type='number'
-                                        min={1}
                                         placeholder='Номер'
-                                        value={committeeMNNumber}
-                                        onChange={e => setCommitteeMNNumber(e.target.value)}
+                                        value={committeMNNumber}
+                                        name='committeMNNumber'
+                                        onChange={e => setCommitteMNNumber(e.target.value)}
                                     />
                                 </div>
                             </div>
@@ -77,15 +122,16 @@ const Meeting = (props) => {
                                 <div className='date-num'>
                                     <input
                                         type='date'
-                                        value={committeeSCDate}
-                                        onChange={e => setCommitteeSCDate(e.target.value)}
+                                        value={committeSCDate}
+                                        name='committeSCDate'
+                                        onChange={e => setCommitteSCDate(e.target.value)}
                                     />
                                     <input
                                         type='number'
-                                        min={1}
                                         placeholder='Номер'
-                                        value={committeeSCNumber}
-                                        onChange={e => setCommitteeSCNumber(e.target.value)}
+                                        value={committeSCNumber}
+                                        name='committeSCNumber'
+                                        onChange={e => setCommitteSCNumber(e.target.value)}
                                     />
                                 </div>
                             </div>
@@ -95,22 +141,23 @@ const Meeting = (props) => {
                                     <input
                                         type='date'
                                         value={orderDate}
+                                        name='orderDate'
                                         onChange={e => setOrderDate(e.target.value)}
                                     />
                                     <input
                                         type='number'
-                                        min={1}
                                         placeholder='Номер'
                                         value={orderNumber}
+                                        name='orderNumber'
                                         onChange={e => setOrderNumber(e.target.value)}
                                     />
                                 </div>
                             </div>
                         </form>
+                        <GrClose className='checkCloseFormNum' onClick={props.closeMeeting} />
                         <FcCheckmark onClick={handleAddApprove} className='checkMarkAddApprove' />
                     </div>
                 }
-
             </form>
         </div>
     );

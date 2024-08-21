@@ -1,23 +1,25 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, { Component, useState } from 'react';
 import Button from '../../../UIComponent/Button';
 
 import './Present.css';
 
-export class PresentItem extends Component {
-  render() {
-    return (
-        <div>
-          <div onClick={() => this.props.onAdd(this.props.button)}>
-            <Link className='buttoncomentFormLink'  to='/present/form'>
-                <Button title={this.props.button.title}/>
-            </Link>
-            </div>  
-        </div>
-      
-      
-      )
+const PresentItem = (props) => {
+
+  const OpenForm = (category) => {
+    // console.log(title);
+    props.FormOpen();
+    props.category(category)
   }
+
+  return (
+    <div onClick={() => OpenForm(props.button)} className='buttoncomentFormLink'>
+      <Button title={props.button.title} />
+    </div>
+
+
+
+
+  )
 }
 
 export default PresentItem
