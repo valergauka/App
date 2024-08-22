@@ -46,12 +46,12 @@ const Meeting = (props) => {
             review_id: reviewIds // Ensure this is an array
         };
 
-        console.log('Form Data:', formData); // Log formData to verify
+        // console.log('Form Data:', formData); // Log formData to verify
 
         axios
             .post(`${NET.APP_URL}/createApprove`, formData)
             .then((response) => {
-                console.log('Success:', response.data);
+                // console.log('Success:', response.data);
             })
             .catch((error) => {
                 if (error.response) {

@@ -21,7 +21,7 @@ const ReviewItem = (props) => {
     const { user } = useAuth();
     const reviewId = Number(props.cart.map(el => (el.id))) 
     
-
+    // console.log(props.cart)
 
     const handleDelete = () => {
         if (approv.length > 0) {
@@ -86,7 +86,7 @@ const ReviewItem = (props) => {
                         <h5>Дата подання:  {props.cart.map(el => (el.date))}</h5>
                         <h5>{props.cart.map(el => el.user ? el.user.name : '')}</h5>
                     </div>
-                    <FileList reviewId={reviewId}/>
+                    <FileList reviewId={reviewId} files={props.cart[0].file}/>
 
                     {openEditForm ? (
                         <ApproveEdit categoryTitle={props.cart.map(el => el.category.title)} approve={approv} />

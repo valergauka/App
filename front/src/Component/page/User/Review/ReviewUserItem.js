@@ -53,7 +53,7 @@ const ReviewUserItem = (props) => {
                         <h5>Дата подання:  {props.cart.map(el => (el.date))}</h5>
                     </div>
                     
-                    <FileList idUser={1} reviewId={reviewId}/>
+                    <FileList files={props.cart[0].file}/>
                 </form>
                 <div className='outputApprove'>
                     <ApproveOutput approve={approve} />

@@ -50,11 +50,7 @@ const PDFGenerator = (props) => {
       );
     }
 
-    // Sort data by nameOp
     const sortedData = props.data.sort((a, b) => a.nameOp.localeCompare(b.nameOp));
-
-    console.log(sortedData);
-    // Get unique categories
     const categories = [...new Set(sortedData.map((el) => el.category.id))];
 
     return (

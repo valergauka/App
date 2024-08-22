@@ -24,9 +24,9 @@ class ReviewController extends Controller
         $id = $request->input('id');
 
         if ($id === 0) {
-            $reviews = Review::with('user:name,id', 'category:title,id', 'approve')->get();
+            $reviews = Review::with('user:name,id', 'category:title,id', 'approve','file')->get();
         } else {
-            $reviews = Review::with('user:name,id', 'category:title,id', 'approve')->where('status_id', $id)->get();
+            $reviews = Review::with('user:name,id', 'category:title,id', 'approve', 'file')->where('status_id', $id)->get();
         }
 
         return response()->json($reviews);
