@@ -23,22 +23,19 @@ const ApproveEdit = (props) => {
             setFormData({ ...formData, [name]: value });
         }
     };
-
     
-    const handleSubmit = (event, formData) => {
-        //event.preventDefault();
-        axios.post(`${NET.APP_URL}/updateApprove`, { formData })
+
+    const handleSubmit = (event) => {
+        event.preventDefault(); // Запобігає перезавантаженню сторінки
+
+        axios.post(`${NET.APP_URL}/updateApprove`, formData)
             .then((response) => {
-                // Обробка успішної відповіді від сервера, якщо потрібно
-                console.log(response.data);
+                window.location.reload();
             })
             .catch((error) => {
-                // Обробка помилки, якщо є
-                console.error(error);
+                window.location.reload();
             });
     };
-
-
 
 
     return (
@@ -121,7 +118,8 @@ const ApproveEdit = (props) => {
                 ></textarea>
             </div>
             <div className='buttonAppApprove' >
-                <button className="buttonAppApproveForm" onClick={(event) => handleSubmit(event, formData)}>Зміники</button>
+                <button className="buttonAppApproveForm" onClick={handleSubmit}>Зміники</button>
+
             </div>
         </div>
     );

@@ -1,7 +1,6 @@
 .content {
     display: flex;
     justify-content: center;
-
 }
 
 .formMenuUser {
@@ -31,7 +30,6 @@
     }
 }
 
-
 .backOp {
     position: absolute;
     color: #170103;
@@ -46,7 +44,7 @@
 }
 
 .title {
-    top: 3%;
+    
     font-size: 30px;
     color: #75040D;
 }
@@ -54,100 +52,34 @@
 .group {
     position: relative;
     margin: 25px 0;
-
+    width: 85%;
 }
 
 .input {
-    font-size: 16px;
-    padding: 10px 0;
-    width: 400px;
+    font-size: 20px;
+    padding: 10px 15px;
+    width: 78%;
     border: none;
     border-bottom: 0.1em solid #75040D;
+    border-left: 0.1em solid #75040D;
     background: transparent;
     color: #75040D;
+    margin-left: 10%;
 }
 
 .input:focus {
     outline: none;
 }
 
-.label {
+.labelform {
     color: #75040D;
     font-size: 18px;
     font-weight: normal;
-    position: absolute;
-    pointer-events: none;
-    left: 2.5em;
-    top: 0.5em;
-    transition: 0.2s ease all;
-    -moz-transition: 0.2s ease all;
-    -webkit-transition: 0.2s ease all;
-}
-
-.input:focus~.label,
-.input:valid~.label {
-    top: -2em;
-    left: 2em;
-    font-size: 18px;
-    color: #5f030a;
-    width: 100%;
-}
-
-.bar {
     position: relative;
-    display: block;
-    width: 200px;
+    left: 2em;
+    top: -0.5em;
 }
 
-.bar::before,
-.bar::after {
-    content: '';
-    height: 2px;
-    width: 0;
-    bottom: 1px;
-    position: absolute;
-    transition: 0.2s ease all;
-    -moz-transition: 0.2s ease all;
-    -webkit-transition: 0.2s ease all;
-}
-
-.bar::before {
-    left: 50%;
-}
-
-.bar::after {
-    right: 50%;
-}
-
-.input:focus~.bar::before,
-.input:focus~.bar::after {
-    width: 50%;
-}
-
-.highlight {
-    position: absolute;
-    height: 60%;
-    width: 0px;
-    top: 25%;
-    left: 2.7em;
-    pointer-events: none;
-    opacity: 0.5;
-}
-
-.input:focus~.highlight {
-    animation: input-focus 0.5s ease;
-}
-
-@keyframes input-focus {
-    from {
-        background: #060001;
-    }
-
-    to {
-        width: 100%;
-        background: transparent;
-    }
-}
 
 .buttonAdd {
     color: #75040D;
@@ -155,11 +87,10 @@
     font-size: 26px;
     text-decoration: none;
     padding: 10px;
-    margin-top: 5% 0;
+    margin-top: 5%;
     transition: 0.5s ease;
     margin-bottom: 1.5em;
     cursor: pointer;
-
 }
 
 .buttonAdd a {
@@ -169,5 +100,28 @@
 
 .buttonAdd:hover {
     color: #170103;
+}
 
+.cart {
+    position: relative;
+    width: 85%;
+    margin-left: 10%;
+}
+
+.suggestion {
+    position: relative;
+    width: 97%;
+    cursor: pointer;
+    border: none;
+    font-size: 20px;
+    display: flex;
+    justify-content: start;
+    border-bottom: 2px solid rgb(147, 145, 145);
+}
+
+.suggestion:hover {
+    border: 3px solid rgb(100, 32, 25);
+    border-top: 1px solid rgb(100, 32, 25);
+    border-left: 1px solid rgb(100, 32, 25);
+    border-radius: 5px;
 }

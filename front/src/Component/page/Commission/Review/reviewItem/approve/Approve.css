@@ -54,20 +54,20 @@
     display: flex;
     justify-content: center;
     font-size: 15px;
-    margin-left: 10%;
+    margin-left: 45%;
 }
 
 .date-numApprove input {
     color: #5a5a5a;
     padding: 12px;
-    background: linear-gradient(90deg, #03a8f407, #f441a601, #ffeb3b0f, #03a8f416);
-    background-size: 300%;
-    font-size: 1em;
+    background-size: 70%;
+    font-size: 14px;
     outline: none;
     transition: 250ms ease-in-out all; 
     border-top: #5a5a5a;
     border-right: #5a5a5a;
     text-align: center;
+    width: 40%;
 }
 
 
