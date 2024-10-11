@@ -1,3 +1,4 @@
+/* Existing styles remain unchanged */
 .users {
     display: flex;
     justify-content: center;
@@ -26,16 +27,6 @@
     grid-template-rows: repeat(2, 1fr);
     grid-column-gap: 5px;
     grid-row-gap: 5px;
-
-    @media (max-width: 1300px) {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    @media (max-width: 900px) {
-        grid-template-columns: repeat(1, 1fr);
-    }
-
-
 }
 
 .userCart {
@@ -92,16 +83,12 @@
     justify-content: center;
     align-items: center;
     color: #661226;
-
 }
 
 .userCart a {
     text-decoration: none;
     color: #661226;
 }
-
-
-
 
 .butonAddUser>a>button {
     position: relative;
@@ -126,8 +113,6 @@
     font: 1.3em Georgia, serif;
     right: 3em;
     color: #661226;
-
-
 }
 
 .butonAddUser>a>button>span {
@@ -147,9 +132,8 @@
     visibility: visible;
     color: #b22445;
     box-shadow: 25px 25px 75px #23232383;
-
-
 }
+
 .searchBar {
     display: flex;
     justify-content: center;
@@ -164,7 +148,106 @@
     font-size: 1em;
     margin-right: 12%;
 }
+
 .searchBar input:focus {
     outline: none;
     border-color: #b22445;
+}
+
+/* New overlay styles */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    /* Dark transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    /* Ensure it is above other content */
+}
+
+/* Centered form style */
+.updateUserForm {
+    background-color: #fff;
+    /* White background for the form */
+    padding: 2em;
+    border-radius: 1em;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+/* New overlay styles */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    /* Dark transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    /* Ensure it is above other content */
+}
+
+/* Centered form style */
+.updateUserForm {
+    background-color: #fff;
+    /* White background for the form */
+    padding: 2em;
+    border-radius: 1em;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.updateUserForm h3 {
+    color: #661226;
+    text-align: center;
+    margin-bottom: 1.5em;
+}
+
+/* Input field styling */
+.updateUserForm input {
+    padding: 0.7em;
+    border: 2px solid #661226;
+    border-radius: 1em;
+    font-size: 1em;
+}
+
+.updateUserForm input:focus {
+    outline: none;
+    border-color: #b22445;
+}
+
+/* Button styling */
+.updateUserForm button {
+    padding: 0.7em;
+    border: none;
+    border-radius: 1em;
+    background-color: #e3b7b7;
+    color: #fff;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.updateUserForm button:hover {
+    background-color: #b22445;
+}
+
+.updateUserForm button:last-of-type {
+    background-color: #c99494;
+    margin-top: 0.5em;
+    border: #661212;
+}
+
+.updateUserForm button:last-of-type:hover {
+    background-color: #b22445;
 }

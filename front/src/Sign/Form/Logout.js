@@ -8,9 +8,12 @@ const Logout = () => {
     const history = useHistory();
 
     const handleLogout = () => {
-        logout();
-        history.push('/'); // Перенаправлення на сторінку після виходу
+        if (user) { // Перевірка, чи є користувач
+            logout();
+            history.push('/'); // Перенаправлення на сторінку після виходу
+        }
     };
+
 
     return (
         <div>

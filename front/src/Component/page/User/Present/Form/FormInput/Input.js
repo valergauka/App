@@ -1,55 +1,56 @@
 import React, { useState } from "react";
-
 import './Input.css';
 
 const Input = (props) => {
-
-    const [suggestions, setSuggestions] = useState([])
+    const [suggestions, setSuggestions] = useState([]);
     const [text, setText] = useState('');
 
-    const onSuggestHandler = (text) => {
-        setText(text);
+    const onSuggestHandler = (suggestion) => {
+        setText(suggestion);
         setSuggestions([]);
-        props.setValue(text);
+        props.setValue(suggestion);
     }
 
-    const onChangeHandler = (text) => {
+    const onChangeHandler = (inputText) => {
         let matches = [];
-        if (text.length > 0) {
+        if (inputText.length > 0) {
             matches = props.arrayData.filter(elem => {
-                const regex = new RegExp(`${text}`, 'gi');
-                return (elem.match(regex));
-            })
+                const regex = new RegExp(`${inputText}`, 'gi');
+                return elem.match(regex);
+            });
         }
 
         setSuggestions(matches);
-        setText(text);
-        props.setValue(text);
+        setText(inputText);
+        props.setValue(inputText);
     }
-   //console.log(props.arrayData)
 
     return (
         <div>
-            <input className='inputText'
+            <input
+                className='inputText'
                 type="text"
                 name={props.nameInput}
                 required
                 placeholder={props.placeholderInput}
                 onChange={e => onChangeHandler(e.target.value)}
-                value={text}/>
-            <div className="cart">
-                {suggestions && suggestions.map((suggestions) =>
-                    <div
-                        className='suggestion'
-                        onClick={() => onSuggestHandler(suggestions)}
-                    >
-                        {suggestions}
-                    </div>
-                )}
-            </div>
-
+                value={text}
+            />
+            {suggestions.length > 0 && (
+                <div className="cart">
+                    {suggestions.map((suggestion, index) => (
+                        <div
+                            key={index} // Унікальний ключ для кожного елемента
+                            className='suggestion'
+                            onClick={() => onSuggestHandler(suggestion)}
+                        >
+                            {suggestion}
+                        </div>
+                    ))}
+                </div>
+            )}
         </div>
-    )
+    );
 }
 
 export default Input;

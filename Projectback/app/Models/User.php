@@ -12,6 +12,11 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    public function responsibleForReviews()
+    {
+        return $this->hasMany(ResponsibleForReview::class, 'user_id');
+    }
+    
     public function groups()
     {
         return $this->belongsToMany(Group::class, 'group_user', 'user_id', 'group_id');

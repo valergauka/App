@@ -10,13 +10,13 @@ const ReviewItems = (props) => {
 
 
     return (
-      <div className='category' onClick={() => OpenCart()} >
-        <div className='link1'>
+      <div className={'category'} onClick={OpenCart}>
+        <div className={'link1'}>
           <h3 className='titleReview'>{props.review.category.title}</h3>
           <h5>{props.review.educLevel}</h5>
           <h5>{props.review.nameOp}</h5>
-          <p><b>Спеціальність:</b> {props.review.speciality}</p>
-          <p><b>Факультет/Інститут:</b>{props.review.faculty}</p>
+          <p>{props.review.speciality}</p>
+          <p>{props.review.faculty}</p>
           <p className='date'>{props.review.date}</p>
         </div>
       </div>

@@ -9,7 +9,60 @@ import FormDelete from '../../../UIComponent/formDelete/FormDelete';
 import './Users.css';
 import RoleChangeForm from "../../../UIComponent/RoleChangeForm/RoleChangeForm";
 
-const Users = (props) => {
+const UpdateUserForm = ({ user, onClose, onUpdate }) => {
+    const [name, setName] = useState(user.name);
+    const [email, setEmail] = useState(user.email);
+    const [password, setPassword] = useState('');
+
+    const handleUpdate = async () => {
+        try {
+            const updateData = {
+                id: user.id,
+                name,
+                email,
+            };
+
+            // Only include password if it is not empty
+            if (password) {
+                updateData.password = password;
+            }
+
+            await axios.post(`${NET.APP_URL}/users/update`, updateData);
+            onUpdate();
+            onClose();
+        } catch (error) {
+            console.error('Error updating user:', error.response ? error.response.data : error.message);
+        }
+    };
+
+    return (
+        <div className="updateUserForm">
+            <h3>Змінити дані користувача</h3>
+            <input
+                type="text"
+                placeholder="Name"
+                value={name}
+                onChange={e => setName(e.target.value)}
+            />
+            <input
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+            />
+            <input
+                type="password"
+                placeholder="New Password (optional)"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+            />
+            <button onClick={handleUpdate}>ЗМІНИТИ</button>
+            <button onClick={onClose}>ВІДМІНИТИ</button>
+        </div>
+    );
+};
+
+const Users = () => {
     const [users, setUsers] = useState([]);
     const [filteredUsers, setFilteredUsers] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
@@ -17,6 +70,32 @@ const Users = (props) => {
     const [idDelete, setIdDelete] = useState(null);
     const [isDeleted, setIsDeleted] = useState(false);
     const [groupId, setGroupId] = useState('');
+    const [updateUser, setUpdateUser] = useState(null); // State to hold the user being updated
+
+    const fetchUsers = async () => {
+        try {
+            const response = await axios.get(`${NET.APP_URL}/getUsersByGroupId?id=${groupId}`);
+            const initialUsers = response.data.map(user => ({ ...user, openFormRole: false }));
+            setUsers(initialUsers);
+            setFilteredUsers(initialUsers);
+        } catch (error) {
+            console.error('Помилка при отриманні користувачів:', error.response ? error.response.data : error.message);
+        }
+    };
+
+    useEffect(() => {
+        if (groupId) {
+            fetchUsers();
+        }
+    }, [groupId]);
+
+    useEffect(() => {
+        const results = users.filter(user =>
+            user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            user.email.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setFilteredUsers(results);
+    }, [searchTerm, users]);
 
     const handleRoleChangeClick = (id) => {
         const updatedUsers = users.map(user => {
@@ -28,27 +107,6 @@ const Users = (props) => {
         setUsers(updatedUsers);
     };
 
-    useEffect(() => {
-        axios
-            .get(`${NET.APP_URL}/getUsersByGroupId?id=${groupId}`)
-            .then((response) => {
-                const initialUsers = response.data.map(user => ({ ...user, openFormRole: false }));
-                setUsers(initialUsers);
-                setFilteredUsers(initialUsers);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
-    }, [groupId]);
-
-    useEffect(() => {
-        const results = users.filter(user =>
-            user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            user.email.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-        setFilteredUsers(results);
-    }, [searchTerm, users]);
-
     const handleSubmit = (id) => {
         setIdDelete(id);
         setOpenFormDelete(true);
@@ -59,7 +117,6 @@ const Users = (props) => {
             .then(response => {
                 console.log(response.data);
                 setIsDeleted(true);
-                // Тут ви можете виконати додаткові дії після видалення
             })
             .catch(error => {
                 console.error('Помилка видалення користувача', error);
@@ -72,6 +129,19 @@ const Users = (props) => {
             window.location.reload();
         }
     }, [isDeleted]);
+
+    const handleUpdateUserClick = (user) => {
+        setUpdateUser(user); // Set the user to be updated
+    };
+
+    const handleCloseUpdateForm = () => {
+        setUpdateUser(null); // Close the update form
+    };
+
+    const handleUserUpdated = () => {
+        fetchUsers(); // Оновлюємо список користувачів
+        handleCloseUpdateForm();
+    };
 
     return (
         <div>
@@ -103,6 +173,12 @@ const Users = (props) => {
                             <MdDeleteForever className="deliteUser" onClick={() => handleSubmit(el.id)} />
                             <p><b>Ім'я: &nbsp;</b>{el.name}</p>
                             <p><b>Email: &nbsp;</b><a href={`mailto: ${el.email}`}>{el.email}</a></p>
+                            <button
+                                className="buttonRole"
+                                onClick={() => handleUpdateUserClick(el)} // Open update form for the selected user
+                            >
+                                Змінити дані користувача
+                            </button>
                             {
                                 !el.openFormRole && (
                                     <button
@@ -122,6 +198,15 @@ const Users = (props) => {
                     ))}
                     {openFormDelete && (
                         <FormDelete link='/users' text={"цього користувача"} isOpen={openFormDelete} onClose={() => setOpenFormDelete(false)} onDelete={handleDelete} />
+                    )}
+                    {updateUser && (
+                        <div className="overlay">
+                            <UpdateUserForm
+                                user={updateUser}
+                                onClose={handleCloseUpdateForm}
+                                onUpdate={handleUserUpdated} // Виклик функції
+                            />
+                        </div>
                     )}
                 </div>
             </div>

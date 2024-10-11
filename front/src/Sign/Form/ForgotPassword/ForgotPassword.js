@@ -10,7 +10,7 @@ function ForgotPassword() {
 
     const handleForgotPassword = async () => {
         try {
-            const response = await fetch(`${NET.APP_URL}forgot-password`, {
+            const response = await fetch(`${NET.APP_URL}/forgot-password`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -18,15 +18,17 @@ function ForgotPassword() {
                 body: JSON.stringify({ email }),
             });
 
-            if (response.status === 200) {
+            if (response.ok) {
                 setMessage('Лист із інструкціями для скидання пароля відправлено на вашу пошту.');
             } else {
-                setMessage('Помилка. Перевірте правильність введеної адреси електронної пошти.');
+                const data = await response.json(); // Отримати деталі помилки
+                setMessage(data.message || 'Помилка. Перевірте правильність введеної адреси електронної пошти.');
             }
         } catch (error) {
             setMessage('Помилка сервера.');
         }
     };
+
 
     return (
         <div>

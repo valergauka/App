@@ -18,3 +18,31 @@
 .buttonArchive:hover {
     transform: scale(1.7);
 }
+
+.user-selection {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    
+    /* Додано відступ між селектом і кнопкою */
+}
+
+.user-selection select {
+    padding: 5px;
+    font-size: 14px;
+    width: 70%;
+}
+
+.user-selection button {
+    padding: 5px 10px;
+    background-color: rgb(88, 15, 15);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    width: 30%;
+}
+
+.user-selection button:hover {
+    background-color:rgb(88, 15, 15);
+}

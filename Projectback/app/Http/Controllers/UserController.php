@@ -65,33 +65,63 @@ class UserController extends Controller
         }
     }
 
+    public function updateRoles(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|exists:users,id',
+            'roles' => 'required|array',
+            'roles.*' => 'exists:groups,id',
+        ]);
 
-public function updateRoles(Request $request) {
-    // Валідація даних запиту
-    $request->validate([
-        'id' => 'required|exists:users,id',
-        'roles' => 'required|array',
-        'roles.*' => 'exists:groups,id',
+        $userId = $request->input('id');
+        $newRoles = $request->input('roles');
+
+        $user = User::find($userId);
+
+        try {
+            // Видаляємо всі старі ролі користувача
+            $user->groups()->detach();
+
+            // Додаємо нові ролі
+            $user->groups()->attach($newRoles);
+
+            return response()->json(['message' => 'Ролі користувача оновлено успішно']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Не вдалося оновити ролі користувача'], 500);
+        }
+    }
+
+public function update(Request $request)
+{
+    $id = $request->input('id');
+    $validatedData = $request->validate([
+        'id' => 'required|integer|exists:users,id',
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|max:255|unique:users,email,' . $id,
+        'password' => 'nullable|string|min:6', 
     ]);
 
-    $userId = $request->input('id');
-    $newRoles = $request->input('roles');
+    $user = User::find($validatedData['id']);
 
-    $user = User::find($userId);
+    // Update user details
+    if ($user) {
+        // Update user properties
+        $user->name = $validatedData['name'];
+        $user->email = $validatedData['email'];
+        
+        // Only update the password if it's provided
+        if (isset($validatedData['password']) && !empty($validatedData['password'])) {
+            $user->password = bcrypt($validatedData['password']); // Don't forget to hash the password
+        }
 
-    try {
-        // Видаляємо всі старі ролі користувача
-        $user->groups()->detach();
+        $user->save(); // Save the changes
 
-        // Додаємо нові ролі
-        $user->groups()->attach($newRoles);
-
-        return response()->json(['message' => 'Ролі користувача оновлено успішно']);
-    } catch (\Exception $e) {
-        return response()->json(['error' => 'Не вдалося оновити ролі користувача'], 500);
+        // Return a response
+        return response()->json(['success' => true, 'message' => 'User updated successfully', 'user' => $user], 200);
+    } else {
+        return response()->json(['error' => 'User not found'], 404);
     }
 }
-
 
 
 

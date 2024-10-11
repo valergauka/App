@@ -3,6 +3,26 @@
     justify-content: center;
 }
 
+.buttonPDF {
+    position: relative;
+    font-size: 2em;
+    float: inline-end;
+    /* Залишити, якщо це потрібно, але зазвичай рекомендується уникати float, якщо можливо */
+}
+
+.buttonStates {
+    position: relative;
+    margin-left: 0.9em;
+}
+
+.buttonFilter {
+    position: relative;
+    font-size: 2em;
+    margin-right: 0.5em;
+    float: inline-end;
+    /* Залишити, якщо це потрібно */
+}
+
 .titleFilterForm {
     color: #fff;
     font-size: 1.4em;
@@ -38,7 +58,6 @@
     perspective: 30rem;
     perspective-origin: 10% 20%;
     margin: 0 2em;
-
 }
 
 .link-1 {
@@ -48,8 +67,10 @@
 .mainHeadr {
     display: flex;
     flex-direction: row;
-    align-items: end;
-    justify-content: end;
+    align-items: flex-end;
+    /* Змінено з end на flex-end */
+    justify-content: flex-end;
+    /* Змінено з end на flex-end */
 }
 
 .mainReview {
@@ -72,7 +93,6 @@
     bottom: 0;
     margin: auto;
     z-index: 9999;
-    /* Встановіть вищий значення z-index, щоб елемент відображався поверх інших елементів */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -89,11 +109,12 @@
 .filterDate {
     position: relative;
     float: right;
+    /* Залишити, якщо це потрібно */
 }
 
-.meetingComm {
+.meetingCommButton {
     position: relative;
-    margin-top: 2em;
+    margin-top: 1em;
     border: 2px solid #000;
     border-radius: 2em;
     height: 2em;
@@ -104,16 +125,13 @@
     align-items: center;
     text-decoration: none;
     color: #000;
+    margin-left: 76%;
 }
 
 .buttonFormFilterReview {
     display: flex;
     margin-top: 1em;
     flex-direction: row;
-}
-
-.buttonFilter:hover {
-    transform: scale(1.6);
 }
 
 .buttonFormFilterReview div {
@@ -133,28 +151,11 @@
     transform: scale(1.2);
 }
 
-.meetingComm:hover,
-.iconPDF:hover {
+.meetingCommButton:hover,
+.buttonPDF:hover,
+.buttonFilter:hover {
     transform: scale(1.2);
     cursor: pointer;
-}
-
-
-.iconPDF {
-    position: relative;
-    font-size: 2em;
-    margin-right: 2em;
-    margin-top: 0.5em;
-}
-
-.buttonFilter {
-    position: relative;
-    font-size: 2em;
-    display: flex;
-    margin-left: 1em;
-    margin-right: 1em;
-    margin-top: 0.5em;
-
 }
 
 .closePDF {

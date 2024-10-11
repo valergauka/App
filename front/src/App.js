@@ -25,7 +25,6 @@ class App extends React.Component {
       orders: [],
       cart: [],
       categories: [],
-      reviews: [],
       categoriesPdf: [
         {
           id: 1,
@@ -68,22 +67,6 @@ class App extends React.Component {
 
 
   componentDidMount() {
-    fetch(`${NET.APP_URL}/reviews`)
-      .then(res => res.json())
-      .then(
-        (result) => {
-          this.setState({
-            reviews: result,
-          });
-        },
-        (error) => {
-          this.setState({
-            error,
-          });
-        }
-      );
-  
-
     fetch(`${NET.APP_URL}/category`)
       .then(res => res.json())
       .then(
@@ -111,13 +94,21 @@ class App extends React.Component {
           <Route path='/sign' exact><Sign /></Route>
           <Route path="/present" exact><Present onAdd={this.addToOrder} buttons={this.state.categories} orders={this.state.orders} categories={this.state.categoriesPdf} /></Route>
 
-          <Route path="/reviewuser" exact><ReviewUser key={this.state.cart.id} categoriesPdf={this.state.categoriesPdf} cart={this.state.cart} buttons={this.state.categories} openCart={this.openCart} chooseCategory={this.chooseCategory} reviews={this.state.reviews} buttons={this.state.categories} /></Route>
+          <Route path="/reviewuser" exact>
+            <ReviewUser 
+                key={this.state.cart.id} 
+                categoriesPdf={this.state.categoriesPdf} 
+                cart={this.state.cart} 
+                buttons={this.state.categories} 
+                openCart={this.openCart} 
+                chooseCategory={this.chooseCategory} 
+                button={this.state.categories} /></Route>
 
-          <Route path='/review' exact><Review key={this.state.cart.id} cart={this.state.cart} onDelete={this.delete} openCart={this.openCart} reviews={this.state.reviews} buttons={this.state.categories} /></Route>
+          <Route path='/review' exact><Review key={this.state.cart.id} cart={this.state.cart} onDelete={this.delete} openCart={this.openCart}  buttons={this.state.categories} /></Route>
 
           <Route path='/review/cart/approve' exact><Approve onDelete={this.delete} categories={this.state.categories} cart={this.state.cart} /></Route>
 
-          <Route path="/program" exact><Programs reviews={this.state.reviews} categories={this.state.categories} onDelete={this.delete} /></Route>
+          <Route path="/program" exact><Programs categories={this.state.categories} onDelete={this.delete} /></Route>
           <Route path='/adduser' exact><AddUser /></Route>
           <Route path='/addop' exact><AddOP /></Route>
           <Route path='/users' exact><Users onDelete={this.delete} /></Route>

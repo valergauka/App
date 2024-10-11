@@ -52,6 +52,7 @@ Route::get('/reviews', [ReviewController::class, 'getReviews']);
 Route::post("/reviewCreate", [ReviewController::class, 'reviewCreate']);
 Route::post('/updateStatus', [ReviewController::class, 'updateStatus']);
 Route::post("/reviewDelete", [ReviewController::class, 'deleteReview']);
+Route::post('/assignUser', [ReviewController::class, 'assignUser']);
 // Route::post('/getReviewsByStatus', [ReviewController::class, 'getReviewsByStatus']);
 
 
@@ -65,6 +66,7 @@ Route::post('/createApprove', [ApproveController::class, 'create']);
 Route::post('/approveReview', [ApproveController::class, 'approveReview']);
 Route::post('/updateApprove', [ApproveController::class, 'updateApprove']);
 Route::post('/approveDelete', [ApproveController::class, 'destroy']);
+
 
 
 
@@ -98,6 +100,8 @@ Route::post('/user', [AuthController::class, 'userCreate']);
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::post('/users/update', [UserController::class, 'update']);
+
 
 Route::post('/groupUser', [UserController::class, 'getUserGroups']);
 Route::post('/users/groups', [UserController::class, 'getUserGroupsEdit']);

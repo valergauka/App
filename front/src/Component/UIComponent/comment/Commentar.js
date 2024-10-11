@@ -32,10 +32,9 @@ const Commentar = (props) => {
 
 
     const handleDeleteComment = (id) => {
-        console.log(id);
+        
         axios.delete(`${NET.APP_URL}/comment/${id}`)
             .then(response => {
-                console.log(response.data);
                 handleComment();
                 // Тут ви можете виконати додаткові дії після видалення
             })

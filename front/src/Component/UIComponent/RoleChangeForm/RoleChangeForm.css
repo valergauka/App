@@ -1,5 +1,11 @@
 .roleChangeForm {
-    margin: 1em;
+    background-color: #fff;
+    border-radius: 1em;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    width: 22em;
+    display: flex;
+    gap: 1em;
+    margin: 0.5em;
     display: flex;
     align-items: center;
     justify-content: center;

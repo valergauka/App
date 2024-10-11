@@ -62,11 +62,12 @@ const ReviewUser = (props) => {
         <div>
             {!opentReview && (
                 <div>
+                    
                     <Header />
                     <div className="buttonStates">
-                        <button className='button' onClick={() => handleSubmitStateButton(0)}>Всі</button>
+                        <button className='buttonUser' onClick={() => handleSubmitStateButton(0)}>Всі</button>
                         {statuses.map(el => (
-                            <button key={el.id} onClick={() => handleSubmitStateButton(el.id)} className='button'>
+                            <button key={el.id} onClick={() => handleSubmitStateButton(el.id)} className='buttonUser'>
                                 {el.title}
                             </button>
                         ))}
@@ -107,6 +108,8 @@ const ReviewUser = (props) => {
                     />
                 </div>
             )}
+
+            
         </div>
     );
 };

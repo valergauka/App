@@ -17,7 +17,7 @@ const CategoryDialog = (props) => {
 
   return (
     <div className="category-dropdown">
-      <button className="toggle-button" onClick={handleToggleDropdown}>
+      <button className="togle-button" onClick={handleToggleDropdown}>
         {selectedCategory ? selectedCategory.title : 'Всі'}
       </button>
       {isOpen && (

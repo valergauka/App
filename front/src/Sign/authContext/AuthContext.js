@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 
 const AuthContext = createContext();
@@ -8,7 +8,7 @@ export function AuthProvider({ children }) {
     const [userGroup, setUserGroup] = useState([]);
     const history = useHistory();
     const sessionTimeout = 30 * 60 * 1000; // 30 хвилин
-    let logoutTimer;
+    const logoutTimerRef = useRef(null); // Використання useRef для зберігання таймеру
 
     const login = (userData, groupData) => {
         setUser(userData);
@@ -17,18 +17,18 @@ export function AuthProvider({ children }) {
         localStorage.setItem('userGroup', JSON.stringify(groupData));
     };
 
-    const logout = () => {
+    const logout = useCallback(() => {
         setUser(null);
         setUserGroup([]);
         localStorage.removeItem('user');
         localStorage.removeItem('userGroup');
         history.push('/');
-    };
+    }, [history]);
 
-    const resetSessionTimeout = () => {
-        clearTimeout(logoutTimer);
-        logoutTimer = setTimeout(logout, sessionTimeout);
-    };
+    const resetSessionTimeout = useCallback(() => {
+        clearTimeout(logoutTimerRef.current);
+        logoutTimerRef.current = setTimeout(logout, sessionTimeout);
+    }, [logout, sessionTimeout]);
 
     useEffect(() => {
         const storedUser = localStorage.getItem('user');
@@ -48,8 +48,7 @@ export function AuthProvider({ children }) {
                 console.error('Помилка розпарсення даних групи з LocalStorage', error);
             }
         } else {
-            // Якщо дані групи відсутні в LocalStorage, ініціалізуйте їх пустим масивом чи об'єктом за замовчуванням.
-            setUserGroup([]);
+            setUserGroup([]); // Ініціалізуємо пустий масив, якщо дані відсутні
         }
 
         resetSessionTimeout();
@@ -64,10 +63,9 @@ export function AuthProvider({ children }) {
         return () => {
             document.removeEventListener('mousemove', eventListener);
             document.removeEventListener('keydown', eventListener);
-            clearTimeout(logoutTimer);
+            clearTimeout(logoutTimerRef.current); // Очищення таймеру при демонтажі компонента
         };
-    }, []);
-
+    }, [resetSessionTimeout]);
 
     return (
         <AuthContext.Provider value={{ user, userGroup, login, logout }}>

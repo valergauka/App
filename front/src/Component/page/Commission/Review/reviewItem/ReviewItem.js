@@ -21,15 +21,13 @@ const ReviewItem = (props) => {
     const { user } = useAuth();
     const reviewId = Number(props.cart.map(el => (el.id))) 
     
-    // console.log(props.cart)
+    console.log(props.cart)
 
     const handleDelete = () => {
         if (approv.length > 0) {
             axios
                 .post(`${NET.APP_URL}/approveDelete`, { id: approv[0].id })
                 .then((response) => {
-                    // Handle successful delete
-                    //console.log('Delete successful');
                     window.location.reload();
                 })
                 .catch((error) => {
@@ -45,9 +43,6 @@ const ReviewItem = (props) => {
         setOpenFormDelete(true);
     };
 
-    const handleCommentChange = (e) => {
-        setComment(e.target.value);
-    };
     const handleSubmitComment = () => {
         if (comment) {
             const commentData = {
@@ -58,7 +53,6 @@ const ReviewItem = (props) => {
             axios
                 .post(`${NET.APP_URL}/createComment`, commentData)
                 .then((response) => {
-                    console.log(response.data);
                     setComment('');
                 })
                 .catch((error) => {
@@ -75,11 +69,11 @@ const ReviewItem = (props) => {
                 <form className='cartForm '>
                     <h3 >{props.cart.map(el => el.category.title)}</h3>
                     <div>
+                        <h5>Освітня програма:  {props.cart.map(el => (el.nameOp))}</h5>
                         <h5>Рівень:   {props.cart.map(el => (el.educLevel))}</h5>
                         <h5>Галузь знань:  {props.cart.map(el => (el.branch))}</h5>
                         <h5>Спеціальність:  {props.cart.map(el => (el.speciality))}</h5>
-                        {/* <h5>Спеціалізація:  {props.cart.map(el => (el.specialisation))}</h5> */}
-                        <h5>Освітня програма:  {props.cart.map(el => (el.nameOp))}</h5>
+                        <h5>Спеціалізація:  {props.cart.map(el => (el.specialisation))}</h5>
                         <h5>Гарант програми:  {props.cart.map(el => (el.guarantor))}</h5>
                         <h5>Структурний підрозділ:  {props.cart.map(el => (el.structural))}</h5>
                         <h5>Факультет/Інститут:  {props.cart.map(el => (el.faculty))}</h5>

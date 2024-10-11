@@ -5,12 +5,12 @@ import { useHistory } from 'react-router-dom';
 import './LoginForm.css';
 import { useAuth } from '../authContext/AuthContext';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
-import { MdVisibility, MdVisibilityOff, MdAlternateEmail} from "react-icons/md";
+import { MdVisibility, MdVisibilityOff, MdAlternateEmail } from "react-icons/md";
 
 function LoginForm() {
     const [isInvalidData, setIsInvalidData] = useState(false);
-    const [showPassword, setShowPassword] = useState(false)
-    const [classNameInput,setClassNameInput] = useState('invalidInput');
+    const [showPassword, setShowPassword] = useState(false);
+    const [classNameInput, setClassNameInput] = useState('invalidInput');
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -24,23 +24,19 @@ function LoginForm() {
         });
     };
 
-
     const history = useHistory(); // Отримайте об'єкт history
     const { login } = useAuth();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(formData)
+        console.log(formData);
         axios
             .post(`${NET.APP_URL}/login`, formData)
             .then((response) => {
                 if (response.status === 200) {
                     const { user, userGroup } = response.data;
-                    //console.log(userGroup)
                     login(user, userGroup);
                     history.push('/sign', { userGroup });
-                } else {
-                    //console.error(response.data);
                 }
             })
             .catch((error) => {
@@ -54,11 +50,11 @@ function LoginForm() {
         <div className='formLogin'>
             <div className="login">
                 <div className="avatar">
-                    <img src="logo.png" />
+                    <img src="logo.png" alt="Логотип платформи" /> {/* Додано alt атрибут */}
                 </div>
                 <h2>Вхід</h2>
                 <h3>Вітаємо Вас на нашій платформі!</h3>
-                <form className="login-form" >
+                <form className="login-form">
                     <div className="textbox">
                         <div className='visibleRegistration'>
                             <MdAlternateEmail />
@@ -73,16 +69,9 @@ function LoginForm() {
                     </div>
                     <div className="textbox">
                         <div className='visibleRegistration' onClick={() => setShowPassword(!showPassword)}>
-                            {showPassword &&
-                                <MdVisibility />
-                            }{
-                                !showPassword &&
-                                <MdVisibilityOff />
-                            }
-                        </div> 
-                        <input type={showPassword ?
-                            "text"
-                            : "password"}
+                            {showPassword ? <MdVisibility /> : <MdVisibilityOff />}
+                        </div>
+                        <input type={showPassword ? "text" : "password"}
                             name="password"
                             value={formData.password}
                             onChange={handleChange}
@@ -95,7 +84,7 @@ function LoginForm() {
                             Неправильні дані входу. Перевірте свої дані.
                         </div>
                     )}
-                    <button onClick={handleSubmit} type=" submit">Увійти</button>
+                    <button onClick={handleSubmit} type="submit">Увійти</button>
                     <Link to={'/register'} className="linkeRegistr">Можливо хочете створити акаунт?</Link>
                 </form>
             </div>

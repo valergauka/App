@@ -41,12 +41,10 @@ class FileController extends Controller
             return response()->json(['error' => 'Немає файлів для завантаження.'], 400);
         }
     }
+
     public function getFilesByReviewId($reviewId) {
         $files = File::where('review_id', $reviewId)->get();
 
         return response()->json($files);
     }
-
-
-
 }

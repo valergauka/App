@@ -1,17 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { BsArrowLeftShort } from "react-icons/bs";
-
 import Button from '../../../../UIComponent/Button';
 import Header from '../../../../UIComponent/Header';
 import NET from '../../../../../network';
 import Input from './FormInput/Input';
 import axios from 'axios';
 import { useAuth } from '../../../../../Sign/authContext/AuthContext';
-
 import './FormLb.css';
 import './Form.css';
-
-
 
 export default function FormLb(props) {
   const { user } = useAuth();
@@ -43,7 +39,6 @@ export default function FormLb(props) {
   const year = currentDate.getFullYear();
   const month = String(currentDate.getMonth() + 1).padStart(2, '0');
   const day = String(currentDate.getDate()).padStart(2, '0');
-
   const formattedDate = `${year}-${month}-${day}`;
 
   const [educLevel, setEducLevel] = useState('');
@@ -57,7 +52,6 @@ export default function FormLb(props) {
   const category_id = props.orders.id;
   const status_id = 1;
   const user_id = user.id;
-  
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -65,7 +59,7 @@ export default function FormLb(props) {
       educLevel: educLevel,
       branch: branch,
       speciality: speciality,
-      specialisation: specialisation || 'Не має спеціалізації',
+      specialisation: specialisation || 'Немає спеціалізації',
       nameOp: nameOp,
       guarantor: guarantor,
       structural: structural,
@@ -75,7 +69,7 @@ export default function FormLb(props) {
       status_id: status_id,
       user_id: user_id
     };
-    
+
     axios
       .post(`${NET.APP_URL}/reviewCreate`, formData)
       .then((response) => {
@@ -83,7 +77,6 @@ export default function FormLb(props) {
         props.OpenFormPdf();
       })
       .catch((error) => {
-        // Handle errors, e.g., display an error message
         console.error(error);
       });
   }
@@ -104,12 +97,11 @@ export default function FormLb(props) {
       setOp(response.data)
     }
     loadOp();
-  }, [])
+  }, []);
 
-  op.map(el => (
-    branchOut.push(el.branch)
-  ));
-  
+  // Заповнення масивів для вибору спеціальності та інших полів
+  op.map((el) => branchOut.push(el.branch));
+
   let f = 0;
   op.map(el => {
     if (branch === el.branch) {
@@ -124,7 +116,6 @@ export default function FormLb(props) {
     }
   });
 
-
   const CloseForm = () => {
     props.CloseForm();
   }
@@ -133,22 +124,20 @@ export default function FormLb(props) {
     <div>
       <Header />
       <main className='mainForm' >
-        <div onClick={() => CloseForm()} className='back' ><BsArrowLeftShort /></div>
+        <div onClick={CloseForm} className='back'><BsArrowLeftShort /></div>
         <div className='titleForm'>
           <h3>{props.orders.title}</h3>
         </div>
-        {
-        }
         <form className='formLable'>
           <label className='labelForm'>Рівень освіти:</label>
-          <Input nameInput='leveleducc' key='0'
+          <Input nameInput='leveleducc' key='leveleducc'
             placeholderInput="Бакалавр/Магістр" arrayData={leveledUcc} value={educLevel} setValue={setEducLevel} />
 
           <label className='labelForm'>Галузь знань:</label>
-          <Input nameInput='branch' key='1' placeholderInput="Шифр та назва" arrayData={unique(branchOut)} value={branch} setValue={setBranch} />
+          <Input nameInput='branch' key='branch' placeholderInput="Шифр та назва" arrayData={unique(branchOut)} value={branch} setValue={setBranch} />
 
           <label className='labelForm'>Спеціальність:</label>
-          <Input key='2' nameInput='speciality' placeholderInput="Код та назва" arrayData={unique(specialityOut)} value={speciality} setValue={setSpeciality} />
+          <Input nameInput='speciality' key='speciality' placeholderInput="Код та назва" arrayData={unique(specialityOut)} value={speciality} setValue={setSpeciality} />
 
           <div className={`spetializanion ${(speciality === '014 Середня освіта' ||
             speciality === '015 Професійна освіта' ||
@@ -156,10 +145,11 @@ export default function FormLb(props) {
             (speciality === '227' && educLevel === 'Магістр'))
             && 'active'}`}>
             <label className='labelForm'>Спеціалізація:</label>
-            <Input key='3' nameInput='specialisation' placeholderInput="Код та назва" arrayData={unique(specialisationOut)} value={specialisation} setValue={setSpecialisation} />
+            <Input nameInput='specialisation' key='specialisation' placeholderInput="Код та назва" arrayData={unique(specialisationOut)} value={specialisation} setValue={setSpecialisation} />
           </div>
+
           <label className='labelForm'>Освітня програма:</label>
-          <Input key='5' nameInput='op' placeholderInput="Код та назва" arrayData={unique(ops)} value={nameOp} setValue={setNameOp} />
+          <Input nameInput='op' key='op' placeholderInput="Код та назва" arrayData={unique(ops)} value={nameOp} setValue={setNameOp} />
 
           <label className='labelForm'>Гарант програми:</label>
           <input
@@ -174,15 +164,13 @@ export default function FormLb(props) {
             value={structural} onChange={(e) => setStructural(e.target.value)} />
 
           <label className='labelForm'>Факультет/Інститут:</label>
-          <Input key='6' nameInput='faculty' placeholderInput="Повна назва" arrayData={facultyName} value={faculty} setValue={setFaculty} />
+          <Input nameInput='faculty' key='faculty' placeholderInput="Повна назва" arrayData={facultyName} value={faculty} setValue={setFaculty} />
 
-            <div onClick={handleSubmit} className='formButton' >
-              <Button title="Далі" />
-            </div>
-
+          <div onClick={handleSubmit} className='formButton'>
+            <Button title="Далі" />
+          </div>
         </form>
       </main>
     </div>
-
-  )
+  );
 }

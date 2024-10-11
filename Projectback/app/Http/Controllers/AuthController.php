@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
@@ -113,8 +114,11 @@ class AuthController extends Controller
         // Виконайте перевірку виходу на сервері, наприклад, перевірте токен чи підтвердження
         // Якщо видаляємо сесію, зробіть це:
         Auth::logout();
+        \Log::info('Сесія зберігається', ['session_id' => Session::getId()]);
         return response()->json(['message' => 'Користувач вийшов з системи']);
     }
+
+    
 
 
 }
