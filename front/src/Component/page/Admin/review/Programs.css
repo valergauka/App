@@ -1,0 +1,119 @@
+.buttonStates {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    /* Додано для розбиття кнопок на рядки */
+}
+
+.buttonState {
+    background: #fefefe;
+    border: 3px solid rgb(100, 32, 25);
+    border-top: 1px solid rgb(100, 32, 25);
+    border-left: 1px solid rgb(100, 32, 25);
+    margin: 0.5em;
+    /* Зменшено відступи */
+    padding: 1em 2em;
+    /* Збільшено відступи всередині кнопки */
+    min-width: 10em;
+    /* Змінено на min-width для кращої адаптивності */
+    height: 3em;
+    border-radius: 3em;
+    color: #460106;
+    font-size: 1em;
+    text-align: center;
+    /* Вирівнюємо текст по центру */
+    cursor: pointer;
+    transition: box-shadow 0.3s ease;
+    /* Додано плавну анімацію для переходу */
+}
+
+.buttonState:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    /* Змінено тінь для кращої видимості при наведенні */
+}
+
+
+
+
+.container {
+    position: relative;
+    max-width: 110rem;
+    padding: 1rem;
+
+
+}
+
+.formCards {
+    display: flex;
+    justify-content: center;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 1.5rem;
+    margin: 1.5em;
+
+    @media (max-width: 1540px) {
+        grid-template-columns: repeat(3, 1fr);
+
+    }
+
+    @media (max-width: 1140px) {
+        grid-template-columns: repeat(2, 1fr);
+
+    }
+
+    @media (max-width: 770px) {
+        grid-template-columns: repeat(1, 1fr);
+
+    }
+
+}
+
+.card {
+    border: 0.2em solid rgb(100, 32, 25);
+    border-style: groove;
+    padding: 1rem;
+    overflow: hidden;
+    border-radius: 0.8rem;
+    box-shadow: 1px 1px 10px #b2244584;
+    width: 20em;
+
+
+
+}
+
+.card p {
+    color: #460106;
+    font-size: 14px;
+
+}
+
+.card:hover {
+    box-shadow: 14px 15px 20px #b2244584;
+
+}
+
+/* .card:hover .cardTitleLarge {
+    transform: translateX(-115%);
+} */
+
+.date {
+    float: right;
+}
+
+
+.iconCard {
+    margin-top: 1.5em;
+    margin-left: 0.3em;
+    font-size: 1.2em;
+    color: #75040D;
+    transition: opacity 500ms ease;
+}
+
+.iconCard:hover {
+    opacity: 4;
+    transform: scale(1.5);
+}

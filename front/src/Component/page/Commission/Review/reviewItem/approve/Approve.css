@@ -1,0 +1,86 @@
+.mainForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+.formAppApprove {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    background: #f9f9f9;;
+    border-radius: 10px;
+}
+
+.cartNumApprove {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+.date-numApprove {
+    display: flex;
+    gap: 10px;
+    /* Відступ між датою і номером */
+    justify-content: space-between;
+    align-items: center;
+}
+
+.date-numApprove input {
+    width: 48%;
+    /* Поля займають половину рядка */
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.labelApproveApprove {
+    color: #333;
+    font-weight: bold;
+    margin-left: 10%;
+    font-size: 14px;
+    text-align: left;
+    margin-bottom: 5px;
+}
+.labelOn {
+    display: block;
+    /* Забезпечує окремий рядок для тексту */
+    text-align: center;
+    /* Вирівнює текст по центру */
+    font-size: 16px;
+    /* Розмір шрифту */
+    color: #333;
+    /* Колір тексту */
+    margin-bottom: 10px;
+    /* Відступ знизу */
+    font-weight: bold;
+    /* Виділення тексту */
+}
+
+.comentFormApprove {
+    width: 70%;
+    min-height: 150px;
+    font-size: 16px;
+    color: #333;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    resize: none;
+}
+
+.buttonAppApprove {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}

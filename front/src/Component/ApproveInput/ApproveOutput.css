@@ -1,0 +1,65 @@
+.aprover {
+  display: flex;
+  flex-direction: column;
+  background: #fefefe;
+    border: 3px solid rgb(100, 32, 25);
+    border-top: 1px solid rgb(100, 32, 25);
+    border-left: 1px solid rgb(100, 32, 25);
+  border-radius: 5em;
+  margin: 1em;
+  color: #5a5a5a;
+  width: 50em;
+}
+
+.aprover h3 {
+  display: flex;
+  justify-content: center;
+}
+
+.resolution {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.resolution h5 {
+  display: flex;
+  justify-content: center;
+}
+
+.resolution p {
+  color: #5a5a5a;
+  width: 70%;
+  margin: 2em 10%; 
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+}
+
+.aproveR {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  grid-gap: 10%;
+  margin: 1.5em;
+  ;
+}
+
+.aproveReview {
+  display: flex;
+  flex-direction: column;
+}
+
+.committeDateAndNumber {
+  display: flex;
+  flex-direction: row;
+}
+
+.committeDateAndNumber p {
+  color: #5a5a5a;
+}
+
+.commentDate {
+  float: right;
+}

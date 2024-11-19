@@ -1,0 +1,95 @@
+.upload {
+    position: relative;
+    background: linear-gradient(90deg, #03a8f400, #f441a600, #ffeb3b00, #03a8f400);
+    color: #ffffff;
+    display: grid;
+    border-radius: 8px;
+    box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    gap: 10px;
+    margin: 3%;
+    width: 17em;
+    height: 15em;
+}
+
+.uploadBody {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    border: 2px dashed #474545;
+    border-radius: inherit;
+}
+
+.uploadBody i {
+    font-size: 30px;
+}
+
+.upload.dragging {
+    background-color: #aab2d59e;
+}
+
+.uploadFooter {
+    position: relative;
+    background-color: rgb(100, 32, 25);
+    border-radius: inherit;
+    transition: background-color .25s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.uploadButton {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    padding: 8px 16px;
+}
+
+.uploadButton:hover {
+    opacity: 0.5;
+}
+
+#uploadInput {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.uploadBody {
+    border: 2px dashed #cccccc;
+    padding: 20px;
+    text-align: center;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.uploadBody.dragging {
+    background-color: #f0f8ff;
+    border-color: #4a90e2;
+}
+
+/* Стилі для списку файлів */
+.fileList {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.fileList ul {
+    list-style: none;
+    padding: 0;
+}
+
+.fileList li {
+    text-align: center;
+    color: #ffffff;
+    margin: 5px 0;
+}

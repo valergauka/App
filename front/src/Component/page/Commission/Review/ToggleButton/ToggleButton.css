@@ -1,0 +1,26 @@
+.toggle-button {
+    position: relative;
+    border: 2px solid #000;
+    border-radius: 2em;
+    height: 2em;
+    width: 4em;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #000;
+    float: right;
+    margin-bottom: 1em;
+}
+
+.toggle-button.active {
+    background-color: #905c522d;
+    /* Зелений фон при активному стані */
+}
+
+.toggle-button:hover {
+    opacity: 0.8;
+    transform: scale(1.1);
+    cursor: pointer;
+    /* Напівпрозорість при наведенні */
+}

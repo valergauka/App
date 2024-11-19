@@ -1,0 +1,72 @@
+.title {
+    text-align: center;
+    text-shadow: 1px 1px 2px rgb(88, 15, 15), 0 0 1em rgb(192, 192, 184), 0 0 0.2em rgba(0, 0, 0, 0.449);
+    font: 2.4em Georgia, serif;
+    display: flex;
+    justify-content: center;
+}
+
+.buttonArchive {
+    margin-right: 0.5em;
+    font-size: 1.2em;
+    color: black;
+    display: flex;
+    float: right;
+    margin-top: -1.2em;
+}
+
+.buttonArchive:hover {
+    transform: scale(1.7);
+}
+
+.user-selection {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 10px;
+    /* Додано відступ для кращого розташування */
+}
+
+.user-selection select {
+    padding: 8px;
+    font-size: 14px;
+    width: 70%;
+    border: 1px solid #ddd;
+    /* Додано бордер для кращого вигляду */
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    /* Додав плавний перехід */
+}
+
+.user-selection select:focus {
+    border-color: rgb(88, 15, 15);
+    /* Колір бордера при фокусі */
+    box-shadow: 0 0 5px rgba(88, 15, 15, 0.6);
+    /* Підсвітка при фокусі */
+}
+
+.user-selection button {
+    padding: 8px 12px;
+    background-color: rgb(88, 15, 15);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    width: 30%;
+    border-radius: 5px;
+    /* Заокруглення для кнопки */
+    transition: all 0.3s ease;
+}
+
+.user-selection button:hover {
+    background-color: rgb(68, 5, 5);
+    /* Темніший відтінок при наведенні */
+    transform: scale(1.1);
+    /* Легка анімація при наведенні */
+}
+
+.user-selection p {
+    font-weight: bold;
+    color: rgb(88, 15, 15);
+    font-size: 16px;
+}

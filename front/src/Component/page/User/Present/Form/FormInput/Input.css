@@ -1,0 +1,45 @@
+input {
+    margin-left: 10%;
+}
+
+.cart {
+    position: absolute;
+    /* Змінено на absolute для покращення позиціювання */
+    background-color: white;
+    /* Додано фон для контрасту */
+    width: 85%;
+    margin-left: 10%;
+    border: 1px solid rgb(147, 145, 145);
+    border-radius: 5px;
+    /* Додано заокруглення кутів */
+    z-index: 1;
+    /* Щоб перекривати інші елементи */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Додано тінь */
+}
+
+.suggestion {
+    position: relative;
+    width: 100%;
+    /* Змінено на 100% для кращого вирівнювання */
+    cursor: pointer;
+    font-size: 20px;
+    display: flex;
+    justify-content: flex-start;
+    /* Змінено з start на flex-start */
+    align-items: center;
+    /* Додано для вертикального центрирування тексту */
+    padding: 10px;
+    /* Додано внутрішні відступи */
+    transition: border 0.2s ease;
+    /* Додано плавний перехід для бордюра */
+}
+
+.suggestion:hover {
+    border: 2px solid rgb(100, 32, 25);
+    /* Зменшено розмір бордюра для ефекту */
+    border-radius: 5px;
+    /* Заокруглення при наведенні */
+    background-color: rgba(100, 32, 25, 0.1);
+    /* Додано фон при наведенні */
+}

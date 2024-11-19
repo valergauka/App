@@ -1,0 +1,241 @@
+.CartReview {
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+}
+
+.mainCarts {
+  position: relative;
+  border-radius: 80px;
+  width: 60em;
+  height: auto;
+  border-style: dashed;
+  justify-content: flex-start;
+  /* background: linear-gradient(90deg, #03a8f437, #f441a62d, #ffeb3b2e, #03a8f43b); */
+  background: #fefefe;
+  border: 3px solid rgb(100, 32, 25);
+  border-top: 1px solid rgb(100, 32, 25);
+  border-left: 1px solid rgb(100, 32, 25);
+  background-size: 300%;
+}
+
+.backCartReview {
+  position: relative;
+  font-size: 40px;
+  margin-top: 1em;
+  margin-left: 1em;
+  transition: opacity 500ms ease;
+  cursor: pointer;
+  color: black;
+}
+
+.backCartReview:hover {
+  opacity: 0.7;
+  color: rgb(161, 106, 106);
+}
+
+.cartForm {
+  font-size: 18px;
+  color: #5a5a5a;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+}
+
+.formLable h5 {
+  font-size: 100%;
+}
+
+.cartForm .filePdf {
+  display: flex;
+  flex-direction: column;
+}
+
+.cartFormPDF {
+  display: flex;
+  margin-bottom: 15px;
+  margin-left: 2%;
+}
+
+.cartFormPDF a {
+  width: 25%;
+  text-align: center;
+  line-height: 20px;
+  margin: 10px;
+  flex-direction: row;
+  cursor: pointer;
+  text-decoration: none;
+  color: #5a5a5a;
+}
+
+.cartFormPDF a:hover {
+  transform: scale(1.22);
+  animation: animation 20s linear infinite;
+  border: none;
+}
+
+.dataCart {
+  float: right;
+  font-size: 1em;
+}
+
+.buttonLink {
+  display: flex;
+  text-decoration: none;
+  justify-content: center;
+  align-content: center;
+  width: 300px;
+}
+
+.deliteApproveReview {
+  position: relative;
+  width: 6em;
+  height: 2em;
+  margin-left: 5em;
+  margin-bottom: -4em;
+  transition: opacity 4000ms ease;
+  background: #fefefe;
+  border: 3px solid rgb(100, 32, 25);
+  border-top: 1px solid rgb(100, 32, 25);
+  border-left: 1px solid rgb(100, 32, 25);
+  border-radius: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.deliteApproveReview:hover {
+  color: #b5072f;
+  opacity: 4;
+}
+
+.buttonEdit {
+  position: relative;
+  width: 6em;
+  height: 2em;
+  float: right;
+  margin-top: -4em;
+  margin-right: 6em;
+  cursor: pointer;
+  transition: opacity 4000ms ease;
+  background: #fefefe;
+  border: 3px solid rgb(100, 32, 25);
+  border-top: 1px solid rgb(100, 32, 25);
+  border-left: 1px solid rgb(100, 32, 25);
+  border-radius: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+
+}
+
+.buttonEdit:hover {
+  color: #431721;
+  opacity: 4;
+}
+
+.comentForm {
+  display: flex;
+  justify-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.coment {
+  width: 65%;
+  min-height: 150px;
+  height: auto;
+  border-left: 1px;
+  border-right: 1px;
+  margin-top: 4%;
+  background: linear-gradient(90deg, #03a8f400, #f441a600, #ffeb3b00, #03a8f400);
+}
+
+.comment:focus {
+  color: #5a5a5a;
+  background: #fefefe;
+  border: 3px solid rgb(100, 32, 25);
+  border-top: 1px solid rgb(100, 32, 25);
+  border-left: 1px solid rgb(100, 32, 25);
+}
+
+.buttonComentForm {
+  position: relative;
+  color: #fff;
+  background: rgb(100, 32, 25);
+  width: 20%;
+  height: 4em;
+  line-height: 1em;
+  text-align: center;
+  background-size: 300%;
+  border-radius: 30px;
+  cursor: pointer;
+  z-index: 1;
+  border-color: black;
+  margin: 2em;
+}
+
+.buttonComentForm:hover {
+  transform: scale(1.12);
+  animation: animation 8s linear infinite;
+  border: none;
+}
+
+@keyframes animation {
+  0% {
+    background-position: 0%;
+  }
+
+  100% {
+    background-position: 400%;
+  }
+}
+
+.buttonComentForm::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  z-index: -1;
+  /* background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4); */
+  background-size: 400%;
+  border-radius: 35px;
+  transform: 1s;
+  border-color: black;
+}
+
+.buttonComentForm:hover::before {
+  filter: blur(20px);
+  background: #fefefe;
+  border: 3px solid rgb(100, 32, 25);
+  border-top: 1px solid rgb(100, 32, 25);
+  border-left: 1px solid rgb(100, 32, 25);
+  color: rgb(100, 32, 25);
+}
+
+.comments {
+  position: relative;
+  margin: 2em 5em;
+}
+
+.coment:focus {
+  color: #5a5a5a;
+  background: #fefefe;
+  border: 3px solid rgb(100, 32, 25);
+  border-top: 1px solid rgb(100, 32, 25);
+  border-left: 1px solid rgb(100, 32, 25);
+
+}
+
+.comentForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}

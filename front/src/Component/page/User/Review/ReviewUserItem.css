@@ -1,0 +1,148 @@
+.mainCartsReview {
+  position: absolute;
+  border-radius: 80px;
+  width: 60em;
+  height: auto;
+  margin: 20px 0 0 20%;
+  border-style: dashed;
+  justify-content: flex-start;
+  /* background: linear-gradient(90deg, #03a8f437, #f441a62d, #ffeb3b2e, #03a8f43b); */
+  background: #fefefe;
+  border: 3px solid rgb(100, 32, 25);
+  border-top: 1px solid rgb(100, 32, 25);
+  border-left: 1px solid rgb(100, 32, 25);
+  background-size: 300%;
+}
+
+.backCart {
+  position: relative;
+  font-size: 40px;
+  margin: 5% 5%;
+  transition: opacity 500ms ease;
+  cursor: pointer;
+  color: black;
+}
+
+.backCart:hover {
+  opacity: 0.5;
+  transform: scale(1.02);
+  color: rgb(161, 106, 106);
+}
+
+.trash {
+  position: relative;
+  font-size: 20px;
+  margin: 2% 5% 0;
+  float: right;
+  transition: opacity 500ms ease;
+  cursor: pointer;
+  color: black;
+}
+
+.trash:hover {
+  transform: scale(1.22);
+  opacity: 0.5;
+  color: rgb(247, 0, 0);
+}
+
+.cartForm {
+  font-size: 18px;
+  color: #5a5a5a;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-right: 2%;
+  margin-top: -4em;
+}
+
+.cartForm .filePdf {
+  display: flex;
+  flex-direction: column;
+}
+
+.cartFormPDF {
+  display: flex;
+  margin-bottom: 15px;
+  margin-left: 2%;
+}
+
+.cartFormPDF a {
+  width: 25%;
+  text-align: center;
+  line-height: 20px;
+  margin: 10px;
+  flex-direction: row;
+  cursor: pointer;
+  text-decoration: none;
+  color: #5a5a5a;
+}
+
+.cartFormPDF a:hover {
+  transform: scale(1.22);
+  animation: animation 20s liner infinite;
+  border: none;
+}
+
+
+
+.buttonComent {
+  position: relative;
+  margin: 3% 15%;
+  border: none;
+  color: rgb(100, 32, 25);
+  width: 7em;
+  height: 2em;
+  line-height: 1em;
+  text-align: center;
+  background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+  background-size: 300%;
+  border-radius: 30px;
+  cursor: pointer;
+  z-index: 1;
+  border-color: black;
+  border-style: dashed;
+}
+
+.buttonComent:hover {
+  transform: scale(1.12);
+  animation: animation 8s liner infinite;
+  border: none;
+}
+
+@keyframes animation {
+  0% {
+    background-position: 0%;
+  }
+
+  100% {
+    background-position: 400%;
+  }
+}
+
+.buttonComent::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  z-index: -1;
+  background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+  background-size: 400%;
+  border-radius: 35px;
+  transform: 1s;
+  border-color: black;
+  border-style: dashed;
+}
+
+.buttonComent:hover::before {
+  filter: blur(20px);
+}
+
+
+.outputApprove {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

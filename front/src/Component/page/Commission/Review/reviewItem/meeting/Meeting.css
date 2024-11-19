@@ -1,0 +1,131 @@
+.closeForm {
+    font-size: 2em;
+    margin: 1em;
+    color: #fff;
+}
+
+.closeForm:hover {
+    transform: scale(1.4);
+    color: red;
+}
+
+.checkMark {
+    position: relative;
+    font-size: 1.4em;
+    margin-left: 82%;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+    color: #000000;
+    cursor: pointer;
+}
+
+.checkMark {
+    color: rgb(56, 161, 46);
+}
+
+.checkClose {
+    position: relative;
+    font-size: 1.4em;
+    margin-left: 78%;
+    margin-top: -1.6em;
+    margin-bottom: 2em;
+    cursor: pointer;
+}
+
+.checkMarkAddApprove {
+    position: relative;
+    font-size: 3em;
+    float: right;
+    margin-right: 1em;
+}
+
+.formMeetingCart {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    max-width: 90%;
+    margin: 0 auto;
+}
+
+.formApp {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.cartNum {
+    height: 200px;
+    margin-right: 5em;
+    flex: 1 0 250px;
+}
+
+.labelApprove {
+    position: relative;
+    color: #fff;
+    margin: 1em 4em;
+    width: 20em;
+    height: 2em;
+    font-size: 13px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3em;
+    margin-right: 1em;
+    background-color: #000000;
+    border-radius: 3em;
+    border: 1px solid #fff;
+    -webkit-box-shadow: -28px 5px 50px -1px rgba(47, 47, 47, 0.81);
+    box-shadow: -28px 5px 50px -1px rgba(47, 47, 47, 0.81);
+}
+
+.date-num {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    /* Змінено з start на flex-start */
+    margin-left: 5%;
+    width: 100%;
+    height: 4em;
+}
+
+.labelOn {
+    display: flex;
+    justify-content: center;
+    font-size: 15px;
+    margin-top: 10%;
+    margin-left: 10%;
+}
+
+.date-num input {
+    color: #000000;
+    padding: 12px;
+    background: #fff;
+    background-size: 300%;
+    font-size: 1em;
+    outline: none;
+    transition: 250ms ease-in-out all;
+    border-top: #fff;
+    border-right: #fff;
+    text-align: center;
+}
+
+.comentFormApprove {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #fff;
+    margin-left: 15%;
+    margin-top: 20px;
+    width: 70%;
+    min-height: 150px;
+    font-size: 18px;
+}
+
+.checkCloseFormNum {
+    position: absolute;
+    margin-left: 88%;
+    font-size: 1.8em;
+    margin-top: 0.5em;
+}

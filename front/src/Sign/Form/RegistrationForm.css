@@ -1,0 +1,154 @@
+
+
+
+.register {
+  margin-left: 30%;
+  width: 40%;
+  padding: 70px 30px 44px;
+  border-radius: 22px;
+  background: #fefefe;
+  border: 3px solid rgb(100, 32, 25);
+  border-top: 1px solid rgb(100, 32, 25);
+  border-left: 1px solid rgb(100, 32, 25);
+  text-align: center;
+  margin-top: 0.5em;
+}
+
+
+.avatar {
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  background:
+    linear-gradient (-45deg, rgb(100, 32, 25), #8b8a8a);
+  padding: 2px;
+  width: 120px;
+  height: 120px;
+
+}
+
+.avatar>img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid rgb(100, 32, 25);
+  border-top: 1px solid rgb(100, 32, 25);
+  border-left: 1px solid rgb(100, 32, 25);
+
+}
+
+.register>h2 {
+  font-size:
+    36px;
+  font-weight: 500;
+  margin: 0 0 4px;
+  color: rgb(84, 49, 49);
+}
+
+.register>h3 {
+  color: rgba(58, 2, 2, 0.497);
+  margin: 0 0 30px;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.register-form {
+  display: grid;
+  gap: 16px;
+  place-items:
+    center;
+  width: 100%;
+  margin: 0;
+}
+
+.textbox {
+  width: 100%;
+  position: relative;
+}
+
+.invalidInputRegister,
+.register-form button {
+  width: 90%;
+  height: 60px;
+  outline: none;
+  padding: 0;
+  font-family: inherit;
+  font-size: 16px;
+  border-radius: 8px;
+}
+
+.invalidInputRegister {
+  background: transparent;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  font-size: 18px;
+  padding: 0 20px 0 20px;
+  color: inherit;
+  width: 70%;
+  color: #000000;
+}
+
+.invalidInputRegister:focus {
+  border: 3px solid rgb(100, 32, 25);
+  border-top: 1px solid rgb(100, 32, 25);
+  border-left: 1px solid rgb(100, 32, 25);
+}
+
+
+.register-form button {
+  cursor: pointer;
+  background: rgb(255, 255, 255);
+  border: 3px solid rgb(100, 32, 25);
+  border-top: 1px solid rgb(100, 32, 25);
+  border-left: 1px solid rgb(100, 32, 25);
+  color: rgb(100, 32, 25);
+
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+
+.textboxPassword {
+  width: 100%;
+  position: relative;
+  display: flex;
+}
+
+.visibleRegistration {
+  position: fixed;
+  margin-top: 1em;
+  font-size: 1.4em;
+}
+
+.linkelogin {
+  color: rgb(100, 32, 25);
+  font-size: 16px;
+  text-align: left;
+  text-decoration: none;
+}
+
+.linkelogin:hover {
+  text-decoration: underline;
+}
+
+
+.invalidInputErrorRegister {
+  width: 90%;
+  height: 60px;
+  outline: none;
+  padding: 0;
+  font-family: inherit;
+  font-size: 16px;
+  border-radius: 8px;
+  background: transparent;
+  border: 2px solid rgb(247, 5, 5);
+  font-size: 18px;
+  padding: 0 20px 0 20px;
+  color: inherit;
+  width: 70%;
+  color: #000000;
+}
+
+.errorMessage {
+  color: red;
+  font-size: 12px;
+
+}

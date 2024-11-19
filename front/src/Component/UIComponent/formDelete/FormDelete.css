@@ -1,0 +1,86 @@
+ .formDelete {
+     position: fixed;
+     top: 0;
+     left: 0;
+     right: 0;
+     bottom: 0;
+     margin: auto;
+     z-index: 9999;
+     /* Встановіть вищий значення z-index, щоб елемент відображався поверх інших елементів */
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     border: 1px solid #ffffffbc;
+     width: 38em;
+     height: 15em;
+     border-radius: 5em;
+     background-color: rgba(15, 14, 14, 0.742);
+     -webkit-box-shadow: -28px 5px 50px -1px rgba(47, 47, 47, 0.81);
+     box-shadow: -28px 5px 50px -1px rgba(47, 47, 47, 0.81);
+ }
+
+ .formDelete form {
+     position: absolute;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     flex-direction: column;
+ }
+
+ .formDelete h2 {
+     margin-left: 1em;
+     margin-top: 2em;
+     color: #fff;
+
+ }
+
+ .buttonsFormDelete {
+     display: flex;
+     flex-direction: row;
+ }
+
+ .buttonFormDeleteYes,
+ .buttonFormDeleteNo {
+     border: 1px solid #fff;
+     margin-top: 3em;
+     width: 7em;
+     height: 3em;
+     border-radius: 2em;
+     color: #fff;
+     margin: 1em;
+ }
+
+ .buttonFormDeleteYes a {
+     text-decoration: none;
+     color: #fff;
+ }
+
+ .buttonFormDeleteYes a:hover {
+     color: red;
+ }
+
+ .buttonFormDeleteYes:hover,
+ .buttonFormDeleteNo:hover {
+     transform: scale(1.3);
+     animation: animation 20s liner infinite;
+ }
+
+ .buttonFormDeleteYes:hover {
+     border: 3px solid red;
+     color: red;
+ }
+
+ .buttonFormDeleteNo:hover {
+     border: 3px solid rgb(0, 255, 30);
+     color: rgb(0, 255, 30);
+ }
+
+ @keyframes animation {
+     0% {
+         background-position: 0%;
+     }
+
+     100% {
+         background-position: 400%;
+     }
+ }

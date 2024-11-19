@@ -1,0 +1,94 @@
+.user-info {
+    display: flex;
+    justify-content: center;
+}
+
+.user-info-icons {
+    position: absolute;
+    font-size: 2em;
+}
+
+.butt.open {
+    position: fixed;
+    background: #ffffffeb;
+    z-index: 9999;
+}
+
+.butt {
+    position: fixed;
+    border-radius: 50%;
+}
+
+.butt>button {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 0;
+    font-size: 1.5em;
+    transition: opacity 500ms ease;
+}
+
+.butt>button:hover {
+    transform: scale(1.1);
+}
+
+.menuButt {
+    position: absolute;
+    top: 2em;
+    left: -1em;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transform: translateY(80%);
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.375s;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    margin-left: 2em;
+    color: black;
+    transition: opacity 1000ms ease;
+}
+
+.menu-item:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.menu-item>h3 {
+    color: #000000eb;
+    font-size: 0.3em;
+    margin-left: 4px;
+}
+
+.user-info-icon {
+    font-size: 0.8em;
+}
+
+.user-info-icon-logout {
+    font-size: 1.4em;
+    margin-left: -3px;
+}
+
+.user-info-icon-home {
+    font-size: 1em;
+    margin-left: 7px;
+}
+
+.butt.open>button {
+    color: #848484eb;
+}
+
+.butt.open .menuButt {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+    font-size: 30px;
+}

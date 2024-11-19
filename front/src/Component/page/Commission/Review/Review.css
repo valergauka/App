@@ -1,0 +1,169 @@
+.reviewMenu {
+    align-items: center;
+    justify-content: center;
+}
+
+.buttonPDF {
+    position: relative;
+    font-size: 2em;
+    float: inline-end;
+    /* Залишити, якщо це потрібно, але зазвичай рекомендується уникати float, якщо можливо */
+}
+
+.buttonStates {
+    position: relative;
+    margin-left: 0.9em;
+}
+
+.buttonFilter {
+    position: relative;
+    font-size: 2em;
+    margin-right: 0.5em;
+    float: inline-end;
+    /* Залишити, якщо це потрібно */
+}
+
+.titleFilterForm {
+    color: #fff;
+    font-size: 1.4em;
+    margin-top: -3em;
+    margin-bottom: 3em;
+}
+
+.titleCategory {
+    color: #fff;
+    margin-top: 2em;
+    margin-bottom: -1.6em;
+    margin-left: -20em;
+}
+
+.titleDate {
+    color: #fff;
+    margin-left: -18em;
+    margin-bottom: 0.4em;
+}
+
+.buttonNav {
+    display: inline;
+    margin-left: 30px;
+}
+
+.container {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    height: auto;
+    align-items: center;
+    justify-content: center;
+    perspective: 30rem;
+    perspective-origin: 10% 20%;
+    margin: 0 2em;
+}
+
+.link-1 {
+    text-decoration: none;
+}
+
+.mainHeadr {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    /* Змінено з end на flex-end */
+    justify-content: flex-end;
+    /* Змінено з end на flex-end */
+}
+
+.mainReview {
+    display: flex;
+    flex-direction: column;
+}
+
+.mainReviewFilter {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.formFilterReview {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ffffffbc;
+    width: 38em;
+    min-height: 15em;
+    height: 30em;
+    border-radius: 5em;
+    background-color: rgba(15, 14, 14, 0.742);
+    -webkit-box-shadow: -28px 5px 50px -1px rgba(47, 47, 47, 0.81);
+    box-shadow: -28px 5px 50px -1px rgba(47, 47, 47, 0.81);
+}
+
+.filterDate {
+    position: relative;
+    float: right;
+    /* Залишити, якщо це потрібно */
+}
+
+.meetingCommButton {
+    position: relative;
+    margin-top: 1em;
+    border: 2px solid #000;
+    border-radius: 2em;
+    height: 2em;
+    width: 13em;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: #000;
+    margin-left: 76%;
+}
+
+.buttonFormFilterReview {
+    display: flex;
+    margin-top: 1em;
+    flex-direction: row;
+}
+
+.buttonFormFilterReview div {
+    background-color: #fff;
+    margin: 0.5em;
+    width: 8em;
+    height: 1.5em;
+    border-radius: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #000;
+    cursor: pointer;
+}
+
+.buttonFormFilterReview div:hover {
+    transform: scale(1.2);
+}
+
+.meetingCommButton:hover,
+.buttonPDF:hover,
+.buttonFilter:hover {
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+.closePDF {
+    font-size: 1.2em;
+    margin: 1em;
+}
+
+.closePDF:hover {
+    transform: scale(1.4);
+    color: red;
+}
