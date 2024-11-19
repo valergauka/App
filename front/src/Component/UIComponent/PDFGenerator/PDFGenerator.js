@@ -51,8 +51,7 @@ const PDFGenerator = (props) => {
     }
 
     const sortedData = props.data.sort((a, b) => a.nameOp.localeCompare(b.nameOp));
-    const categories = [...new Set(sortedData.map((el) => el.category.id))];
-
+  
     return (
       <PDFViewer width="100%" height={600}>
         <Document>

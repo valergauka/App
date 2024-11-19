@@ -59,17 +59,16 @@ function RegistrationForm() {
 
     return (
         <div className='formRegister'>
-            
             <div className="register">
                 <div className="avatar">
-                    <img src="logo.png" />
+                    <img src="logo.png" alt="Platform Logo" />
                 </div>
                 <h2>Реєстрація</h2>
                 <h3>Вітаємо Вас на нашій платформі!</h3>
                 <form className="register-form" >
                     <div className="textbox">
                         <div className='visibleRegistration'>
-                            <MdSupervisedUserCircle/>
+                            <MdSupervisedUserCircle />
                         </div>
                         <input type="text"
                             name="name"
@@ -93,35 +92,28 @@ function RegistrationForm() {
                     </div>
                     <div className="textbox">
                         <div className='visibleRegistration' onClick={() => setShowPassword(!showPassword)}>
-                            {showPassword &&
-                                <MdVisibility />
-                            }{
-                                !showPassword &&
+                            {showPassword ?
+                                <MdVisibility /> :
                                 <MdVisibilityOff />
                             }
-                        </div>  
-                        <input type={showPassword?
-                         "text"
-                        :"password"}
+                        </div>
+                        <input type={showPassword ? "text" : "password"}
                             name="password"
                             value={formData.password}
                             onChange={handleChange}
                             required
                             className={classNameInput}
-                            placeholder="Пароль" />  
+                            placeholder="Пароль" />
                     </div>
                     {isInvalidData && (
                         <div className="errorMessage">
                             {errorText}
                         </div>
                     )}
-                    <button onClick={handleSubmit} type=" submit">Зареєструватися</button>
+                    <button onClick={handleSubmit} type="submit">Зареєструватися</button>
                     <Link to={'/'} className="linkelogin">Я вже зареєстрований!</Link>
-                
                 </form>
-                
             </div>
-      
         </div>
     );
 }

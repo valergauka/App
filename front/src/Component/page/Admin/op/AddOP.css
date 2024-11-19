@@ -14,7 +14,7 @@
     border-top: 1px solid rgb(100, 32, 25);
     border-left: 1px solid rgb(100, 32, 25);
     border-style: groove;
-    width: 650px;
+    width: 60%;
     height: auto;
     border-radius: 20px;
     font-family: "Roboto", sans-serif;
@@ -37,6 +37,7 @@
     left: 0;
     /* Використовуйте left замість float для позиціонування */
     font-size: 3em;
+    margin-top: 1em;
     margin-left: 10%;
     /* Вирівнюйте зліва, а не справа */
     transition: color 500ms ease;
@@ -44,6 +45,12 @@
 
 .backOp:hover {
     color: #75040D;
+    transform: scale(1.2);
+}
+.backOp:focus {
+    outline: none;
+    border-color: #5f030a;
+    box-shadow: 0 0 4px rgba(95, 3, 10, 0.3);
 }
 
 .title {
@@ -60,13 +67,13 @@
 .input {
     font-size: 20px;
     padding: 10px 15px;
-    width: 78%;
+    width: 88%;
     border: none;
     border-bottom: 0.1em solid #75040D;
     border-left: 0.1em solid #75040D;
     background: transparent;
     color: #75040D;
-    margin-left: 10%;
+    margin-left: 2em;
 }
 
 .input:focus {

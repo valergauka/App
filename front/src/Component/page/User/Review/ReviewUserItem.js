@@ -1,54 +1,124 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { BsArrowLeftShort } from "react-icons/bs";
-
+import axios from 'axios';
 
 import Header from "../../../UIComponent/Header";
 import Commentar from '../../../UIComponent/comment/Commentar';
 import ApproveOutput from '../../../ApproveInput/ApproveOutput';
 import FileList from '../../../UIComponent/FileList/FileList';
-
-
+import FormPdf from '..//Present/Form/FormPdf';
+import Button from '../../../UIComponent/Button';
+import NET from '../../../../network';
 import './ReviewUserItem.css';
 
-const ReviewUserItem = (props) => {
-    const approve = props.cart[0].approve;
-    const reviewId = Number(props.cart.map(el => (el.id))) 
+const ReviewUserItem = ({ cart, status, CloseCart, categoriesPdf }) => {
+    const {
+        approve,
+        category,
+        educLevel,
+        nameOp,
+        speciality,
+        specialisation,
+        branch,
+        guarantor,
+        structural,
+        faculty,
+        date,
+        file: initialFiles, // Renamed to avoid conflict with state
+    } = cart[0];
+    const reviewId = Number(cart.map(el => el.id)[0]);
 
-    const CloseForm = () => {
-        props.CloseCart();
-    }
+    const [showFileForm, setShowFileForm] = useState(false);
+    const [files, setFiles] = useState(initialFiles); // State to manage file list
+
+    const handleAddFilesClick = () => {
+        setShowFileForm(true);
+    };
+
+    const handleBackClick = () => {
+        setShowFileForm(false);
+    };
+
+    
+    const handleSubmitReview = async () => {
+        const data = { id: reviewId, statusId: 1 };
+
+        try {
+            const response = await axios.post(`${NET.APP_URL}/updateStatus`, data);
+            console.log("Відповідь сервера:", response.data);
+
+            // Перезавантаження сторінки після успішного оновлення
+            window.location.reload();
+        } catch (error) {
+            console.error("Помилка при оновленні статусу:", error);
+
+            // Відображення повідомлення для користувача
+            alert("Не вдалося оновити статус. Спробуйте ще раз.");
+        }
+    };
+
+
+
+    const handleFileDeleted = (deletedFileId) => {
+        // Update file list state after a file is deleted
+        setFiles(files.filter(file => file.id !== deletedFileId));
+    };
 
     return (
         <div>
             <Header />
-            <main className='mainCartsReview'>
-                <div className='backCart' onClick={() => CloseForm()} ><BsArrowLeftShort /></div>
-                <form className='cartForm '>
-                    <h2>{props.cart.map(el => el.category.title)}</h2>
-                    <div>
-                        <h5>Рівень: {props.cart.map(el => (el.educLevel))}</h5>
-                        <h5>Освітня програма:  {props.cart.map(el => (el.nameOp))}</h5>
-                        <h5>Спеціальність:  {props.cart.map(el => (el.speciality))}</h5>
-                        <h5>Спеціалізація:  {props.cart.map(el => (el.specialisation))}</h5>
-                        <h5>Галузь знань:  {props.cart.map(el => (el.branch))}</h5>
-                        <h5>Гарант програми:  {props.cart.map(el => (el.guarantor))}</h5>
-                        <h5>Структурний підрозділ:  {props.cart.map(el => (el.structural))}</h5>
-                        <h5>Факультет/Інститут:  {props.cart.map(el => (el.faculty))}</h5>
-                        <h5>Дата подання:  {props.cart.map(el => (el.date))}</h5>
+            {showFileForm ? (
+                <div>
+                    <div className="backCart" onClick={handleBackClick}>
+                        <BsArrowLeftShort /> Назад
                     </div>
-                    
-                    <FileList files={props.cart[0].file}/>
-                </form>
-                <div className='outputApprove'>
-                    <ApproveOutput approve={approve} />
+                    <FormPdf reviewId={reviewId} categories={categoriesPdf} />
                 </div>
+            ) : (
+                <main className="mainCartsReview">
+                    <div className="backCart" onClick={CloseCart}>
+                        <BsArrowLeftShort />
+                    </div>
+                    <form className="cartForm">
+                        <h2>{category.title}</h2>
+                        <div>
+                            <h5>Рівень: {educLevel}</h5>
+                            <h5>Освітня програма: {nameOp}</h5>
+                            <h5>Спеціальність: {speciality}</h5>
+                            <h5>Спеціалізація: {specialisation}</h5>
+                            <h5>Галузь знань: {branch}</h5>
+                            <h5>Гарант програми: {guarantor}</h5>
+                            <h5>Структурний підрозділ: {structural}</h5>
+                            <h5>Факультет/Інститут: {faculty}</h5>
+                            <h5>Дата подання: {date}</h5>
+                        </div>
+                        <FileList
+                            categories={categoriesPdf}
+                            handleAddFilesClick={handleAddFilesClick}
+                            status={status}
+                            files={files} // Pass the current state of files
+                            onFileDeleted={handleFileDeleted} // Pass the handler to remove a file
+                        />
+                            {status === 4 && (
+                                <div onClick={handleSubmitReview}>
+                                    <Button title="Подати до розгляду" />
+                                </div>
+                            )}
 
-                <Commentar idReview={reviewId} />
+                    </form>
 
-            </main>
+                    {status !== 4 && (
+                        <div>
+                            <div className="outputApprove">
+                                <ApproveOutput approve={approve} />
+                            </div>
+                            <Commentar idReview={reviewId} />
+                        </div>
+                    )}
+                </main>
+            )}
         </div>
-
     );
-}
+};
 
 export default ReviewUserItem;

@@ -1,6 +1,9 @@
 import React from "react";
 import './ApproveOutput.css';
-import { GoX } from "react-icons/go";
+
+
+
+
 const ApproveInput = (props) => {
     return (
         <div className="approveForm">

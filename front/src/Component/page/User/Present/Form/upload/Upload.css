@@ -22,7 +22,6 @@
     border-radius: inherit;
 }
 
-
 .uploadBody i {
     font-size: 30px;
 }
@@ -44,11 +43,13 @@
 .uploadButton {
     position: absolute;
     display: flex;
+    justify-content: center;
+    align-items: center;
     text-align: center;
-    justify-items: center;
     cursor: pointer;
-    margin-left: 45%;
-    
+    margin-left: 50%;
+    transform: translateX(-50%);
+    padding: 8px 16px;
 }
 
 .uploadButton:hover {
@@ -72,4 +73,23 @@
 .uploadBody.dragging {
     background-color: #f0f8ff;
     border-color: #4a90e2;
+}
+
+/* Стилі для списку файлів */
+.fileList {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.fileList ul {
+    list-style: none;
+    padding: 0;
+}
+
+.fileList li {
+    text-align: center;
+    color: #ffffff;
+    margin: 5px 0;
 }

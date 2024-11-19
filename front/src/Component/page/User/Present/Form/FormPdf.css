@@ -1,36 +1,45 @@
 .form {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
-    grid-gap: 1.5em;
+    display: flex;
+    justify-content: space-between;
+    gap: 2em;
+    /* Простір між блоками */
+    padding: 1em;
+}
+
+.textINPUT {
+    flex: 1;
+    /* Категорії займають одну частину */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
 .failINPUT {
+    flex: 1;
+    /* Додавання файлів займає другу частину */
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-start;
 }
-
 
 .outputNameFile {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    margin: 0 2em;
+    gap: 1em;
+    /* Простір між файлами */
 }
 
 .fileItem {
     border: 1px solid #9c9c9c;
     padding: 10px;
-    margin: 5px;
     display: flex;
     flex-direction: column;
-    width: 10em;
-    display: flex;
     justify-content: center;
-    justify-items: center;
     align-items: center;
-
+    width: 100%;
+    max-width: 10em;
+    /* Обмеження ширини файлу */
+    text-align: center;
 }
 
 .deleteInputPDF {
@@ -39,76 +48,22 @@
     border: none;
     padding: 5px 10px;
     cursor: pointer;
-    font-weight: bold;
     border-radius: 5px;
+    margin-top: 5px;
 }
 
 .deleteInputPDF:hover {
     background-color: #cc0000;
 }
 
-.categoriPDF {
-    display: flex;
-    flex-direction: column;
-    margin: 2em;
-    justify-content: center;
-    align-items: center;
-
-
-}
-
 .categoriPDF label {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 15px;
-}
-
-label {
+    font-size: 16px;
+    margin-bottom: 0.5em;
     color: #5a5a5a;
-    font-weight: 600;
-    width: 83%;
-    font-size: 18px;
 }
 
-.form input {
-    padding: 12px;
-    color: #847e7e;
-    background: linear-gradient(90deg, #03a8f407, #f441a601, #ffeb3b0f, #03a8f416);
-    background-size: 300%;
-    font-size: 0.7em;
-    outline: none;
-    border-top: #9e9d9d;
-    border-right: #9e9d9d;
-    transition: 250ms ease-in-out all;
-}
-
-.textINPUT {
-    position: relative;
+.formButton {
+    margin-top: 2em;
     display: flex;
     justify-content: center;
-    flex-direction: column;
-    margin: 3%;
-    margin-left: 7em;
-}
-
-
-.form.formButton {
-    margin-bottom: 10%;
-}
-
-
-.form p {
-    color: #514f4f;
-    font-size: 13px;
-    margin-left: 10%;
-    width: 40%;
-}
-
-
-
-p .deleteInputPDF:hover {
-    margin-left: 0.7em;
-    transform: scale(1.4);
-    color: rgba(148, 24, 24, 0.819);
 }

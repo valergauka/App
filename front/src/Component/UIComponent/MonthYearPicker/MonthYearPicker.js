@@ -1,45 +1,39 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './MonthYearPicker.css';
-const MonthYearPicker = ({ year, month, onSelectChange, reviews }) => {
 
+const MonthYearPicker = ({ year, month, onSelectChange, reviews }) => {
     const [selectedMonth, setSelectedMonth] = useState(month || '');
     const [selectedYear, setSelectedYear] = useState(year || '');
-
     const [uniqueMonths, setUniqueMonths] = useState([]);
     const [uniqueYears, setUniqueYears] = useState([]);
 
-
     const handleMonthChange = (event) => {
-        const selectedMonth = event.target.value;
-        setSelectedMonth(selectedMonth);
-        onSelectChange(selectedMonth, selectedYear);
+        const monthValue = event.target.value;
+        setSelectedMonth(monthValue);
+        onSelectChange(monthValue, selectedYear);
     };
 
     const handleYearChange = (event) => {
-        const selectedYear = event.target.value;
-        setSelectedYear(selectedYear);
-        onSelectChange(selectedMonth, selectedYear);
+        const yearValue = event.target.value;
+        setSelectedYear(yearValue);
+        onSelectChange(selectedMonth, yearValue);
     };
 
-
-    const getUniqueMonthsYears = () => {
+    const getUniqueMonthsYears = useCallback(() => {
         const months = reviews.map((review) => {
-            console.log(review)
             if (review.date) {
                 const dateParts = review.date.split('-');
                 return dateParts[1];
-            } else {
-                return ''; 
             }
+            return '';
         });
 
         const years = reviews.map((review) => {
             if (review.date) {
                 const dateParts = review.date.split('-');
                 return dateParts[0];
-            } else {
-                return ''; // Або інше значення за замовчуванням
             }
+            return '';
         });
 
         const uniqueMonths = [...new Set(months)];
@@ -47,11 +41,11 @@ const MonthYearPicker = ({ year, month, onSelectChange, reviews }) => {
 
         setUniqueMonths(uniqueMonths);
         setUniqueYears(uniqueYears);
-    };
+    }, [reviews]);
 
     useEffect(() => {
         getUniqueMonthsYears();
-      }, [reviews]);
+    }, [getUniqueMonthsYears]);
 
     return (
         <div className="month-year-input">

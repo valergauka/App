@@ -17,15 +17,28 @@ const ReviewUser = (props) => {
     const [opentReview, setOpentReview] = useState(false);
     const [openPDF, setOpenPDF] = useState(false);
     const [pdfData, setPDFData] = useState([]);
+    const [idStatuses, setIdStatuses] = useState(0);
+    const [error, setError] = useState('');
+    const [isLoadingPDF, setIsLoadingPDF] = useState(false);
 
     const handleOpenPDF = () => {
-        const filterDateReviews = filteredReviews; // Update this as per your logic
-        setPDFData(filterDateReviews);
+        setIsLoadingPDF(true);
+        setPDFData(filteredReviews);
         setOpenPDF(true);
+        setIsLoadingPDF(false);
     };
 
     const handleClosePDF = () => {
         setOpenPDF(false);
+    };
+
+    const handleDeleteReview = async (id) => {
+        try {
+            await axios.post(`${NET.APP_URL}/reviewDelete`, { id });
+            setFilteredReviews(filteredReviews.filter(review => review.id !== id));
+        } catch (error) {
+            console.error("Failed to delete review", error);
+        }
     };
 
     useEffect(() => {
@@ -34,7 +47,7 @@ const ReviewUser = (props) => {
                 const response = await axios.get(`${NET.APP_URL}/status`);
                 setStatuses(response.data);
             } catch (error) {
-                console.error("Failed to load statuses", error);
+                setError("Failed to load statuses");
             }
         };
 
@@ -48,36 +61,42 @@ const ReviewUser = (props) => {
     }, [user]);
 
     const handleSubmitStateButton = async (id) => {
+        setIdStatuses(id);
         try {
             const response = await axios.post(`${NET.APP_URL}/review/status`, { id });
             const allReviews = response.data;
-            const userReviews = allReviews.filter(review => review.user_id === currentUserId);
+            const userReviews = allReviews.filter((review) => review.user_id === currentUserId);
             setFilteredReviews(userReviews);
         } catch (error) {
-            console.error("Failed to fetch reviews", error);
+            console.error("Error submitting review:", error.response || error.message);
+            setError("Failed to fetch reviews");
         }
     };
 
     return (
         <div>
+            {error && <div className="error-message">{error}</div>}
             {!opentReview && (
                 <div>
-                    
                     <Header />
                     <div className="buttonStates">
-                        <button className='buttonUser' onClick={() => handleSubmitStateButton(0)}>Всі</button>
+                        <button className={`buttonUser ${idStatuses === 0 ? 'active' : ''}`} onClick={() => handleSubmitStateButton(0)}>Всі</button>
                         {statuses.map(el => (
-                            <button key={el.id} onClick={() => handleSubmitStateButton(el.id)} className='buttonUser'>
+                            <button key={el.id} onClick={() => handleSubmitStateButton(el.id)} className={`buttonUser ${idStatuses === el.id ? 'active' : ''}`}>
                                 {el.title}
                             </button>
                         ))}
                     </div>
                     <main>
                         {!openPDF ? (
-                            <GrDocumentPdf className='iconPDF' onClick={handleOpenPDF} />
+                            isLoadingPDF ? (
+                                <div>Loading PDF...</div>
+                            ) : (
+                                <GrDocumentPdf className='iconPDFUser' onClick={handleOpenPDF} />
+                            )
                         ) : (
                             <div className='pdfModal'>
-                                <div className='pdfContent'>
+                                <div className='pdfContentUser'>
                                     <GrClose className='closePDF' onClick={handleClosePDF} />
                                     <PDFGenerator categories={props.buttons} data={pdfData} />
                                 </div>
@@ -91,6 +110,8 @@ const ReviewUser = (props) => {
                                     categories={props.buttons}
                                     openCart={props.openCart}
                                     review={el}
+                                    status={idStatuses}
+                                    onDelete={handleDeleteReview}
                                 />
                             ))}
                         </div>
@@ -101,6 +122,7 @@ const ReviewUser = (props) => {
             {opentReview && (
                 <div>
                     <ReviewUserItem
+                        status={idStatuses}
                         categories={props.buttons}
                         categoriesPdf={props.categoriesPdf}
                         CloseCart={() => setOpentReview(!opentReview)}
@@ -108,8 +130,6 @@ const ReviewUser = (props) => {
                     />
                 </div>
             )}
-
-            
         </div>
     );
 };

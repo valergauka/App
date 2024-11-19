@@ -7,36 +7,38 @@ import NET from "../../../../network";
 
 const Program = (props) => {
     const id = Number(props.review.id);
-    const data = { id: id };
+    const data = { id: id, statusId: 3 };
     const [users, setUsers] = useState([]);
     const [selectedUserId, setSelectedUserId] = useState(props.review.responsable[0] ? props.review.responsable[0].id : "");
 
     const handleSubmit = () => {
         axios.post(`${NET.APP_URL}/updateStatus`, data)
             .then(response => {
-                window.location.reload();
+                setTimeout(() => {
+                    window.location.reload();
+                }, 500);
             })
             .catch(error => {
+                setTimeout(() => {
+                    window.location.reload();
+                }, 500);
                 console.error("Помилка при оновленні статусу:", error);
             });
     };
-
-    const handleAssignUser = () => {
-        if (selectedUserId) {
-            const assignData = {
-                reviewId: id,
-                userId: selectedUserId,
-            };
-            axios.post(`${NET.APP_URL}/assignUser`, assignData)
-                .then(response => {
-                    console.log(response.data);
-                })
-                .catch(error => {
-                    console.error("Помилка при призначенні користувача:", error);
-                });
-        } else {
-            alert('Будь ласка, виберіть користувача.');
-        }
+    console.log(props.review.responsable[0]?.name)
+    const handleAssignUser = (userId) => {
+        setSelectedUserId(userId); // Вибір відповідального
+        const assignData = {
+            reviewId: id,
+            userId: userId,
+        };
+        axios.post(`${NET.APP_URL}/assignUser`, assignData)
+            .then(response => {
+                console.log(response.data);
+            })
+            .catch(error => {
+                console.error("Помилка при призначенні користувача:", error);
+            });
     };
 
     useEffect(() => {
@@ -68,22 +70,19 @@ const Program = (props) => {
                 {props.openButtonComm && (
                     <div className="user-selection">
                         {selectedUserId === "" ? (
-                            <>
-                                <select
-                                    value={selectedUserId}
-                                    onChange={(e) => setSelectedUserId(e.target.value)}
-                                >
-                                    <option value="" disabled>Оберіть користувача</option>
-                                    {users.map((user) => (
-                                        <option key={user.id} value={user.id}>
-                                            {user.name}
-                                        </option>
-                                    ))}
-                                </select>
-                                <button onClick={handleAssignUser}>Призначити</button>
-                            </>
+                            <select
+                                value={selectedUserId}
+                                onChange={(e) => handleAssignUser(e.target.value)}
+                            >
+                                <option value="" disabled>Оберіть користувача</option>
+                                {users.map((user) => (
+                                    <option key={user.id} value={user.id}>
+                                        {user.name}
+                                    </option>
+                                ))}
+                            </select>
                         ) : (
-                            <p><b>Відповідальний:</b> {users.find(user => user.id === selectedUserId)?.name}</p>
+                                <p><b>Відповідальний:</b> {users.find(user => user.id === selectedUserId)?.name || props.review.responsable[0]?.name}</p>
                         )}
                     </div>
                 )}

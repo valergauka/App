@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import NET from '../../../network';
 import axios from 'axios';
 import { GoChevronDown } from "react-icons/go";

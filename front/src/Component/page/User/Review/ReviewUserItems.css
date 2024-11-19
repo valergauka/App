@@ -86,3 +86,49 @@ p {
     text-align: center;
     color: rgb(100, 32, 25);
 }
+
+.deleteButton {
+    background-color: rgb(100, 32, 25);
+    /* Bright red background */
+    color: white;
+    /* White text for contrast */
+    border: none;
+    /* Remove default border */
+    padding: 6px 16px;
+    /* Slightly more compact padding */
+    font-size: 16px;
+    /* Slightly larger font size */
+    border-radius: 6px;
+    /* Slightly rounded corners */
+    cursor: pointer;
+    /* Pointer cursor on hover */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    /* Smooth transitions */
+    margin-bottom: 10px;
+    /* Space below the button */
+    display: block;
+    /* Ensure the button is block-level for alignment */
+    width: 100%;
+    /* Full width to ensure it's aligned with the content */
+    text-align: center;
+    /* Center text */
+}
+
+.deleteButton:hover {
+    background-color: rgb(100, 32, 25);
+    /* Darker red for hover effect */
+    transform: scale(1.05);
+    /* Enlarge slightly on hover */
+}
+
+.deleteButton:focus {
+    outline: none;
+    /* Remove focus outline */
+}
+
+.deleteButton:active {
+    background-color: rgb(255, 25, 0);
+    /* Keep dark red when clicked */
+    transform: scale(1);
+    /* Return to normal size */
+}

@@ -112,6 +112,7 @@ Route::post('/forgot-password', [ForgotPasswordController::class,'sendResetLinkE
 
 Route::post('/upload-files', [FileController::class, 'uploadFiles']);
 Route::get('files/{reviewId}',  [FileController::class, 'getFilesByReviewId']);
+Route::delete('/files/{id}', [FileController::class, 'destroy']);
 
 Route::post('/createComment', [CommentController::class, 'create']);
 Route::post('/reviews/comments', [CommentController::class,'comments']);

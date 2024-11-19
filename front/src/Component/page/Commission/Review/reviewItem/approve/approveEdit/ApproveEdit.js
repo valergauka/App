@@ -1,8 +1,7 @@
-import { Link } from "@react-pdf/renderer";
 import React, { useState } from "react";
-import Button from "../../../../../../UIComponent/Button";
-import axios from 'axios'; 
+import axios from 'axios';
 import NET from "../../../../../../../network";
+import './ApproveEdit.css';
 
 const ApproveEdit = (props) => {
     const [formData, setFormData] = useState({
@@ -19,14 +18,11 @@ const ApproveEdit = (props) => {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        if (typeof formData === 'object') { // Переконатися, що formData є об'єктом
-            setFormData({ ...formData, [name]: value });
-        }
+        setFormData({ ...formData, [name]: value });
     };
-    
 
     const handleSubmit = (event) => {
-        event.preventDefault(); // Запобігає перезавантаженню сторінки
+        event.preventDefault();
 
         axios.post(`${NET.APP_URL}/updateApprove`, formData)
             .then((response) => {
@@ -37,90 +33,98 @@ const ApproveEdit = (props) => {
             });
     };
 
-
     return (
-        <div className='aprover'>
-            <h3>{props.categoryTitle}</h3>
-            <form className='formAppApprove' onSubmit={(event) => handleSubmit(event, formData)}>
+        <div className="approve-edit-container">
+            <h3 className="approve-edit-title">{props.categoryTitle}</h3>
+            <form className="approve-edit-form" onSubmit={handleSubmit}>
 
-                <div className='cartNumApprove'>
-                    <label className='labelApproveApprove'>Протокол засідання Комісії</label>
-                    <div className='date-numApprove'>
+                <div className="approve-edit-section">
+                    <label className="approve-edit-label">Протокол засідання Комісії</label>
+                    <div className="approve-edit-inputs">
                         <input
-                            type='date'
-                            name='committeMNDate'
+                            type="date"
+                            name="committeMNDate"
                             lang="uk"
                             value={formData.committeMNDate}
                             onChange={handleInputChange}
+                            className="approve-edit-date"
                         />
                         <input
-                            type='number'
+                            type="number"
                             min={1}
-                            placeholder='Номер'
+                            placeholder="Номер"
                             lang="uk"
-                            name='committeMNNumber'
+                            name="committeMNNumber"
                             value={formData.committeMNNumber}
                             onChange={handleInputChange}
+                            className="approve-edit-number"
                         />
                     </div>
                 </div>
-                <div className='cartNumApprove'>
-                    <label className='labelApproveApprove'>Протокол засідання Вченої ради</label>
-                    <div className='date-numApprove'>
+
+                <div className="approve-edit-section">
+                    <label className="approve-edit-label">Протокол засідання Вченої ради</label>
+                    <div className="approve-edit-inputs">
                         <input
-                            type='date'
-                            name='committeSCDate'
+                            type="date"
+                            name="committeSCDate"
                             lang="uk"
                             value={formData.committeSCDate}
                             onChange={handleInputChange}
+                            className="approve-edit-date"
                         />
                         <input
-                            type='number'
+                            type="number"
                             min={1}
-                            placeholder='Номер'
+                            placeholder="Номер"
                             lang="uk"
-                            name='committeSCNumber'
+                            name="committeSCNumber"
                             value={formData.committeSCNumber}
                             onChange={handleInputChange}
+                            className="approve-edit-number"
                         />
                     </div>
                 </div>
-                <div className='cartNumApprove'>
-                    <label className='labelApproveApprove'>Наказ про утвердження</label>
-                    <div className='date-numApprove'>
+
+                <div className="approve-edit-section">
+                    <label className="approve-edit-label">Наказ про утвердження</label>
+                    <div className="approve-edit-inputs">
                         <input
-                            type='date'
-                            name='orderDate'
+                            type="date"
+                            name="orderDate"
                             lang="uk"
                             value={formData.orderDate}
                             onChange={handleInputChange}
-                            placeholder='Виберіть дату'
+                            className="approve-edit-date"
+                            placeholder="Виберіть дату"
                         />
                         <input
-                            type='number'
+                            type="number"
                             min={1}
-                            placeholder='Номер'
+                            placeholder="Номер"
                             lang="uk"
-                            name='orderNumber'
+                            name="orderNumber"
                             value={formData.orderNumber}
                             onChange={handleInputChange}
+                            className="approve-edit-number"
                         />
                     </div>
                 </div>
-            </form>
-            <label className='labelOnApprove'>Ухвала комісії </label>
-            <div>
-                <textarea
-                    className='comentFormApprove'
-                    name='resolution'
-                    value={formData.resolution}
-                    onChange={handleInputChange}
-                ></textarea>
-            </div>
-            <div className='buttonAppApprove' >
-                <button className="buttonAppApproveForm" onClick={handleSubmit}>Зміники</button>
 
-            </div>
+                <div className="approve-edit-section">
+                    <label className="approve-edit-resolution-label">Ухвала комісії</label>
+                    <textarea
+                        className="approve-edit-textarea"
+                        name="resolution"
+                        value={formData.resolution}
+                        onChange={handleInputChange}
+                    />
+                </div>
+
+                <div>
+                    <button className="approve-edit-button" type="submit">Зміни</button>
+                </div>
+            </form>
         </div>
     );
 }

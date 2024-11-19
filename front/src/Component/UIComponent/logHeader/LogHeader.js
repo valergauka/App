@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useAuth } from '../../../Sign/authContext/AuthContext';
 import { BiLogOut } from "react-icons/bi";
 import { FiAlignJustify } from "react-icons/fi";

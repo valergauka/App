@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import { BsArrowLeftShort } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import Button from '../../../../UIComponent/Button';
@@ -16,7 +16,6 @@ const ReviewItem = (props) => {
     const approv = props.cart[0].approve;
     const [openFromDelete, setOpenFormDelete] = useState(false);
     const [openEditForm, setOpenEditForm] = useState(false);
-    const [idDelete, setIdDelete] = useState(null);
     const [comment, setComment] = useState('');
     const { user } = useAuth();
     const reviewId = Number(props.cart.map(el => (el.id))) 
@@ -39,7 +38,6 @@ const ReviewItem = (props) => {
     };
 
     const handleSubmit = () => {
-        setIdDelete(approv[0].id);
         setOpenFormDelete(true);
     };
 

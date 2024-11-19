@@ -1,7 +1,42 @@
+.mainForm {
+    position: relative;
+    border-radius: 80px;
+    width: 66em;
+    height: auto;
+    border-style: dashed;
+    justify-content: flex-start;
+    background: #fefefe;
+    border: 3px solid rgb(100, 32, 25);
+    border-top: 1px solid rgb(100, 32, 25);
+    border-left: 1px solid rgb(100, 32, 25);
+    background-size: 300%;
+    display: block;
+    margin: 3% auto;
+    justify-items: center;
+}
+
+
+
+.titleForm {
+    text-align: center;
+    text-shadow: 1px 1px 2px rgb(21, 20, 44), 0 0 1em rgb(192, 192, 184), 0 0 0.2em rgba(172, 172, 172, 0.692);
+    font: 1.5em Georgia, serif;
+}
+
+
+.formButton {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    text-decoration: none;
+    margin-bottom: 3%;
+}
+
 .back {
     position: absolute;
     font-size: 40px;
-    margin: 2% 0 0 2% ;
+    margin: 2% 0 0 2%;
     transition: opacity 500ms ease;
     cursor: pointer;
     color: black;
@@ -12,8 +47,9 @@
     color: rgb(161, 106, 106);
 }
 
-form label,form input {
-    width: 100%;
+.labelForm,
+.inputText{
+    width: 900px;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -23,14 +59,14 @@ form label,form input {
     color: #5a5a5a;
     font-weight: 600;
     margin: 18px 0 5px 0;
-    width: 83%;
+    width: 100%;
     font-size: 18px;
 }
 
 .inputText::-webkit-outer-spin-button,
 .inputText::-webkit-inner-spin-button {
     -webkit-appearance: none;
-    margin: 0; 
+    margin: 0;
 }
 
 .inputText {
@@ -39,16 +75,16 @@ form label,form input {
     background-size: 300%;
     font-size: 18px;
     outline: none;
-    transition: 250ms ease-in-out all; 
-    width: 80%;
+    transition: 250ms ease-in-out all;
+    width: 700px;
     border-top: #5a5a5a;
     border-right: #5a5a5a;
 }
 
-
 .inputText,
-.labelForm{
-    margin-left: 10%;
+.labelForm {
+    margin-left: 5%;
+    /* Adjusted to maintain the center alignment */
 }
 
 .spetializanion,
@@ -60,8 +96,6 @@ form label,form input {
     display: block;
 }
 
-.subjSpetializanion.activ{
+.subjSpetializanion.activ {
     display: block;
 }
-
-

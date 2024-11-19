@@ -1,82 +1,86 @@
-.buttonAppApprove {
-    margin: 0.5em 0;
+.mainForm {
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    justify-items: center;
-    /* Це значення не є частиною Flexbox, можливо, його слід видалити */
     align-items: center;
-}
-
-.mainForm p {
-    margin-left: 1em;
-    margin-top: 1em;
-    color: #000000;
-    display: flex;
-    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+    background-color: #f9f9f9;
 }
 
 .formAppApprove {
     display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    background: #f9f9f9;;
+    border-radius: 10px;
 }
 
 .cartNumApprove {
-    height: 200px;
-    margin-right: 2em;
-    flex: 1 0 250px;
-}
-
-.labelApproveApprove {
-    position: relative;
-    color: #5a5a5a;
-    margin: 1em 4em;
-    width: 83%;
-    font-size: 13px;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 3em;
-    margin-right: 1em;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
 }
 
 .date-numApprove {
     display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    /* Змінено з start на flex-start */
-    margin-left: 5%;
-    width: 100%;
-    height: 4em;
-}
-
-.labelOnApprove {
-    display: flex;
-    justify-content: center;
-    font-size: 15px;
-    margin-left: 45%;
+    gap: 10px;
+    /* Відступ між датою і номером */
+    justify-content: space-between;
+    align-items: center;
 }
 
 .date-numApprove input {
-    color: #5a5a5a;
-    padding: 12px;
-    background-size: 70%;
+    width: 48%;
+    /* Поля займають половину рядка */
+    padding: 10px;
     font-size: 14px;
-    outline: none;
-    transition: 250ms ease-in-out all;
-    border-top: #5a5a5a;
-    border-right: #5a5a5a;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.labelApproveApprove {
+    color: #333;
+    font-weight: bold;
+    margin-left: 10%;
+    font-size: 14px;
+    text-align: left;
+    margin-bottom: 5px;
+}
+.labelOn {
+    display: block;
+    /* Забезпечує окремий рядок для тексту */
     text-align: center;
-    width: 40%;
+    /* Вирівнює текст по центру */
+    font-size: 16px;
+    /* Розмір шрифту */
+    color: #333;
+    /* Колір тексту */
+    margin-bottom: 10px;
+    /* Відступ знизу */
+    font-weight: bold;
+    /* Виділення тексту */
 }
 
 .comentFormApprove {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(90deg, #03a8f400, #f441a600, #ffeb3b00, #03a8f400);
-    margin-left: 15%;
     width: 70%;
     min-height: 150px;
-    font-size: 18px;
+    font-size: 16px;
+    color: #333;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    resize: none;
+}
+
+.buttonAppApprove {
+    display: flex;
+    justify-content: center;
+    width: 100%;
 }

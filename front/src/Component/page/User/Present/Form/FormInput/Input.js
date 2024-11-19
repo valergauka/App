@@ -13,7 +13,9 @@ const Input = (props) => {
 
     const onChangeHandler = (inputText) => {
         let matches = [];
-        if (inputText.length > 0) {
+
+        // Перевіряємо, чи існує arrayData і чи є він масивом
+        if (props.arrayData && Array.isArray(props.arrayData) && inputText.length > 0) {
             matches = props.arrayData.filter(elem => {
                 const regex = new RegExp(`${inputText}`, 'gi');
                 return elem.match(regex);

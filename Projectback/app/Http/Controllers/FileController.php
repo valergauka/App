@@ -42,6 +42,25 @@ class FileController extends Controller
         }
     }
 
+    public function destroy($id)
+    {
+        $file = File::find($id);
+        
+        if ($file) {
+            // Delete the file from storage
+            $filePath = storage_path('app/' . $file->file_path);
+            if (file_exists($filePath)) {
+                unlink($filePath);
+            }
+
+            // Delete the record from the database
+            $file->delete();
+            return response()->json(['message' => 'File deleted successfully'], 200);
+        }
+
+        return response()->json(['message' => 'File not found'], 404);
+    }
+
     public function getFilesByReviewId($reviewId) {
         $files = File::where('review_id', $reviewId)->get();
 

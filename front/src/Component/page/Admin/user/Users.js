@@ -1,5 +1,5 @@
+import React, { useState, useEffect, useCallback } from "react";
 import Buttons from "../../../UIComponent/buttons/Buttons";
-import React, { useState, useEffect } from "react";
 import { MdDeleteForever } from "react-icons/md";
 import NET from '../../../../network';
 import axios from 'axios';
@@ -72,7 +72,7 @@ const Users = () => {
     const [groupId, setGroupId] = useState('');
     const [updateUser, setUpdateUser] = useState(null); // State to hold the user being updated
 
-    const fetchUsers = async () => {
+    const fetchUsers = useCallback(async () => {
         try {
             const response = await axios.get(`${NET.APP_URL}/getUsersByGroupId?id=${groupId}`);
             const initialUsers = response.data.map(user => ({ ...user, openFormRole: false }));
@@ -81,13 +81,13 @@ const Users = () => {
         } catch (error) {
             console.error('Помилка при отриманні користувачів:', error.response ? error.response.data : error.message);
         }
-    };
+    }, [groupId]); // Додаємо groupId як залежність
 
     useEffect(() => {
         if (groupId) {
             fetchUsers();
         }
-    }, [groupId]);
+    }, [groupId, fetchUsers]); // Додаємо fetchUsers до залежностей
 
     useEffect(() => {
         const results = users.filter(user =>
@@ -126,9 +126,10 @@ const Users = () => {
     useEffect(() => {
         if (isDeleted) {
             // Оновлюємо сторінку після видалення користувача
-            window.location.reload();
+            fetchUsers();
+            setIsDeleted(false);
         }
-    }, [isDeleted]);
+    }, [isDeleted, fetchUsers]);
 
     const handleUpdateUserClick = (user) => {
         setUpdateUser(user); // Set the user to be updated

@@ -1,78 +1,131 @@
-.cartNumApprove {
-    height: 180px;
-    margin-right: 2em;
-    flex: 1 0 250px;
-}
-
-.labelApproveApprove {
-    position: relative;
-    color: #5a5a5a;
-    margin: 1em 4em;
+.approve-edit-container {
     width: 80%;
-    font-size: 13px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 3em;
-    margin-right: 1em;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #f9f9f9;
+    /* Світло-сірий фон */
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
 }
 
-.buttonAppApproveForm {
-    position: relative;
-    width: 6em;
-    height: 2em;
-    margin-left: 5em;
-    margin-bottom: -4em;
-    transition: opacity 4000ms ease;
-    background: #fefefe;
-    border: 3px solid rgb(100, 32, 25);
-    border-top: 1px solid rgb(100, 32, 25);
-    border-left: 1px solid rgb(100, 32, 25);
-    border-radius: 2em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.date-numApprove {
-    display: flex;
-    flex-direction: row;
-    justify-content: start;
-    margin-left: 5%;
-    width: 50%;
-    height: 4em;
-}
-
-
-.labelOnApprove {
-    display: flex;
-    justify-content: center;
-    font-size: 15px;
-    margin-left: 10%;
-}
-
-.date-numApprove input {
-    color: #5a5a5a;
-    padding: 12px;
-    background: linear-gradient(90deg, #03a8f407, #f441a601, #ffeb3b0f, #03a8f416);
-    background-size: 300%;
-    font-size: 1em;
-    outline: none;
-    transition: 250ms ease-in-out all;
-    border-top: #5a5a5a;
-    border-right: #5a5a5a;
+.approve-edit-title {
     text-align: center;
+    font-size: 24px;
+    font-weight: 600;
+    color: rgb(100, 32, 25);
+    /* Темно-червоно-коричневий для заголовка */
+    margin-bottom: 30px;
 }
 
+.approve-edit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
 
-.comentFormApprove {
+.approve-edit-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.approve-edit-label {
+    font-size: 16px;
+    font-weight: 500;
+    color: rgb(100, 32, 25);
+    /* Темно-червоно-коричневий для етикеток */
+    text-align: left;
+    margin-bottom: 5px;
+}
+
+.approve-edit-inputs {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.approve-edit-inputs input {
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #c4c4c4;
+    border-radius: 8px;
+    background-color: #ffffff;
+    color: rgb(100, 32, 25);
+    /* Темно-червоно-коричневий текст */
+    width: 45%;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.approve-edit-inputs input:focus {
+    border-color: rgb(100, 32, 25);
+    /* Темно-червоно-коричневий при фокусі */
+    box-shadow: 0 0 6px rgba(100, 32, 25, 0.4);
+    outline: none;
+}
+
+.approve-edit-resolution-label {
+    font-size: 18px;
+    color: rgb(100, 32, 25);
+    /* Темно-червоно-коричневий */
+    font-weight: bold;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.approve-edit-textarea {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #c4c4c4;
+    border-radius: 8px;
+    background-color: #ffffff;
+    color: rgb(100, 32, 25);
+    /* Темно-червоно-коричневий текст */
+    resize: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.approve-edit-textarea:focus {
+    border-color: rgb(100, 32, 25);
+    box-shadow: 0 0 6px rgba(100, 32, 25, 0.4);
+    outline: none;
+}
+
+.approve-edit-button {
+    display: block;
+    width: 200px;
+    padding: 12px;
+    margin: 20px auto;
+    font-size: 16px;
+    color: #fff;
+    background-color: rgb(100, 32, 25);
+    /* Темно-червоно-коричневий для кнопки */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.approve-edit-button:hover {
+    background-color: #8b3e33;
+    /* Темніший відтінок */
+    transform: translateY(-2px);
+}
+
+.approve-edit-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.labelOnApproveEdd {
     display: flex;
     justify-content: center;
-    align-items: center;
-    background: linear-gradient(90deg, #03a8f400, #f441a600, #ffeb3b00, #03a8f400);
-    margin-left: 15%;
-    width: 70%;
-    min-height: 150px;
     font-size: 18px;
-
+    color: rgb(100, 32, 25);
+    /* Темно-червоно-коричневий */
+    font-weight: bold;
+    margin-top: 30px;
 }

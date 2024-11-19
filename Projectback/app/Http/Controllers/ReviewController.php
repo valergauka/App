@@ -22,19 +22,19 @@ class ReviewController extends Controller
     }
 
 
-public function reviewStatus(Request $request) {
-    $id = $request->input('id');
-    $togg = $request->input('togg');
-    $userId = $request->input('userId'); 
-    $reviews = [];
+    public function reviewStatus(Request $request) {
+        $id = $request->input('id');
+        $togg = $request->input('togg');
+        $userId = $request->input('userId'); 
+        $reviews = [];
 
-    if ($togg === 1) {
-        // Крок 1: Отримуємо всі review_id для користувача
-        $responsibleReviews = ResponsibleForReview::where('user_id', $userId)
-            ->pluck('review_id'); // Отримуємо тільки поле review_id
+        if ($togg === 1) {
+            // Крок 1: Отримуємо всі review_id для користувача
+            $responsibleReviews = ResponsibleForReview::where('user_id', $userId)
+                ->pluck('review_id'); // Отримуємо тільки поле review_id
 
-        foreach ($responsibleReviews as $reviewId) {
-            $reviewQuery = Review::with([
+            foreach ($responsibleReviews as $reviewId) {
+                $reviewQuery = Review::with([
                     'user:id,name',        // Завантажуємо дані про користувача
                     'category:id,title',   // Завантажуємо дані про категорію
                     'approve',             // Завантажуємо approve
@@ -53,40 +53,36 @@ public function reviewStatus(Request $request) {
                 $reviews[] = $review; // Додаємо відгук до масиву $reviews
             }
         }
-    } else {
+        } else {
         // Якщо toggle вимкнений
-        $reviewQuery = Review::with('user:name,id', 'category:title,id', 'approve', 'file');
+            $reviewQuery = Review::with('user:name,id', 'category:title,id', 'approve', 'file');
 
-        if ($id !== 0) {
-            $reviewQuery->where('status_id', $id); // Фільтруємо за статусом
+            if ($id !== 0) {
+                $reviewQuery->where('status_id', $id); // Фільтруємо за статусом
+            }
+
+            $reviews = $reviewQuery->get();
         }
 
-        $reviews = $reviewQuery->get();
+        foreach ($reviews as &$review) {
+            $review->responsable = $review->responsibleUsers->map(function ($responsible) {
+                return $responsible->user; // Отримуємо відповідального користувача
+            });
+        }
+
+        return response()->json($reviews);
     }
 
-    // Додаємо поле responsable
-    foreach ($reviews as &$review) {
-        $review->responsable = $review->responsibleUsers->map(function ($responsible) {
-            return $responsible->user; // Отримуємо відповідального користувача
-        });
-    }
-
-    return response()->json($reviews);
+   public function updateStatus(Request $request)
+{
+    $id = $request->input('id');
+    $status_id = $request->input('statusId');
+    $review = Review::find($id);
+            if ($review) {
+                $review->status_id = $status_id; // Update to the desired status
+                $review->save();
+            }
 }
-
-    public function updateStatus(Request $request)
-    {
-        $id = $request->input('reviewId');
-        $userId = $request->input('userId'); // ID нового відповідального
-        $responsible = ResponsibleForReview::where('review_id', $id)->first();
-        $responsible->delete();
-        $newResponsible = new ResponsibleForReview();
-        $newResponsible->user_id = $userId; // ID нового відповідального
-        $newResponsible->review_id = $id; // Встановлення review_id для нового відповідального
-        $newResponsible->save();
-        
-        return response()->json($responsible);
-    }
 
 
     public function reviewCreate(Request $request)
@@ -110,15 +106,27 @@ public function reviewStatus(Request $request) {
         return response()->json($reviewId);
     }
 
-    public function assignUser(Request $request){
-        $resp = new ResponsibleForReview();
-        $resp ->user_id = $request->input('userId');
-        $resp ->review_id = $request->input('reviewId');
-        $resp->save();
-        $id = $resp->id;
 
-        return response()->json($id);
+    public function assignUser(Request $request)
+    {
+        // Перевіряємо, чи вже є відповідальний для цієї заяви
+        $existingResponsible = ResponsibleForReview::where('review_id', $request->input('reviewId'))->first();
+        
+        if ($existingResponsible) {
+            // Оновлюємо відповідального
+            $existingResponsible->user_id = $request->input('userId');
+            $existingResponsible->save();
+        } else {
+            // Якщо немає, створюємо нового
+            $resp = new ResponsibleForReview();
+            $resp->user_id = $request->input('userId');
+            $resp->review_id = $request->input('reviewId');
+            $resp->save();
+        }
+
+        return response()->json(['success' => true, 'message' => 'Відповідальний призначений успішно.']);
     }
+
 
 
     public function deleteReview(Request $request)

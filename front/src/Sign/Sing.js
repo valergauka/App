@@ -1,5 +1,5 @@
 import { Link, useHistory } from "react-router-dom";
-import React, { useEffect } from "react";
+import React from "react";
 import Button from "../Component/UIComponent/Button";
 import { useLocation } from 'react-router-dom';
 

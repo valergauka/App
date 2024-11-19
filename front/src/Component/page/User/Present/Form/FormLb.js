@@ -7,7 +7,6 @@ import Input from './FormInput/Input';
 import axios from 'axios';
 import { useAuth } from '../../../../../Sign/authContext/AuthContext';
 import './FormLb.css';
-import './Form.css';
 
 export default function FormLb(props) {
   const { user } = useAuth();
@@ -50,7 +49,7 @@ export default function FormLb(props) {
   const [structural, setStructural] = useState('');
   const [faculty, setFaculty] = useState('');
   const category_id = props.orders.id;
-  const status_id = 1;
+  const status_id = 4;
   const user_id = user.id;
 
   const handleSubmit = async (event) => {
@@ -73,8 +72,11 @@ export default function FormLb(props) {
     axios
       .post(`${NET.APP_URL}/reviewCreate`, formData)
       .then((response) => {
-        props.reviewId(response.data);
-        props.OpenFormPdf();
+        // Передаємо дані відгуку у батьківський компонент
+        if (props.reviewId) {
+          props.reviewId(response.data);
+        }
+        props.CloseForm(); // Закриваємо форму після відправки
       })
       .catch((error) => {
         console.error(error);
@@ -94,23 +96,22 @@ export default function FormLb(props) {
   useEffect(() => {
     const loadOp = async () => {
       const response = await axios.get(`${NET.APP_URL}/op`);
-      setOp(response.data)
-    }
+      setOp(response.data);
+    };
     loadOp();
   }, []);
 
-  // Заповнення масивів для вибору спеціальності та інших полів
-  op.map((el) => branchOut.push(el.branch));
+  op.forEach((el) => {
+    branchOut.push(el.branch);
+  });
 
-  let f = 0;
-  op.map(el => {
+  op.forEach((el) => {
     if (branch === el.branch) {
       specialityOut.push(el.speciality);
       if (speciality === el.speciality) {
         specialisationOut.push(el.specialisation);
         if (specialisation === el.specialisation) {
           ops.push(el.op);
-          f = 1;
         }
       }
     }
@@ -123,7 +124,7 @@ export default function FormLb(props) {
   return (
     <div>
       <Header />
-      <main className='mainForm' >
+      <main className='mainForm'>
         <div onClick={CloseForm} className='back'><BsArrowLeftShort /></div>
         <div className='titleForm'>
           <h3>{props.orders.title}</h3>
@@ -149,25 +150,19 @@ export default function FormLb(props) {
           </div>
 
           <label className='labelForm'>Освітня програма:</label>
-          <Input nameInput='op' key='op' placeholderInput="Код та назва" arrayData={unique(ops)} value={nameOp} setValue={setNameOp} />
+          <Input nameInput='op' key='op' placeholderInput="Код та назва" arrayData={ops} value={nameOp} setValue={setNameOp} />
 
-          <label className='labelForm'>Гарант програми:</label>
-          <input
-            className='inputText'
-            type="text"
-            name="guarantor"
-            required placeholder="Прізвище ім`я по-батькові"
-            value={guarantor} onChange={(e) => setGuarantor(e.target.value)} />
+          <label className='labelForm'>Гарант:</label>
+          <Input nameInput='guarantor' key='guarantor' placeholderInput="ФІО" value={guarantor} setValue={setGuarantor} />
 
           <label className='labelForm'>Структурний підрозділ:</label>
-          <input className='inputText' type="text" required placeholder="Кафедра, факультет/інститут..."
-            value={structural} onChange={(e) => setStructural(e.target.value)} />
+          <Input nameInput='structural' key='structural' placeholderInput="Назва підрозділу" value={structural} setValue={setStructural} />
 
-          <label className='labelForm'>Факультет/Інститут:</label>
-          <Input nameInput='faculty' key='faculty' placeholderInput="Повна назва" arrayData={facultyName} value={faculty} setValue={setFaculty} />
+          <label className='labelForm'>Факультет:</label>
+          <Input nameInput='faculty' key='faculty' placeholderInput="Факультет" arrayData={facultyName} value={faculty} setValue={setFaculty} />
 
           <div onClick={handleSubmit} className='formButton'>
-            <Button title="Далі" />
+            <Button title="Зберегти у чернетках" />
           </div>
         </form>
       </main>

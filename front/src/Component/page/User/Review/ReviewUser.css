@@ -9,12 +9,12 @@
 }
 
 /* Styles for the PDF button */
-.iconPDF {
+.iconPDFUser {
     position: absolute;
     top: 0;
     right: 0;
     margin: 1em;
-    /* Adjust margin as needed */
+    font-size: 1.5em;
     cursor: pointer;
 }
 
@@ -32,8 +32,7 @@
     z-index: 1000;
     /* Ensure the modal is on top of other content */
 }
-
-.pdfContent {
+.pdfContentUser {
     margin-top: 28%;
     width: 80%;
     background: #fff;

@@ -3,6 +3,7 @@ import './Upload.css';
 
 const Upload = (props) => {
     const [drag, setDrag] = useState(false);
+    const [filesList, setFilesList] = useState([]);
 
     const dragStartHandler = (e) => {
         e.preventDefault();
@@ -21,6 +22,7 @@ const Upload = (props) => {
 
         // Перевіряємо, чи всі файли є PDF
         if (files.every(file => file.type === 'application/pdf' || file.name.endsWith('.pdf'))) {
+            setFilesList(files); // Додаємо файли до стану
             props.handleFileChange(files);
         } else {
             alert('Будь ласка, перетягніть лише файли PDF.');
@@ -33,6 +35,7 @@ const Upload = (props) => {
 
         // Перевіряємо, чи всі файли є PDF
         if (files.every(file => file.type === 'application/pdf' || file.name.endsWith('.pdf'))) {
+            setFilesList(files); // Додаємо файли до стану
             props.handleFileChange(files);
         } else {
             alert('Будь ласка, виберіть лише файли PDF.');
@@ -49,6 +52,15 @@ const Upload = (props) => {
             >
                 <i className="riFileUploadLine"></i>
                 {drag ? <p>Відпустіть файли</p> : <p>Перетягніть файли</p>}
+                <div className="fileList">
+                    {filesList.length > 0 && (
+                        <ul>
+                            {filesList.map((file, index) => (
+                                <li key={index}>{file.name}</li>
+                            ))}
+                        </ul>
+                    )}
+                </div>
             </div>
             <footer className="uploadFooter">
                 <label htmlFor="uploadInput" className="uploadButton">

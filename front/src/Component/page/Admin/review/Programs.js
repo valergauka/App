@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import { debounce } from 'lodash';
 import Program from './Program';
 import Buttons from "../../../UIComponent/buttons/Buttons";
@@ -13,7 +13,7 @@ const Programs = ({ categories, onDelete }) => {
     const [filteredReviews, setFilteredReviews] = useState([]);
     const [activeButton, setActiveButton] = useState(0);
 
-    const fetchReviews = useCallback(debounce((id) => {
+    const fetchReviews = debounce((id) => {
         axios.post(`${NET.APP_URL}/review/status`, { id })
             .then(response => {
                 setFilteredReviews(response.data);
@@ -26,7 +26,7 @@ const Programs = ({ categories, onDelete }) => {
                     console.error("Помилка при отриманні відгуків:", error.message);
                 }
             });
-    }, 1000), []);
+    }, 1000);
 
     const handleSubmitStateButton = (id) => {
         setActiveButton(id);

@@ -15,7 +15,6 @@ import ToggleButton from './ToggleButton/ToggleButton';
 import { useAuth } from '../../../../Sign/authContext/AuthContext';
 
 export default function Review(props) {
-    const [statuses, setStatuses] = useState([]);
     const [review, setReview] = useState([]);
     const [filteredReviews, setFilteredReviews] = useState([]);
     const [filterCategory, setFilterCategory] = useState([]);
@@ -85,8 +84,8 @@ export default function Review(props) {
 
     useEffect(() => {
         const loadStatuses = async () => {
-            const response = await axios.get(`${NET.APP_URL}/status`);
-            setStatuses(response.data);
+            await axios.get(`${NET.APP_URL}/status`);
+            
         };
         loadStatuses();
         handleSubmitStateButton(0);
@@ -231,11 +230,14 @@ export default function Review(props) {
                     )}
                     <div className="buttonStates">
                         <button className="button" onClick={() => handleSubmitStateButton(0)}>Всі</button>
-                        {statuses.map((el) => (
+                        <button className="button" onClick={() => handleSubmitStateButton(1)}>Подані</button>
+                        <button className="button" onClick={() => handleSubmitStateButton(2)}>Затвердженням</button>
+                        <button className="button" onClick={() => handleSubmitStateButton(3)}>Архівовані</button>
+                        {/* {statuses.map((el) => (
                             <button key={el.id} onClick={() => handleSubmitStateButton(el.id)} className="button">
                                 {el.title}
                             </button>
-                        ))}
+                        ))} */}
                     </div>
                     <main>
                         {openCart && (
