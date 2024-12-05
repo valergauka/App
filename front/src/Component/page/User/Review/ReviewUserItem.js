@@ -72,7 +72,7 @@ const ReviewUserItem = ({ cart, status, CloseCart, categoriesPdf }) => {
                     <div className="backCart" onClick={handleBackClick}>
                         <BsArrowLeftShort /> Назад
                     </div>
-                    <FormPdf reviewId={reviewId} categories={categoriesPdf} />
+                    <FormPdf reviewId={reviewId} title={category.title} categories={categoriesPdf} />
                 </div>
             ) : (
                 <main className="mainCartsReview">

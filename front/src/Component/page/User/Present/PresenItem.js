@@ -8,6 +8,7 @@ const PresentItem = (props) => {
     props.FormOpen();
     props.category(category);
   }
+  console.log(props.button)
 
   return (
     <div onClick={() => OpenForm(props.button)} className='buttoncomentFormLink'>

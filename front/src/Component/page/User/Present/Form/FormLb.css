@@ -34,9 +34,8 @@
 }
 
 .back {
-    position: absolute;
     font-size: 40px;
-    margin: 2% 0 0 2%;
+    margin-right: 20em;
     transition: opacity 500ms ease;
     cursor: pointer;
     color: black;

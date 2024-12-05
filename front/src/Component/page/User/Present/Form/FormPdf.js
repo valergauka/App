@@ -5,7 +5,6 @@ import Upload from './upload/Upload';
 import NET from '../../../../../network';
 
 import './FormPdf.css';
-import './Form.css';
 
 export default function FormPdf(props) {
   const reviewId = props.reviewId;
@@ -64,7 +63,7 @@ export default function FormPdf(props) {
     <div>
       <main className='mainForm'>
         <div className='titleForm'>
-          <h3>{orderTitle}</h3>
+          <h3>{props.title }</h3>
         </div>
         <form className='form'>
           <div className='textINPUT'>
