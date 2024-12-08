@@ -1,10 +1,9 @@
 import './Approve.css';
 import '../../../../User/Present/Form/Form.css';
 import Button from '../../../../../UIComponent/Button';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import NET from '../../../../../../network';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 
 const Approve = (props) => {
   const [committeMNDate, setCommitteMNDate] = useState('');
@@ -14,7 +13,6 @@ const Approve = (props) => {
   const [orderDate, setOrderDate] = useState('');
   const [orderNumber, setOrderNumber] = useState(0);
   const [resolution, setResolution] = useState('');
-  const [categoryTitle, setCategoryTitle] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -33,14 +31,14 @@ const Approve = (props) => {
     axios
       .post(`${NET.APP_URL}/createApprove`, formData)
       .then((response) => {
+        window.location.href = '/review';
         console.log('Data submitted successfully:', response.data);
       })
       .catch((error) => {
+        window.location.href = '/review';
         console.error('Error submitting data:', error.response ? error.response.data : error.message);
       });
   };
-
-
 
   return (
     <main className="mainForm">
@@ -119,12 +117,11 @@ const Approve = (props) => {
             onChange={(e) => setResolution(e.target.value)}
           ></textarea>
         </div>
-        <div className="buttonAppApprove">
+        <div className="buttonAppApprove"я>
           <Button title="Затвердити" />
         </div>
       </form>
     </main>
-
   );
 };
 

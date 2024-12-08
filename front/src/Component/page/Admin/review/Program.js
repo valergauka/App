@@ -25,7 +25,7 @@ const Program = (props) => {
                 console.error("Помилка при оновленні статусу:", error);
             });
     };
-    console.log(props.review.responsable[0]?.name)
+    // console.log(props.review.responsable[0]?.name)
     const handleAssignUser = (userId) => {
         setSelectedUserId(userId); // Вибір відповідального
         const assignData = {

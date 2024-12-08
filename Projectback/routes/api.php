@@ -22,6 +22,7 @@ use App\Http\Controllers\CommentController;
 use App\Models\state;
 use App\Models\StateReview;
 use App\Http\Controllers\StateReviewController;
+use App\Http\Controllers\CacheController;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,6 +69,9 @@ Route::post('/updateApprove', [ApproveController::class, 'updateApprove']);
 Route::post('/approveDelete', [ApproveController::class, 'destroy']);
 
 
+Route::post('/cache/store', [CacheController::class, 'store']);
+Route::get('/cache/get', [CacheController::class, 'get']);
+Route::delete('/cache/delete', [CacheController::class, 'delete']);
 
 
 
@@ -114,6 +118,8 @@ Route::post('/upload-files', [FileController::class, 'uploadFiles']);
 Route::get('files/{reviewId}',  [FileController::class, 'getFilesByReviewId']);
 Route::delete('/files/{id}', [FileController::class, 'destroy']);
 
-Route::post('/createComment', [CommentController::class, 'create']);
-Route::post('/reviews/comments', [CommentController::class,'comments']);
-Route::delete('/comment/{id}',[CommentController::class, 'deleteComment']);
+
+Route::post('/cache/store', [CacheController::class, 'store']);
+Route::get('/cache/get', [CacheController::class, 'get']);
+Route::delete('/cache/delete', [CacheController::class, 'delete']);
+

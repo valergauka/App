@@ -1,36 +1,42 @@
 import React, { useState } from "react";
-import { debounce } from 'lodash';
-import Program from './Program';
+import { debounce } from "lodash";
+import Program from "./Program";
 import Buttons from "../../../UIComponent/buttons/Buttons";
 import FormDelete from "../../../UIComponent/formDelete/FormDelete";
 import axios from "axios";
 import NET from "../../../../network";
-import './Programs.css';
+import "./Programs.css";
 
 const Programs = ({ categories, onDelete }) => {
     const [openFromDelete, setOpenFormDelete] = useState(false);
     const [id, setId] = useState(null);
     const [filteredReviews, setFilteredReviews] = useState([]);
     const [activeButton, setActiveButton] = useState(0);
+    
+    const cacheKey = "reviews_cache";
 
-    const fetchReviews = debounce((id) => {
-        axios.post(`${NET.APP_URL}/review/status`, { id })
-            .then(response => {
-                setFilteredReviews(response.data);
-            })
-            .catch(error => {
-                if (error.response && error.response.status === 429) {
-                    console.error("Занадто багато запитів. Будь ласка, спробуйте знову пізніше.");
-                    // Тут можна показати повідомлення для користувача
-                } else {
-                    console.error("Помилка при отриманні відгуків:", error.message);
-                }
-            });
+    const fetchReviews = debounce(async (id, setFilteredReviews, setIsCached) => {
+        const cachedData = localStorage.getItem(`${cacheKey}_${id}`);
+        if (cachedData) {
+            setFilteredReviews(JSON.parse(cachedData));
+        }
+
+        try {
+            const response = await axios.post(`${NET.APP_URL}/review/status`, { id });
+            setFilteredReviews(response.data);
+            localStorage.setItem(`${cacheKey}_${id}`, JSON.stringify(response.data));
+        } catch (error) {
+            if (error.response && error.response.status === 429) {
+                console.error("Занадто багато запитів. Будь ласка, спробуйте знову пізніше.");
+            } else {
+                console.error("Помилка при отриманні відгуків:", error.message);
+            }
+        }
     }, 1000);
 
     const handleSubmitStateButton = (id) => {
         setActiveButton(id);
-        fetchReviews(id);
+        fetchReviews(id, setFilteredReviews);
     };
 
     const handleSubmit = (id) => {
@@ -42,10 +48,10 @@ const Programs = ({ categories, onDelete }) => {
         if (id) {
             axios.post(`${NET.APP_URL}/reviewDelete`, { id })
                 .then(() => {
-                    setFilteredReviews(prevReviews => prevReviews.filter(review => review.id !== id));
+                    setFilteredReviews((prevReviews) => prevReviews.filter((review) => review.id !== id));
                     setOpenFormDelete(false);
                 })
-                .catch(error => {
+                .catch((error) => {
                     console.error("Помилка при видаленні відгуку:", error);
                 });
         } else {
@@ -54,10 +60,10 @@ const Programs = ({ categories, onDelete }) => {
     };
 
     const buttonLabels = [
-        { id: 0, label: 'Всі' },
-        { id: 1, label: 'Подані' },
-        { id: 2, label: 'Затверджені' },
-        { id: 3, label: 'Архівовані' },
+        { id: 0, label: "Всі" },
+        { id: 1, label: "Подані" },
+        { id: 2, label: "Затверджені" },
+        { id: 3, label: "Архівовані" },
     ];
 
     return (
@@ -67,7 +73,7 @@ const Programs = ({ categories, onDelete }) => {
                     <button
                         key={id}
                         onClick={() => handleSubmitStateButton(id)}
-                        className={`buttonState ${activeButton === id ? 'active' : ''}`}
+                        className={`buttonState ${activeButton === id ? "active" : ""}`}
                     >
                         {label}
                     </button>
@@ -76,7 +82,7 @@ const Programs = ({ categories, onDelete }) => {
 
             <div className="formCards">
                 <div className="cards">
-                    {filteredReviews.map(el => (
+                    {filteredReviews.map((el) => (
                         <Program
                             categories={categories}
                             key={el?.id}
@@ -92,7 +98,7 @@ const Programs = ({ categories, onDelete }) => {
 
             {openFromDelete && (
                 <FormDelete
-                    link='/program'
+                    link="/program"
                     text="подану заяву"
                     isOpen={openFromDelete}
                     onClose={() => setOpenFormDelete(false)}

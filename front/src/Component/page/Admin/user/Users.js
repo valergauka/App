@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from "react";
-import Buttons from "../../../UIComponent/buttons/Buttons";
 import { MdDeleteForever } from "react-icons/md";
 import NET from '../../../../network';
 import axios from 'axios';
@@ -8,7 +7,9 @@ import { FiUserPlus } from "react-icons/fi";
 import FormDelete from '../../../UIComponent/formDelete/FormDelete';
 import './Users.css';
 import RoleChangeForm from "../../../UIComponent/RoleChangeForm/RoleChangeForm";
+import Buttons from "../../../UIComponent/buttons/Buttons";
 
+// Оновлення даних користувача
 const UpdateUserForm = ({ user, onClose, onUpdate }) => {
     const [name, setName] = useState(user.name);
     const [email, setEmail] = useState(user.email);
@@ -22,7 +23,7 @@ const UpdateUserForm = ({ user, onClose, onUpdate }) => {
                 email,
             };
 
-            // Only include password if it is not empty
+            // Тільки якщо введено новий пароль, додаємо його в запит
             if (password) {
                 updateData.password = password;
             }
@@ -31,7 +32,7 @@ const UpdateUserForm = ({ user, onClose, onUpdate }) => {
             onUpdate();
             onClose();
         } catch (error) {
-            console.error('Error updating user:', error.response ? error.response.data : error.message);
+            //console.error('Error updating user:', error.response ? error.response.data : error.message);
         }
     };
 
@@ -70,25 +71,34 @@ const Users = () => {
     const [idDelete, setIdDelete] = useState(null);
     const [isDeleted, setIsDeleted] = useState(false);
     const [groupId, setGroupId] = useState('');
-    const [updateUser, setUpdateUser] = useState(null); // State to hold the user being updated
+    const [updateUser, setUpdateUser] = useState(null);
 
+    // Отримання користувачів
     const fetchUsers = useCallback(async () => {
-        try {
-            const response = await axios.get(`${NET.APP_URL}/getUsersByGroupId?id=${groupId}`);
-            const initialUsers = response.data.map(user => ({ ...user, openFormRole: false }));
-            setUsers(initialUsers);
-            setFilteredUsers(initialUsers);
-        } catch (error) {
-            console.error('Помилка при отриманні користувачів:', error.response ? error.response.data : error.message);
+        const cachedUsers = localStorage.getItem(`users_group_${groupId}`);
+        if (cachedUsers) {
+            //console.log('Використано кешовані дані');
+            setUsers(JSON.parse(cachedUsers));
+            setFilteredUsers(JSON.parse(cachedUsers));
+        } else {
+            //console.log('Завантаження даних з сервера');
+            try {
+                const response = await axios.get(`${NET.APP_URL}/getUsersByGroupId?id=${groupId}`);
+                const initialUsers = response.data.map(user => ({ ...user, openFormRole: false }));
+                setUsers(initialUsers);
+                setFilteredUsers(initialUsers);
+                localStorage.setItem(`users_group_${groupId}`, JSON.stringify(initialUsers));
+            } catch (error) {
+                //console.error('Помилка при отриманні користувачів:', error.response ? error.response.data : error.message);
+            }
         }
-    }, [groupId]); // Додаємо groupId як залежність
+    }, [groupId]); // Видалено groupId з залежностей useCallback
 
     useEffect(() => {
-        if (groupId) {
-            fetchUsers();
-        }
-    }, [groupId, fetchUsers]); // Додаємо fetchUsers до залежностей
+        fetchUsers();
+    }, [groupId, fetchUsers]); // Викликаємо fetchUsers, коли groupId змінюється
 
+    // Фільтрація користувачів за пошуковим запитом
     useEffect(() => {
         const results = users.filter(user =>
             user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -117,30 +127,31 @@ const Users = () => {
             .then(response => {
                 console.log(response.data);
                 setIsDeleted(true);
+                alert('Користувача успішно видалено');
             })
             .catch(error => {
                 console.error('Помилка видалення користувача', error);
+                alert('Помилка видалення користувача');
             });
     };
 
     useEffect(() => {
         if (isDeleted) {
-            // Оновлюємо сторінку після видалення користувача
             fetchUsers();
             setIsDeleted(false);
         }
     }, [isDeleted, fetchUsers]);
 
     const handleUpdateUserClick = (user) => {
-        setUpdateUser(user); // Set the user to be updated
+        setUpdateUser(user);
     };
 
     const handleCloseUpdateForm = () => {
-        setUpdateUser(null); // Close the update form
+        setUpdateUser(null);
     };
 
     const handleUserUpdated = () => {
-        fetchUsers(); // Оновлюємо список користувачів
+        fetchUsers();
         handleCloseUpdateForm();
     };
 
@@ -176,7 +187,7 @@ const Users = () => {
                             <p><b>Email: &nbsp;</b><a href={`mailto: ${el.email}`}>{el.email}</a></p>
                             <button
                                 className="buttonRole"
-                                onClick={() => handleUpdateUserClick(el)} // Open update form for the selected user
+                                onClick={() => handleUpdateUserClick(el)}
                             >
                                 Змінити дані користувача
                             </button>
@@ -197,23 +208,26 @@ const Users = () => {
                             )}
                         </div>
                     ))}
-                    {openFormDelete && (
-                        <FormDelete link='/users' text={"цього користувача"} isOpen={openFormDelete} onClose={() => setOpenFormDelete(false)} onDelete={handleDelete} />
-                    )}
-                    {updateUser && (
-                        <div className="overlay">
-                            <UpdateUserForm
-                                user={updateUser}
-                                onClose={handleCloseUpdateForm}
-                                onUpdate={handleUserUpdated} // Виклик функції
-                            />
-                        </div>
-                    )}
+
                 </div>
+                <Buttons />
             </div>
-            <Buttons />
+            {updateUser && (
+                <UpdateUserForm
+                    user={updateUser}
+                    onClose={handleCloseUpdateForm}
+                    onUpdate={handleUserUpdated}
+                />
+            )}
+            {openFormDelete && (
+                <FormDelete
+                    openFormDelete={openFormDelete}
+                    setOpenFormDelete={setOpenFormDelete}
+                    deleteUser={handleDelete}
+                />
+            )}
         </div>
     );
-}
+};
 
 export default Users;

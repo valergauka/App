@@ -10,8 +10,6 @@ export default function FormPdf(props) {
   const reviewId = props.reviewId;
   const [selectedFiles, setSelectedFiles] = useState([]);
 
-  // Додаємо перевірку на існування об'єкта props.orders
-  const orderTitle = props.orders?.title || 'Назва відсутня';
 
   const handleFileChange = (files) => {
     const maxSize = 10 * 1024 * 1024; // 10 MB (змініть розмір за потреби)

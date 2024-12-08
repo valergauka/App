@@ -8,11 +8,9 @@ const Present = (props) => {
   const [category, setCategory] = useState([]);
   const [openPresent, setOpenPresent] = useState(true);
   const [opentForm, setOpentForm] = useState(false);
-  const [reviewData, setReviewData] = useState(null); // Для збереження даних відгуку
-
+ 
   // Функція для обробки отриманих даних
   const handleReviewId = (data) => {
-    setReviewData(data);
     console.log('Отримані дані відгуку:', data); // Логування даних
   }
 

@@ -11,7 +11,6 @@ import PDFGenerator from "../../../UIComponent/PDFGenerator/PDFGenerator";
 
 const ReviewUser = (props) => {
     const { user } = useAuth();
-    const [statuses, setStatuses] = useState([]);
     const [currentUserId, setCurrentUserId] = useState(null);
     const [filteredReviews, setFilteredReviews] = useState([]);
     const [opentReview, setOpentReview] = useState(false);
@@ -20,6 +19,32 @@ const ReviewUser = (props) => {
     const [idStatuses, setIdStatuses] = useState(0);
     const [error, setError] = useState('');
     const [isLoadingPDF, setIsLoadingPDF] = useState(false);
+
+    const cacheKey = "review_status_cache";  // Ключ для кешування в localStorage
+
+    // Функція для отримання відгуків з кешу або сервера
+    const fetchReviews = async (statusId) => {
+        const cachedData = localStorage.getItem(`${cacheKey}_${statusId}`);
+
+        if (cachedData) {
+            // Якщо дані є в кеші, використовуємо їх
+            setFilteredReviews(JSON.parse(cachedData));
+            console.log("cach")
+        } else {
+            try {
+                const response = await axios.post(`${NET.APP_URL}/review/status`, { id: statusId });
+                const allReviews = response.data;
+                const userReviews = allReviews.filter((review) => review.user_id === currentUserId);
+                setFilteredReviews(userReviews);
+
+                console.log("serv")
+                localStorage.setItem(`${cacheKey}_${statusId}`, JSON.stringify(userReviews));
+            } catch (error) {
+                console.error("Error fetching reviews:", error.response || error.message);
+                setError("Failed to fetch reviews");
+            }
+        }
+    };
 
     const handleOpenPDF = () => {
         setIsLoadingPDF(true);
@@ -36,23 +61,13 @@ const ReviewUser = (props) => {
         try {
             await axios.post(`${NET.APP_URL}/reviewDelete`, { id });
             setFilteredReviews(filteredReviews.filter(review => review.id !== id));
+
+            // Оновлюємо кеш після видалення відгуку
+            localStorage.setItem(`${cacheKey}_${idStatuses}`, JSON.stringify(filteredReviews.filter(review => review.id !== id)));
         } catch (error) {
             console.error("Failed to delete review", error);
         }
     };
-
-    useEffect(() => {
-        const loadStatuses = async () => {
-            try {
-                const response = await axios.get(`${NET.APP_URL}/status`);
-                setStatuses(response.data);
-            } catch (error) {
-                setError("Failed to load statuses");
-            }
-        };
-
-        loadStatuses();
-    }, []);
 
     useEffect(() => {
         if (user?.id) {
@@ -60,17 +75,9 @@ const ReviewUser = (props) => {
         }
     }, [user]);
 
-    const handleSubmitStateButton = async (id) => {
+    const handleSubmitStateButton = (id) => {
         setIdStatuses(id);
-        try {
-            const response = await axios.post(`${NET.APP_URL}/review/status`, { id });
-            const allReviews = response.data;
-            const userReviews = allReviews.filter((review) => review.user_id === currentUserId);
-            setFilteredReviews(userReviews);
-        } catch (error) {
-            console.error("Error submitting review:", error.response || error.message);
-            setError("Failed to fetch reviews");
-        }
+        fetchReviews(id);  // Завантаження відгуків для вибраного статусу
     };
 
     return (
@@ -81,11 +88,16 @@ const ReviewUser = (props) => {
                     <Header />
                     <div className="buttonStates">
                         <button className={`buttonUser ${idStatuses === 0 ? 'active' : ''}`} onClick={() => handleSubmitStateButton(0)}>Всі</button>
-                        {statuses.map(el => (
+                        <button className={`buttonUser ${idStatuses === 1? 'active' : ''}`} onClick={() => handleSubmitStateButton(1)}>Подані</button>
+                        <button className={`buttonUser ${idStatuses === 2 ? 'active' : ''}`} onClick={() => handleSubmitStateButton(2)}>Затвердженням</button>
+                        <button className={`buttonUser ${idStatuses === 3 ? 'active' : ''}`} onClick={() => handleSubmitStateButton(3)}>Архівовані</button>
+                        <button className={`buttonUser ${idStatuses === 4 ? 'active' : ''}`} onClick={() => handleSubmitStateButton(4)}>Чернетка</button>
+
+                        {/* {statuses.map(el => (
                             <button key={el.id} onClick={() => handleSubmitStateButton(el.id)} className={`buttonUser ${idStatuses === el.id ? 'active' : ''}`}>
                                 {el.title}
                             </button>
-                        ))}
+                        ))} */}
                     </div>
                     <main>
                         {!openPDF ? (

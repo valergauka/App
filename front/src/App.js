@@ -24,7 +24,40 @@ class App extends React.Component {
     this.state = {
       orders: [],
       cart: [],
-      categories: [],
+      categories: [
+        {
+          id: 1,
+          title: 'Перейменування кафедри'
+        },
+        {
+          id: 2,
+          title: 'Зміна гаранта'
+        },
+        {
+          id: 3,
+          title: 'Оновлення складу проєктної групи'
+        },
+        {
+          id: 4,
+          title: 'Внесення змін до ОП (ОПП, ОНП)'
+        },
+        {
+          id: 5,
+          title: 'Закриття ОП (ОПП, ОНП)'
+        },
+        {
+          id: 6,
+          title: 'Проєктна група для започаткування ОП'
+        },
+        {
+          id: 7,
+          title: 'Започаткування ОП (ОПП, ОНП)'
+        },
+        {
+          id: 8,
+          title: 'Інше'
+        },
+      ],
       categoriesPdf: [
         {
           id: 1,
@@ -64,25 +97,6 @@ class App extends React.Component {
     this.openCart = this.openCart.bind(this)
     this.delete = this.delete.bind(this)
   }
-
-
-  componentDidMount() {
-    fetch(`${NET.APP_URL}/category`)
-      .then(res => res.json())
-      .then(
-        (result) => {
-          this.setState({
-            categories: result
-          });
-        },
-        (error) => {
-          this.setState({
-            error
-          });
-        }
-      );
-  }
-
 
   render() {
     return (

@@ -44,6 +44,7 @@ class ApproveController extends Controller
             }
         }
 
+        // Return success response
         return response()->json(['success' => true]);
     }
 
@@ -56,36 +57,36 @@ class ApproveController extends Controller
     }
 
     // Method to update an existing approval entry
-  public function updateApprove(Request $request)
-{
-    try {
-        $validatedData = $request->validate([
-            'id' => 'required|integer|exists:approves,id',
-            'review_id' => 'required|integer|exists:reviews,id',
-            'committeMNDate' => 'nullable|date',
-            'committeMNNumber' => 'nullable|numeric',
-            'committeSCDate' => 'nullable|date',
-            'committeSCNumber' => 'nullable|numeric',
-            'orderDate' => 'nullable|date',
-            'orderNumber' => 'nullable|numeric',
-            'resolution' => 'nullable|string',
-        ]);
+    public function updateApprove(Request $request)
+    {
+        try {
+            // Validate the incoming request data
+            $validatedData = $request->validate([
+                'id' => 'required|integer|exists:approves,id',
+                'review_id' => 'required|integer|exists:reviews,id',
+                'committeMNDate' => 'nullable|date',
+                'committeMNNumber' => 'nullable|numeric',
+                'committeSCDate' => 'nullable|date',
+                'committeSCNumber' => 'nullable|numeric',
+                'orderDate' => 'nullable|date',
+                'orderNumber' => 'nullable|numeric',
+                'resolution' => 'nullable|string',
+            ]);
 
-        $approve = Approve::find($validatedData['id']);
+            $approve = Approve::find($validatedData['id']);
 
-        if ($approve) {
-            $approve->update($validatedData);
-            return response()->json(['success' => true]);
-        } else {
-            return response()->json(['error' => 'Approve not found'], 404);
+            if ($approve) {
+                $approve->update($validatedData);
+                return response()->json(['success' => true]);
+            } else {
+                return response()->json(['error' => 'Approve not found'], 404);
+            }
+        } catch (\Exception $e) {
+            // Log the error for debugging purposes
+            \Log::error('Update Approve Error: ' . $e->getMessage());
+            return response()->json(['error' => 'Internal Server Error'], 500);
         }
-    } catch (\Exception $e) {
-        // Логування помилки для відладки
-        \Log::error('Update Approve Error: ' . $e->getMessage());
-        return response()->json(['error' => 'Internal Server Error'], 500);
     }
-}
-
 
     // Method to delete an approval entry
     public function destroy(Request $request)
@@ -99,7 +100,7 @@ class ApproveController extends Controller
             // Change the status of the associated review
             $review = Review::find($reviewId);
             if ($review) {
-                $review->status_id = 1; // Revert to the previous status
+                $review->status_id = 1; // Revert to the previous status (for example, 1 could be 'Pending')
                 $review->save();
             }
 
